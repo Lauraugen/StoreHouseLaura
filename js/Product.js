@@ -3,6 +3,8 @@ import { EmptyValueException } from "./Excepciones";
 
 //Objeto que representa un producto
 
+//Clase Abstracta
+
 class Product{
     #serialNumber;
     #name;
@@ -12,7 +14,9 @@ class Product{
     #images;
 
     constructor(serialNumber,name,description,price,tax,images){
-
+        //Truquillo abstracto
+        if(new.target==Product) throw new EmptyValueException();//CAMBIAR ESTO A EXCEPCION ABSTRACTA
+        //No se puede instanciar porque es abstracta, lo de arriba es para eso
         //Comprobamos que los campos Obligatorios no estén vacíos
         if(!serialNumber)throw new EmptyValueException();
         if(!name)throw new EmptyValueException();
@@ -26,7 +30,7 @@ class Product{
         this.#images = images;
 
     }
-    
+
     //Número de serie del producto
     get serialNumber(){
         return this.#serialNumber;
