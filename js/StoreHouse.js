@@ -1,4 +1,5 @@
 "use strict";
+import {InvalidAccessConstructorException,InvalidValueException} from "./Excepciones.js";
 //Gestión de un Almacén
 
 //Tiene que haber clase abstracta
