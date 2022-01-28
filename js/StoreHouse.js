@@ -5,14 +5,21 @@
 
 //Declaramos el objeto StoreHouse
 class StoreHouse {
+    #nombre;
+    #productos;
+    #categorias;
+    #tiendas;
+    #stock;
+    #defaultCategory;
+    #defaultStore;
     constructor(nombre,productos,categorias,tiendas,stock,defaultCategory,defaultStore){
-        this.nombre = nombre;
-        this.productos = productos;
-        this.categorias = categorias;
-        this.tiendas = tiendas;
-        this.stock = stock;
-        this.defaultCategory = defaultCategory;
-        this.defaultStore = defaultStore;
+        this.#nombre = nombre;
+        this.#productos = productos;
+        this.#categorias = categorias;
+        this.#tiendas = tiendas;
+        this.#stock = stock;
+        this.#defaultCategory = defaultCategory;
+        this.#defaultStore = defaultStore;
 
 
     }
