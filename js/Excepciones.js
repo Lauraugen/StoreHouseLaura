@@ -34,7 +34,7 @@ export class InvalidValueException extends BaseException{
         super(`Error: the parameter ${param} has an invalid value. (
         ${param}:${value})`,fileName,lineNumber);
         this.param =param;
-        this.name = "EmptyValueException";
+        this.name = "InvalidValueException";
     }
 }
 
@@ -43,5 +43,11 @@ export class AbstractClassException extends BaseException{
         super(`Error: The class ${className} is abstract.`,fileName,lineNumber);
         this.className = className;
         this.name = "AbstractClassException";
+    }
+}
+
+export class InvalidValueStoreException extends BaseException{
+    constructor(param,fileName,lineNumber) {
+        super("Error: Store can't be null")
     }
 }

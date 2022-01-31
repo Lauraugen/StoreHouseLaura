@@ -13,6 +13,9 @@ class StoreHouse {
     #stock;
     #defaultCategory;
     #defaultStore;
+
+    //Array donde se almacenan
+     
     constructor(name,product,category,stores,stock,defaultCategory,defaultStore){
         //Comprobamos si esta vació negando el campo
         if(!name)throw new EmptyValueException();
@@ -24,7 +27,7 @@ class StoreHouse {
         this.#stock = stock;
         this.#defaultCategory = defaultCategory;
         this.#defaultStore = defaultStore;
-
+        
 
     }
 

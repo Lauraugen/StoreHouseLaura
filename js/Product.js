@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { AbstractClassException, EmptyValueException } from "./Excepciones";
 
 //Objeto que representa un producto
 
@@ -15,7 +15,7 @@ class Product{
 
     constructor(serialNumber,name,description,price,tax,images){
         //Truquillo abstracto
-        if(new.target==Product) throw new EmptyValueException();//CAMBIAR ESTO A EXCEPCION ABSTRACTA
+        if(new.target==Product) throw new AbstractClassException();//CAMBIAR ESTO A EXCEPCION ABSTRACTA
         //No se puede instanciar porque es abstracta, lo de arriba es para eso
         //Comprobamos que los campos Obligatorios no estén vacíos
         if(!serialNumber)throw new EmptyValueException();
