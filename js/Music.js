@@ -1,5 +1,6 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
+import {Product} from "./Product.js";
 
 class Music extends Product{
     //Atributos privados
@@ -48,3 +49,4 @@ class Music extends Product{
         this.#songsNumber = songsNumber;
     }
 }
+export {Music};

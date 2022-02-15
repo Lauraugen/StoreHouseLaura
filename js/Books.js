@@ -1,5 +1,7 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
+import {Product} from "./Product.js";
+
 
 class Books extends Product {
     //Atributos privados
@@ -50,3 +52,5 @@ class Books extends Product {
         this.#pages = pages;
     }
 }
+
+export {Books};
