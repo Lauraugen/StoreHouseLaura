@@ -1,5 +1,5 @@
 "use strict";
-import { AbstractClassException, EmptyValueException } from "./Excepciones";
+import { AbstractClassException, EmptyValueException } from "./Excepciones.js";
 
 //Objeto que representa un producto
 
@@ -88,3 +88,4 @@ class Product{
         this.#images = images;
     }
 }
+export {Product};

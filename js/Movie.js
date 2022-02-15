@@ -1,5 +1,6 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
+import {Product} from "./Product.js";
 
 class Movie extends Product {
     //Atributos privados
@@ -47,3 +48,4 @@ class Movie extends Product {
         this.#duration = duration;
     }
 }
+export {Movie};

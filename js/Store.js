@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
 
 //Información de una Tienda
 
@@ -67,3 +67,4 @@ class Store{
         this.#coords = coords;
     }
 }
+export {Store};

@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
 
 //Estructura de Categorias de un Almacén
 
@@ -36,3 +36,4 @@ class Category{
         this.#description = description;
     }
 }
+export {Category};

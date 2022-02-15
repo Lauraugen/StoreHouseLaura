@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones";
+import { EmptyValueException } from "./Excepciones.js";
 
 //Coordenadas para adjuntar a un objeto Store
 
@@ -34,3 +34,4 @@ class Coords{
         this.#longitude = longitude;
     }
 }
+export {Coords};
