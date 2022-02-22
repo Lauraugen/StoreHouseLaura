@@ -12,7 +12,7 @@ class Store{
 
     constructor(cif,name,address,phone,coords){
 
-        if(!name)throw new EmptyValueException();
+        if(!name)throw new EmptyValueException('name',name);
 
         this.#cif = cif;
         this.#name = name;
@@ -36,7 +36,7 @@ class Store{
     }
 
     set name(name){
-        if(!name)throw new EmptyValueException();
+        if(!name)throw new EmptyValueException('name',name);
         this.#name = name;
     }
 

@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones.js";
+import { EmptyValueException,InvalidAccessConstructorException } from "./Excepciones.js";
 import {Product} from "./Product.js";
 
 class Movie extends Product {
@@ -16,7 +16,7 @@ class Movie extends Product {
         //Llamada al superconstructor
         super(serialNumber, name, description, price, tax, images);
 
-        if (!director) throw new EmptyValueException();
+        if (!director) throw new EmptyValueException('director',director);
 
         this.#director = director;
         this.#year = year;
@@ -28,7 +28,7 @@ class Movie extends Product {
     }
 
     set director(director) {
-        if (!director) throw new EmptyValueException();
+        if (!director) throw new EmptyValueException('director',director);
         this.#director = director;
     }
 

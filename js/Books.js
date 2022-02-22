@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones.js";
+import { EmptyValueException,InvalidAccessConstructorException} from "./Excepciones.js";
 import {Product} from "./Product.js";
 
 
@@ -17,8 +17,8 @@ class Books extends Product {
         //Llamada al superconstructor
         super(serialNumber, name, description, price, tax, images);
 
-        if (!isbn) throw new EmptyValueException();
-        if (!author) throw new EmptyValueException();
+        if (!isbn) throw new EmptyValueException('isbn',isbn);
+        if (!author) throw new EmptyValueException('author',author);
 
         this.#isbn = isbn;
         this.#author = author;
@@ -31,7 +31,7 @@ class Books extends Product {
     }
 
     set isbn(isbn) {
-        if (!isbn) throw new EmptyValueException();
+        if (!isbn) throw new EmptyValueException('isbn',isbn);
         this.#isbn = isbn;
     }
 
@@ -40,7 +40,7 @@ class Books extends Product {
     }
 
     set author(author) {
-        if (!author) throw new EmptyValueException();
+        if (!author) throw new EmptyValueException('author',author);
         this.#author = author;
     }
 

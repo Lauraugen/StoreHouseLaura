@@ -15,12 +15,12 @@ class Product{
 
     constructor(serialNumber,name,description,price,tax,images){
         //Truquillo abstracto
-        if(new.target==Product) throw new AbstractClassException();//CAMBIAR ESTO A EXCEPCION ABSTRACTA
+        if(new.target==Product) throw new AbstractClassException();
         //No se puede instanciar porque es abstracta, lo de arriba es para eso
         //Comprobamos que los campos Obligatorios no estén vacíos
-        if(!serialNumber)throw new EmptyValueException();
-        if(!name)throw new EmptyValueException();
-        if(!price)throw new EmptyValueException();
+        if(!serialNumber)throw new EmptyValueException('serialNumber',serialNumber);
+        if(!name)throw new EmptyValueException('name',name);
+        if(!price)throw new EmptyValueException('price',price);
 
         this.#serialNumber = serialNumber;
         this.#name = name;
@@ -37,7 +37,7 @@ class Product{
     }
 
     set serialNumber(serialNumber){
-        if(!serialNumber)throw new EmptyValueException();
+        if(!serialNumber)throw new EmptyValueException('serialNumber',serialNumber);
         this.#serialNumber = serialNumber;
     }
 
@@ -47,7 +47,7 @@ class Product{
     }
 
     set name(name){
-        if(!name)throw new EmptyValueException();
+        if(!name)throw new EmptyValueException('name',name);
         this.#name = name;
     }
 
@@ -66,7 +66,7 @@ class Product{
     }
 
     set price(price){
-        if(!price)throw new EmptyValueException();
+        if(!price)throw new EmptyValueException('price',price);
         this.#price = price;
     }
 

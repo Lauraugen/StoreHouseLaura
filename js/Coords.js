@@ -9,8 +9,8 @@ class Coords{
 
     constructor(latitude,longitude){
 
-        if(!latitude)throw new EmptyValueException();
-        if(!longitude)throw new EmptyValueException();
+        if(!latitude)throw new EmptyValueException('latitude',latitude);
+        if(!longitude)throw new EmptyValueException('longitude',longitude);
 
         this.#latitude = latitude;
         this.#longitude = longitude;
@@ -21,7 +21,7 @@ class Coords{
     }
 
     set latitude(latitude){
-        if(!latitude)throw new EmptyValueException();
+        if(!latitude)throw new EmptyValueException('latitude',latitude);
         this.#latitude = latitude;
     }
 
@@ -30,7 +30,7 @@ class Coords{
     }
 
     set longitude(longitude){
-        if(!longitude)throw new EmptyValueException();
+        if(!longitude)throw new EmptyValueException('longitude',longitude);
         this.#longitude = longitude;
     }
 }

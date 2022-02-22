@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones.js";
+import { EmptyValueException,InvalidAccessConstructorException} from "./Excepciones.js";
 import {Product} from "./Product.js";
 
 class Music extends Product{
@@ -16,7 +16,7 @@ class Music extends Product{
         //Llamada al superconstructor
         super(serialNumber, name, description, price, tax, images);
 
-        if(!singer)throw new EmptyValueException();
+        if(!singer)throw new EmptyValueException('singer',singer);
 
         this.#singer = singer;
         this.#musicalGenre = musicalGenre;
@@ -29,7 +29,7 @@ class Music extends Product{
     }
 
     set singer(singer){
-        if(!singer)throw new EmptyValueException();
+        if(!singer)throw new EmptyValueException('singer',singer);
         this.#singer = singer;
     }
 

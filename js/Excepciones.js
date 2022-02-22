@@ -3,7 +3,7 @@
 //Excepciones
 
 
-class BaseException extends Error{
+export class BaseException extends Error{
     constructor(message = "",fileName,lineNumber) {
         super(message,fileName,lineNumber);
         this.name = 'BaseException';
@@ -46,8 +46,41 @@ export class AbstractClassException extends BaseException{
     }
 }
 
-export class InvalidValueStoreException extends BaseException{
-    constructor(param,fileName,lineNumber) {
-        super("Error: Store can't be null")
+export class InvalidValueObjectException extends BaseException{
+    constructor(param,value,fileName,lineNumber) {
+        super(`Error: the parameter ${param} is not a valid value. Can't be NULL (
+        ${param}:${value})`,fileName,lineNumber);
+        this.param =param;
+        this.name = "InvalidValueObjectException";
     }
 }
+
+export class ObjectTypeException extends BaseException{
+    constructor(param,value,fileName,lineNumber) {
+        super(`Error: the new Object ${param} type is not valid. (
+        ${param}:${value})`,fileName,lineNumber);
+        this.param =param;
+        this.name = "ObjectTypeException";
+    }
+}
+
+export class ObjectExistException extends BaseException{
+    constructor(param,value,fileName,lineNumber) {
+        super(`Error: the new Object it already exists. (
+        ${param}:${value})`,fileName,lineNumber);
+        this.param =param;
+        this.name = "ObjectIndexExistException";
+    }
+}
+
+export class ObjectNotExistException extends BaseException{
+    constructor(param,value,fileName,lineNumber) {
+        super(`Error: the new Object does not exist. (
+        ${param}:${value})`,fileName,lineNumber);
+        this.param =param;
+        this.name = "ObjectIndexNotExistException";
+    }
+}
+
+
+

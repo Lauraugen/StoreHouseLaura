@@ -9,7 +9,7 @@ class Category{
     constructor(title,description){
 
         //El título estará vacío
-        if(!title)throw new EmptyValueException();
+        if(!title)throw new EmptyValueException('title',title);
 
         this.#title=title;
         this.#description=description;
@@ -22,7 +22,7 @@ class Category{
     }
 
     set title(title){
-        if(!title)throw new EmptyValueException();
+        if(!title)throw new EmptyValueException('title',title);
         this.#title = title;
 
     }
