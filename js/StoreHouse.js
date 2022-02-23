@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException, InvalidValueException,BaseException,InvalidValueObjectException, ObjectTypeException, ObjectExistException,ObjectNotExistException } from "./Excepciones.js";
+import { EmptyValueException, InvalidValueException, BaseException, InvalidValueObjectException, ObjectTypeException, ObjectExistException, ObjectNotExistException } from "./Excepciones.js";
 import { Store } from "./Store.js";
 import { Coords } from "./Coords.js";
 import { Product } from "./Product.js";
@@ -22,7 +22,7 @@ class StoreHouse {
 
     constructor(name, product, category, stores, stock, defaultCategory, defaultStore) {
         //Comprobamos si esta vació negando el campo
-        if (!name) throw new EmptyValueException('name',name);
+        if (!name) throw new EmptyValueException('name', name);
 
         this.#name = name;
         this.#product = product;
@@ -41,7 +41,7 @@ class StoreHouse {
     }
 
     set name(name) {
-        if (!name) throw new EmptyValueException('name',name);
+        if (!name) throw new EmptyValueException('name', name);
         this.#name = name;
 
     }
@@ -112,16 +112,16 @@ class StoreHouse {
     //Añade una nueva Categoria
     //Devuelve number con el numero de elementos
     addCategory(newcategory) {
-        if (!newcategory) throw new InvalidValueObjectException('newcategory',newcategory);//No puede ser Null
+        if (!newcategory) throw new InvalidValueObjectException('newcategory', newcategory);//No puede ser Null
 
-        if (!(newcategory instanceof Category)) throw new ObjectTypeException('newcategory',newcategory);
+        if (!(newcategory instanceof Category)) throw new ObjectTypeException('newcategory', newcategory);
 
         //Comprobamos si la nueva categoría existe (con la posición)
         let indexCategory = this.#category.findIndex((elem) => {
             return elem.DataCategory.title === newcategory.title;
         })
 
-        if (indexCategory !== -1) throw new ObjectNotExistException('indexCategory',indexCategory); //Ya existe
+        if (indexCategory !== -1) throw new ObjectNotExistException('indexCategory', indexCategory); //Ya existe
 
         this.#category.push({
             DataCategory: newcategory,
@@ -138,7 +138,7 @@ class StoreHouse {
         let indexCategory = this.#category.findIndex((elem) => {
             return elem.DataCategory.title === category.title;
         })
-        if (indexCategory == -1) throw new ObjectNotExistException('indexCategory',indexCategory); //No existe
+        if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe
 
         this.#category.splice(indexCategory, 1);
 
@@ -146,15 +146,15 @@ class StoreHouse {
 
     //Añade un nuevo producto asociado a una o más categorías
     addProduct(newproduct, category) {
-        if (!newproduct) throw new InvalidValueObjectException('newproduct',newproduct);//No puede ser Null
+        if (!newproduct) throw new InvalidValueObjectException('newproduct', newproduct);//No puede ser Null
 
-        if (!(newproduct instanceof Product)) throw new ObjectTypeException('newproduct',newproduct);
+        if (!(newproduct instanceof Product)) throw new ObjectTypeException('newproduct', newproduct);
 
         let indexCategory = this.#category.findIndex((elem) => {
             return elem.DataCategory.title === category.title;
         })
 
-        if (indexCategory == -1) throw new ObjectNotExistException('indexCategory',indexCategory); //No existe
+        if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe
 
         //Comprobamos si dentro del array de Productos de categorias existe un producto con el mismo Serial Number
         let indexProduct = this.#category[indexCategory].DataProductsCat.findIndex((elem) => {
@@ -162,7 +162,7 @@ class StoreHouse {
         })
 
 
-        if (indexProduct !== -1) throw new ObjectExistException('indexProduct',indexProduct); //Ya existe
+        if (indexProduct !== -1) throw new ObjectExistException('indexProduct', indexProduct); //Ya existe
 
         this.#category[indexCategory].DataProductsCat.push({
             DataProduct: newproduct,
@@ -174,23 +174,23 @@ class StoreHouse {
 
     //Elimina un producto junto con todas sus relaciones con otros objetos del almacen
     removeProduct(product) {
-        if (!product) throw new InvalidValueObjectException('product',product);
-        if (!(product instanceof Product)) throw new ObjectTypeException('product',product);
+        if (!product) throw new InvalidValueObjectException('product', product);
+        if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
         //Comprobamos si dentro del array de Productos de categorias existe un producto con el mismo Serial Number
         let index = this.#category[indexCategory].DataProductsCat.findIndex((elem) => {
             return elem.DataProduct.serialNumber === product.serialNumber;
         })
 
-        if (index == -1) throw new ObjectNotExistException('index',index); //No existe el Producto
+        if (index == -1) throw new ObjectNotExistException('index', index); //No existe el Producto
 
         let indexProduct;
         this.#category.forEach(function (elem) { //En el elemento sale el JSON
-             indexProduct = elem.DataProductsCat.findIndex(function (otro) {
+            indexProduct = elem.DataProductsCat.findIndex(function (otro) {
                 return otro.DataProduct.serialNumber === product.serialNumber;
 
             })
-            elem.DataProductsCat.splice(indexProduct,1); //Borramos el producto de la categoría en la que está
+            elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
         })
 
     }
@@ -198,40 +198,53 @@ class StoreHouse {
     //Añade un Product en una tienda con un nº de unidades
     addProductInShop(product, stores, number) {
         //Comprobamos los Objetos y nº unidades
-        if (!stores) throw new InvalidValueObjectException('stores',stores);
-        if (!(stores instanceof Store)) throw new ObjectTypeException('stores',stores);
+        if (!stores) throw new InvalidValueObjectException('stores', stores);
+        if (!(stores instanceof Store)) throw new ObjectTypeException('stores', stores);
 
         if (!product) throw new BaseException("Null,Undefined o False");
-        if (!(product instanceof Product)) throw new ObjectTypeException('product',product);
+        if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
-        if (number <= 0) throw new InvalidValueException('number',number);
+        if (number <= 0) throw new InvalidValueException('number', number);
 
         let indexStores = this.#stores.findIndex((elem) => {
             return elem.DataStore.cif === stores.cif;
         })//Devuelve la posicion de la tienda
 
-        if (indexStores == -1) throw new ObjectNotExistException('indexStores',indexStores); //No existe
+        if (indexStores == -1) throw new ObjectNotExistException('indexStores', indexStores); //No existe
 
         this.#stores[indexStores].StockStores.set(product.serialNumber, number);
+        console.log(this.#stores[indexStores].DataStore.cif);
+        //Bucle que entre en todas las categorias hasta que encuentre el producto en cuestión
+        //Actualizamos la referencia a la tienda que contiene el producto para que no sea la tienda por defecto
+        this.#category.forEach((elem) => { //En el elemento sale el JSON
+            elem.DataProductsCat.forEach((otro) => {
+                if (otro.DataProduct.serialNumber === product.serialNumber) {
+                    otro.DataStore = this.#stores[indexStores].DataStore.cif;
+                }
+                //this tiene problemas con function,todo son objetos,arrow no tiene contexto por lo que no peta
+            })
+
+        })
+
     }
 
     //Dado un Product y un Shop, se suman la cantidad de elementos al stock de esa tienda. Por defecto 1.
     addQuantityProductInShop(product, stores, number) {
 
         //Comprobamos los Objetos 
-        if (!stores) throw new InvalidValueObjectException('stores',stores);
-        if (!(stores instanceof Store)) throw new ObjectTypeException('stores',stores);
+        if (!stores) throw new InvalidValueObjectException('stores', stores);
+        if (!(stores instanceof Store)) throw new ObjectTypeException('stores', stores);
 
-        if (!product) throw new InvalidValueObjectException('product',product);
-        if (!(product instanceof Product)) throw new ObjectTypeException('product',product);
+        if (!product) throw new InvalidValueObjectException('product', product);
+        if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
-        if (number <= 0) throw new InvalidValueException('number',number);
+        if (number <= 0) throw new InvalidValueException('number', number);
 
         let indexStores = this.#stores.findIndex((elem) => {
             return elem.DataStore.cif === stores.cif;
         })//Devuelve la posicion de la tienda
 
-        if (indexStores == -1) throw new ObjectNotExistException('indexStores',indexStores); //No existe
+        if (indexStores == -1) throw new ObjectNotExistException('indexStores', indexStores); //No existe
         let valueOld = this.#stores[indexStores].StockStores.get(product.serialNumber); //Accedemos al producto de la tienda,retorna el value(cantidad)
         valueOld = valueOld + number;
         this.#stores[indexStores].StockStores.set(product.serialNumber, valueOld); //Añadimos la nueva Cantidad al stock de la tienda
@@ -239,43 +252,76 @@ class StoreHouse {
 
     //Devuelve la relación de todos los productos añadidos en una categoría con sus cantidades en stock
     //Si pasamos un tipo de producto,el resultado estará filtrado por ese tipo
-    getCategoryProducts(category, typeProduct) {
+    *getCategoryProducts(category, typeProduct) {
+
+        for (const elem of this.#category) {
+            for (const iterator of elem.DataProductsCat) {
+                //console.log(iterator.DataCategory.title);
+                if (elem.DataCategory.title === category.title) {
+                    if (iterator.DataProduct instanceof typeProduct) {
+                        //Va sacando los productos si esta en la categoria y filtra por tipo de producto
+                        yield iterator.DataProduct;
+                    }
+
+                }
+            }
+        }
+
+
 
     }
 
-    //Añade una nueva  tienda
-    addShop(newstores) {
-        if (!newstores) throw new InvalidValueObjectException('newstores',newstores);
-        if (!(newstores instanceof Store)) throw new ObjectTypeException('newstores',newstores);
 
-        let indexStores = this.#stores.findIndex((elem) => {
-            return elem.DataStore.cif === newstores.cif;
-        })
+//Añade una nueva  tienda
+addShop(newstores) {
+    if (!newstores) throw new InvalidValueObjectException('newstores', newstores);
+    if (!(newstores instanceof Store)) throw new ObjectTypeException('newstores', newstores);
 
-        if (indexStores !== -1) throw new ObjectExistException('indexStores',indexStores); //Ya existe
+    let indexStores = this.#stores.findIndex((elem) => {
+        return elem.DataStore.cif === newstores.cif;
+    })
 
-        //JSON
-        this.#stores.push({
-            DataStore: newstores,
-            StockStores: new Map(), //Aquí metemos el id(key)y la cantidad(value) de Productos asociados
-        })
-    }
+    if (indexStores !== -1) throw new ObjectExistException('indexStores', indexStores); //Ya existe
 
-    //Eliminar una tienda
-    //Al eliminar una tienda, los productos de la tienda pasan a la tienda genérica
-    removeShop(stores) {
-        if (!newstores) throw new InvalidValueObjectException('newstores',newstores);
-        if (!(newstores instanceof Store)) throw new ObjectTypeException('newstores',newstores);
+    //JSON
+    this.#stores.push({
+        DataStore: newstores,
+        StockStores: new Map(), //Aquí metemos el id(key)y la cantidad(value) de Productos asociados
+    })
+}
 
-        let indexStores = this.#s
+//Eliminar una tienda
+//Al eliminar una tienda, los productos de la tienda pasan a la tienda genérica
+removeShop(stores) {
+    if (!newstores) throw new InvalidValueObjectException('newstores', newstores);
+    if (!(newstores instanceof Store)) throw new ObjectTypeException('newstores', newstores);
 
-    }
+    //let indexStores = this.#s
+
+}
 
     //Devuelve la relación de todos los productos añadido en una tienda con su stock
     //Si pasamos un tipo de producto,el resultado estará filtrado por ese tipo
-    getShopProducts(stores, typeProduct) {
-            //No es gracioso
+    //Generador para mostrar productos de las tiendas
+    * getShopProducts(stores, typeProduct = Object) { //si no le pasamos nada,el tipo de producto es por defecto cualquier producto
+    //si le pasamos es del tipo que hayamos pasado
+    //bucle para llegar a array de productos
+    //Foreach no se puede utilizar con yield,por eso utilizamos dos forof
+    for (const elem of this.#category) {
+        for (const iterator of elem.DataProductsCat) {
+            if (iterator.DataStore === stores.cif) {
+                if (iterator.DataProduct instanceof typeProduct) {
+                    //Va sacando los productos si esta en la tienda y filtra por el tipo de Producto
+                    yield iterator.DataProduct;
+                }
+
+            }
+        }
     }
+
+
+
+}
 
 }
 
