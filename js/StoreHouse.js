@@ -20,7 +20,7 @@ class StoreHouse {
 
     //Array donde se almacenan
 
-    constructor(name, product, category, stores, stock, defaultCategory, defaultStore) {
+    constructor(name, product, category, stores, stock) {
         //Comprobamos si esta vació negando el campo
         if (!name) throw new EmptyValueException('name', name);
 
@@ -29,7 +29,8 @@ class StoreHouse {
         this.#category = [];
         this.#stores = [];
         this.#stock = stock;
-        this.#defaultCategory = defaultCategory;
+        this.#defaultCategory = new Category('Sin Clasificar','Sin Clasificar');
+        this.addCategory(this.#defaultCategory); //Por defecto esta en la primera posición de Categorias
         this.#defaultStore = new Store('666', 'Amazon', 'Calle Ole', '789456123', new Coords(1, 1));
 
 
@@ -139,8 +140,15 @@ class StoreHouse {
             return elem.DataCategory.title === category.title;
         })
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe
+        
+        this.#category[indexCategory].DataProductsCat.forEach((elem) =>{
+            this.#category[0].DataProductsCat.push(elem); //Añadimos los productos de la categoría que se va a eliminar en defaultcategory
+        })
+
 
         this.#category.splice(indexCategory, 1);
+
+
 
     }
 
@@ -229,7 +237,7 @@ class StoreHouse {
     }
 
     //Dado un Product y un Shop, se suman la cantidad de elementos al stock de esa tienda. Por defecto 1.
-    addQuantityProductInShop(product, stores, number) {
+    addQuantityProductInShop(product, stores, number=1) {
 
         //Comprobamos los Objetos 
         if (!stores) throw new InvalidValueObjectException('stores', stores);
@@ -327,7 +335,7 @@ removeShop(stores) {
 
 const StoreHouseSingleton = (function () {
     var instance;
-    //Solo se puede crear una instancia, si se cre más te devuelve la que ya estaba creada
+    //Solo se puede crear una instancia, si se crea más te devuelve la que ya estaba creada
     function createInstance(name) {
         var classObj = new StoreHouse(name);
         return classObj;
