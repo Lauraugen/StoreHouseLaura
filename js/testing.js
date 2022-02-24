@@ -30,6 +30,7 @@ try{
 }catch(error){
     console.error(error);
 }
+SH.addQuantityProductInShop(prod1,Store1,3);
 
 let prueba= SH.getShopProducts(Store1,Movie);
 let prueba2=SH.getCategoryProducts(Cat1,Books);
