@@ -14,9 +14,10 @@ class Product{
     #images;
 
     constructor(serialNumber,name,description,price,tax,images){
-        //Truquillo abstracto
+        //Para que sea  abstracta
         if(new.target==Product) throw new AbstractClassException();
-        //No se puede instanciar porque es abstracta, lo de arriba es para eso
+        //No se puede instanciar porque es abstracta, No deja que se cree un Objeto  tipo Product
+
         //Comprobamos que los campos Obligatorios no estén vacíos
         if(!serialNumber)throw new EmptyValueException('serialNumber',serialNumber);
         if(!name)throw new EmptyValueException('name',name);

@@ -49,16 +49,26 @@ let StoreSerendipia = new Store('300', 'Serendipia', 'Calle Altagracia', '989456
 let StoreFnac = new Store('400', 'Fnac', 'Gran Vía', '657456123', new Coords(4, 4));
 
 
-
+//Añadimos Categorías
 try {
     SH.addCategory(CatSFMovie);
     SH.addCategory(CatCMovie);
     SH.addCategory(CatMBooks);
+    SH.addCategory(CatTMovie);
+    SH.addCategory(CatDBooks);
+    SH.addCategory(CatCBooks);
+    SH.addCategory(CatPMusic);
+    SH.addCategory(CatRMusic);
+    SH.addCategory(CatCMusic);
 } catch (error) {
     console.error(error);
 }
 
+try {
 
+} catch(error){
+    console.error(error)
+}
 SH.addProduct(ProdSF3Movie, CatSFMovie);
 console.log(SH.name)
 

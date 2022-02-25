@@ -18,8 +18,6 @@ class StoreHouse {
     #defaultCategory;
     #defaultStore;
 
-    //Array donde se almacenan
-
     constructor(name) {
         //Comprobamos si esta vació negando el campo
         if (!name) throw new EmptyValueException('name', name);
@@ -51,25 +49,16 @@ class StoreHouse {
         let array = this.#category;
         let cont = 0;
         return {
-            // El objeto iterable contiene una propiedad Symbol.iterator
-            [Symbol.iterator]() { // Symbol.iterator es una función que devuelve el iterador
-
-                // El objeto iterador implementa next()obligatoriamente
+            [Symbol.iterator]() {
                 return {
                     next() {
                         if (cont < array.length) {
-                            return { value: array[cont++], done: false } //Primero saca la pos y le añade después con ++
+                            return { value: array[cont++], done: false } 
                         } else {
                             return { value: undefined, done: true }
                         }
 
                     }
-                    //Dar vueltas: iterar o ser recursivo
-                    //Iterar: es como un for(los bucles son iteradores simples)
-                    //Recursivo es cuando quieres una solución y no sabe donde esta
-
-
-
                 }
 
             }
@@ -82,22 +71,18 @@ class StoreHouse {
         let array = this.#stores;
         let cont = 0;
         return {
-            // El objeto iterable contiene una propiedad Symbol.iterator
-            [Symbol.iterator]() { // Symbol.iterator es una función que devuelve el iterador
+            
+            [Symbol.iterator]() { 
 
-                // El objeto iterador implementa next()obligatoriamente
                 return {
                     next() {
                         if (cont < array.length) {
-                            return { value: array[cont++], done: false } //Primero saca la pos y le añade después con ++
+                            return { value: array[cont++], done: false } 
                         } else {
                             return { value: undefined, done: true }
                         }
 
                     }
-                    //Dar vueltas: iterar o ser recursivo
-                    //Iterar: es como un for(los bucles son iteradores simples)
-                    //Recursivo es cuando quieres una solución y no sabe donde esta
 
 
 
@@ -109,6 +94,7 @@ class StoreHouse {
 
 
     }
+
 
     //Añade una nueva Categoria
     //Devuelve number con el numero de elementos
@@ -124,18 +110,22 @@ class StoreHouse {
 
         if (indexCategory !== -1) throw new ObjectNotExistException('indexCategory', indexCategory); //Ya existe
 
-        this.#category.push({
+        this.#category.push({ //JSON para almacenar datos de category
             DataCategory: newcategory,
             DataProductsCat: []
         })
 
 
-    }
+        //Retorna number con elementos
+        return this.#category.DataCategory.length;
+    }   
+
 
     //Elimina una categoría
     //Al eliminar categoría, sus productos pasan a la de por defecto
     removeCategory(category) {
 
+        //Sacamos la posición de la category
         let indexCategory = this.#category.findIndex((elem) => {
             return elem.DataCategory.title === category.title;
         })
@@ -146,11 +136,14 @@ class StoreHouse {
         })
 
 
-        this.#category.splice(indexCategory, 1);
+        this.#category.splice(indexCategory, 1); //Eliminamos la categoría en la posición que se encuentra
 
 
+        //Retorna numero con elementos
 
+        return this.#category.DataCategory.length;
     }
+
 
     //Añade un nuevo producto asociado a una o más categorías
     addProduct(newproduct, category) {
@@ -177,8 +170,12 @@ class StoreHouse {
             DataStore: this.#defaultStore.cif // Cif de la tienda en la que se encuentra
         })
 
+        //Retorna el nº de elementos de la category
+
+        return this.#category[indexCategory].DataProductsCat.DataProduct.length;
 
     }
+
 
     //Elimina un producto junto con todas sus relaciones con otros objetos del almacen
     removeProduct(product) {
@@ -201,7 +198,10 @@ class StoreHouse {
             elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
         })
 
+        //Retorna number con el nº de elementos
+        return this.#product.DataProduct.length;
     }
+
 
     //Añade un Product en una tienda con un nº de unidades
     addProductInShop(product, stores, number) {
@@ -219,21 +219,25 @@ class StoreHouse {
         })//Devuelve la posicion de la tienda
 
         if (indexStores == -1) throw new ObjectNotExistException('indexStores', indexStores); //No existe
-
+        
+        //Establecemos el stock del producto en la tienda
         this.#stores[indexStores].StockStores.set(product.serialNumber, number);
         //console.log(this.#stores[indexStores].DataStore.cif);
 
-        //Bucle que entre en todas las categorias hasta que encuentre el producto en cuestión
+        //Bucle que entra en todas las categorias hasta que encuentra el producto en cuestión
         //Actualizamos la referencia a la tienda que contiene el producto para que no sea la tienda por defecto
         this.#category.forEach((elem) => { //En el elemento sale el JSON
             elem.DataProductsCat.forEach((otro) => {
                 if (otro.DataProduct.serialNumber === product.serialNumber) {
                     otro.DataStore = this.#stores[indexStores].DataStore.cif;
                 }
-                //this tiene problemas con function,todo son objetos,arrow no tiene contexto por lo que no peta
+                
             })
 
         })
+
+        //Retorna el number con el nº de elementos(stock)
+        return this.#stores[indexStores].StockStores.get(product.serialNumber).length;
 
     }
 
@@ -257,6 +261,9 @@ class StoreHouse {
         let valueOld = this.#stores[indexStores].StockStores.get(product.serialNumber); //Accedemos al producto de la tienda,retorna el value(cantidad)
         valueOld = valueOld + number;
         this.#stores[indexStores].StockStores.set(product.serialNumber, valueOld); //Añadimos la nueva Cantidad al stock de la tienda
+       
+        //Retorna Stock del producto en la tienda
+        return this.#stores[indexStores].StockStores.get(product.serialNumber);
     }
 
     //Devuelve la relación de todos los productos añadidos en una categoría con sus cantidades en stock
@@ -267,7 +274,7 @@ class StoreHouse {
             return elem.DataCategory.title === category.title;
         })
 
-        
+
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe 
         console.log(indexCategory)
         for (const productos of this.#category[indexCategory].DataProductsCat) {
@@ -312,6 +319,8 @@ class StoreHouse {
             DataStore: newstores,
             StockStores: new Map(), //Aquí metemos el id(key)y la cantidad(value) de Productos asociados
         })
+
+        return this.#stores.length;
     }
 
     //Eliminar una tienda
@@ -326,12 +335,16 @@ class StoreHouse {
         })
         if (indexStores == -1) throw new ObjectNotExistException('indexStore', indexStores); //No existe
 
+        //los productos de la tienda pasan a la tienda genérica
         for (let [key, value] of this.#stores[indexStores].StockStores.entries()) { //Devolvemos clave valor de productos de la tienda
             this.#stores[0].StockStores.set(key, value);
         }
 
 
         this.#stores.splice(indexStores, 1);
+
+        //Retornamos el número de elementos de la tienda
+        return this.#stores.length;
 
     }
 
@@ -341,8 +354,8 @@ class StoreHouse {
 
     * getShopProducts(stores, typeProduct = Object) { //si no le pasamos nada,el tipo de producto es por defecto cualquier producto
         //si le pasamos es del tipo que hayamos pasado
-        //bucle para llegar a array de productos
-        //Foreach no se puede utilizar con yield,por eso utilizamos dos forof
+        
+       
 
         let indexStores = this.#stores.findIndex((elem) => {
             return elem.DataStore.cif === stores.cif;
@@ -374,9 +387,12 @@ const StoreHouseSingleton = (function () {
     var instance;
     //Solo se puede crear una instancia, si se crea más te devuelve la que ya estaba creada
     function createInstance(name) {
+        //Para que no sea modificable desde el exterior de la clase
         var classObj = new StoreHouse(name);
+        Object.freeze(classObj); 
         return classObj;
     }
+
 
     return {
         getInstance: function (name) {
@@ -390,7 +406,3 @@ const StoreHouseSingleton = (function () {
 
 //Exportamos el singleton
 export default StoreHouseSingleton;
-
-
-//Para que sea enumerable
-//Object.defineProperty(StoreHouse.prototype, "name", {enumerable: true});

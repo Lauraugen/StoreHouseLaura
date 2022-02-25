@@ -69,7 +69,7 @@ export class ObjectExistException extends BaseException{
         super(`Error: the new Object it already exists. (
         ${param}:${value})`,fileName,lineNumber);
         this.param =param;
-        this.name = "ObjectIndexExistException";
+        this.name = "ObjectExistException";
     }
 }
 
@@ -78,7 +78,7 @@ export class ObjectNotExistException extends BaseException{
         super(`Error: the new Object does not exist. (
         ${param}:${value})`,fileName,lineNumber);
         this.param =param;
-        this.name = "ObjectIndexNotExistException";
+        this.name = "ObjectNotExistException";
     }
 }
 
