@@ -114,10 +114,8 @@ class StoreHouse {
             DataCategory: newcategory,
             DataProductsCat: []
         })
-
-
         //Retorna number con elementos
-        return this.#category.DataCategory.length;
+        return this.#category.length;
     }   
 
 
@@ -141,7 +139,7 @@ class StoreHouse {
 
         //Retorna numero con elementos
 
-        return this.#category.DataCategory.length;
+        return this.#category.length;
     }
 
 
@@ -170,9 +168,9 @@ class StoreHouse {
             DataStore: this.#defaultStore.cif // Cif de la tienda en la que se encuentra
         })
 
-        //Retorna el nº de elementos de la category
+        //Retorna el nº de elementos de la category en la que está el producto
 
-        return this.#category[indexCategory].DataProductsCat.DataProduct.length;
+        return this.#category[indexCategory].DataProductsCat.length;
 
     }
 
@@ -183,28 +181,31 @@ class StoreHouse {
         if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
         //Comprobamos si dentro del array de Productos de categorias existe un producto con el mismo Serial Number
-        let index = this.#category[indexCategory].DataProductsCat.findIndex((elem) => {
-            return elem.DataProduct.serialNumber === product.serialNumber;
-        })
+        // let indexCategory = this.#category.DataProductsCat.findIndex((elem) => {
+        //     return elem.DataProduct.serialNumber === product.serialNumber;
+        // })
 
-        if (index == -1) throw new ObjectNotExistException('index', index); //No existe el Producto
-
+        // if (indexCategory == -1) throw new ObjectNotExistException('index', indexCategory); //No existe el Producto
+        let i;
         let indexProduct;
-        this.#category.forEach(function (elem) { //En el elemento sale el JSON
+        this.#category.forEach(function (elem,index) { //En el elemento sale el JSON
             indexProduct = elem.DataProductsCat.findIndex(function (otro) {
+
                 return otro.DataProduct.serialNumber === product.serialNumber;
+                
 
             })
+             i=index;
             elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
         })
 
         //Retorna number con el nº de elementos
-        return this.#product.DataProduct.length;
+        return this.#category[i].DataProductsCat.length;
     }
 
 
     //Añade un Product en una tienda con un nº de unidades
-    addProductInShop(product, stores, number) {
+    addProductInShop(product, stores, number=0) {
         //Comprobamos los Objetos y nº unidades
         if (!stores) throw new InvalidValueObjectException('stores', stores);
         if (!(stores instanceof Store)) throw new ObjectTypeException('stores', stores);
@@ -237,7 +238,7 @@ class StoreHouse {
         })
 
         //Retorna el number con el nº de elementos(stock)
-        return this.#stores[indexStores].StockStores.get(product.serialNumber).length;
+        return this.#stores[indexStores].StockStores.get(product.serialNumber);
 
     }
 
@@ -258,8 +259,8 @@ class StoreHouse {
         })//Devuelve la posicion de la tienda
 
         if (indexStores == -1) throw new ObjectNotExistException('indexStores', indexStores); //No existe
-        let valueOld = this.#stores[indexStores].StockStores.get(product.serialNumber); //Accedemos al producto de la tienda,retorna el value(cantidad)
-        valueOld = valueOld + number;
+        let valueOld = Number.parseInt(this.#stores[indexStores].StockStores.get(product.serialNumber)); //Accedemos al producto de la tienda,retorna el value(cantidad)
+        valueOld = Number.parseInt(valueOld) + Number.parseInt(number);
         this.#stores[indexStores].StockStores.set(product.serialNumber, valueOld); //Añadimos la nueva Cantidad al stock de la tienda
        
         //Retorna Stock del producto en la tienda
@@ -276,7 +277,7 @@ class StoreHouse {
 
 
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe 
-        console.log(indexCategory)
+        //console.log(indexCategory)
         for (const productos of this.#category[indexCategory].DataProductsCat) {
             //console.log(iterator.DataCategory.title);
 

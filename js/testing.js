@@ -12,6 +12,7 @@ import { Books } from "./Books.js";
 //import { Product } from "./Product.js";
 
 let SH = StoreHouseSingleton.getInstance('Laura Álvarez-Ugena Gil-Ortega'); //Para instanciarlo, se añade todo aquí
+console.log(SH.name)
 //Creamos Categorías
 let CatSFMovie = new Category('Sciencie Fiction Movie', 'Ciencia Ficción');
 let CatTMovie = new Category('Terror Movie', 'Películas de Miedo');
@@ -49,8 +50,8 @@ let StoreSerendipia = new Store('300', 'Serendipia', 'Calle Altagracia', '989456
 let StoreFnac = new Store('400', 'Fnac', 'Gran Vía', '657456123', new Coords(4, 4));
 
 
-//Añadimos Categorías
 try {
+    console.log("____________Añadimos Categorías____________");
     SH.addCategory(CatSFMovie);
     SH.addCategory(CatCMovie);
     SH.addCategory(CatMBooks);
@@ -59,45 +60,135 @@ try {
     SH.addCategory(CatCBooks);
     SH.addCategory(CatPMusic);
     SH.addCategory(CatRMusic);
-    SH.addCategory(CatCMusic);
+    //Mostramos el número de categorías;
+    console.log("Nº de Categorías: "+SH.addCategory(CatCMusic))
 } catch (error) {
     console.error(error);
 }
 
-try {
 
+try {
+    console.log("____________Añadimos Productos____________");
+    SH.addProduct(ProdManga1,CatMBooks);
+    SH.addProduct(ProdManga2,CatMBooks);
+    SH.addProduct(ProdManga3,CatMBooks);
+
+    SH.addProduct(ProdBook1,CatDBooks);
+    SH.addProduct(ProdBook2,CatDBooks);
+    SH.addProduct(ProdComic1,CatCBooks);
+    SH.addProduct(ProdComic2,CatCBooks);
+
+    SH.addProduct(ProdCMovie,CatCMovie);
+    SH.addProduct(ProdSF2Movie,CatSFMovie);
+    SH.addProduct(ProdTMovie,CatTMovie);
+    SH.addProduct(ProdSFMovie,CatSFMovie);
+
+    SH.addProduct(ProdMusic1,CatRMusic);
+    SH.addProduct(ProdMusic2,CatCMusic);
+    //Mostramos el número de productos
+    console.log("Nº de Productos en la Categoría indicada: "+SH.addProduct(ProdMusic3,CatPMusic));
 } catch(error){
     console.error(error)
 }
-SH.addProduct(ProdSF3Movie, CatSFMovie);
-console.log(SH.name)
 
-SH.addShop(StoreFnac);
-for (const iterator of SH.category) { //Recorre el iterador
-    console.log(iterator);
 
+try{
+    console.log("____________Añadimos Stores____________")
+    SH.addShop(StoreFnac);
+    SH.addShop(StoreCorteIngles);
+    //Mostramos el número de producto
+   console.log("Nº de Tiendas: "+ SH.addShop(StoreSerendipia));
+}catch(error){
+    console.log(error)
 }
+//Añadimos Productos a Stores
 try {
-    SH.addProductInShop(ProdSF3Movie, StoreFnac, 3);
-    SH.addProductInShop(ProdManga1, StoreFnac, 1);
-} catch (error) {
-    console.error(error);
+    console.log("____________Añadimos Productos a Stores____________");
+    SH.addProductInShop(ProdManga1,StoreFnac,2);
+    SH.addProductInShop(ProdManga3,StoreFnac,3);
+    SH.addProductInShop(ProdCMovie,StoreCorteIngles,1);
+    SH.addProductInShop(ProdComic2,StoreCorteIngles,4);
+    SH.addProductInShop(ProdMusic3,StoreCorteIngles,5);
+    SH.addProductInShop(ProdSF2Movie,StoreCorteIngles,1);
+    SH.addProductInShop(ProdMusic1,StoreFnac,3);
+    SH.addProductInShop(ProdCMovie,StoreFnac,1);
+    SH.addProductInShop(ProdSFMovie,StoreFnac,1);
+    SH.addProductInShop(ProdBook2,StoreSerendipia,3);
+    SH.addProductInShop(ProdBook1,StoreSerendipia,2);
+    console.log("Nº de Productos(stock): "+SH.addProductInShop(ProdManga2,StoreSerendipia,1)) 
+}catch(error){
+
 }
-SH.addQuantityProductInShop(ProdSF3Movie, StoreFnac,1);
+
+//Añadimos Cantidad de Productos en Stores
+try{
+    console.log("____________Añadimos Cantidad de Productos en Stores____________");
+    SH.addQuantityProductInShop(ProdBook1,StoreSerendipia,3);
+    SH.addQuantityProductInShop(ProdManga2,StoreSerendipia,10);
+    SH.addQuantityProductInShop(ProdManga3,StoreFnac,10);
+    SH.addQuantityProductInShop(ProdManga1,StoreFnac,8);
+    SH.addQuantityProductInShop(ProdMusic1,StoreFnac,2);
+    SH.addQuantityProductInShop(ProdCMovie,StoreFnac,5);
+    SH.addQuantityProductInShop(ProdComic2,StoreCorteIngles,4);
+    console.log("Nº de elementos: "+SH.addQuantityProductInShop(ProdMusic3,StoreCorteIngles,12));
+}catch(error){
+    console.log(error)
+}
+
+
 
 let prueba = SH.getShopProducts(StoreFnac, Movie);
-let prueba2 = SH.getCategoryProducts(CatMBooks, Books);
-
-
-console.log("Iterador generador");
+let prueba2 = SH.getCategoryProducts(CatDBooks, Books);
+console.log("____________Generador Shop Products (Filtro Movie)_________________");
 for (const iterator of prueba) {
     console.log(iterator);
 }
-console.log("Iterador generador2");
+console.log("____________Generador Category Products(Filtro Books)_____________");
 for (const iterator of prueba2) {
     console.log(iterator);
 }
 
-for (const iterator of SH.category) {
-    console.log(iterator)
+try{
+    console.log("____________Remove Product____________");
+    console.log("Nº elementos: "+SH.removeProduct(ProdBook1));
+    
+}catch(error){
+    console.log(error)
+}
+
+//Iterador get shop
+console.log("Iterador stores")
+for (const store of SH.stores) {
+    console.log(store)
+}
+console.log("Iterador category")
+for (const category of SH.category) {
+    console.log(category)
+}
+try{
+    console.log("____________Remove Shop____________");
+    console.log("Nº elementos: "+SH.removeShop(StoreSerendipia))
+}catch(error){
+    console.log(error)
+}
+
+try{
+    console.log("____________Remove Category____________");
+   console.log("Nº elementos: "+SH.removeCategory(CatCMusic)) 
+}catch(error){
+    console.log(error)
+}
+
+
+
+//Iterador get category
+console.log("Iterador category Despues de Borrar")
+for (const category of SH.category) {
+    console.log(category)
+}
+
+//Iterador get shop
+console.log("Iterador stores Despues de Borrar")
+for (const store of SH.stores) {
+    console.log(store)
 }
