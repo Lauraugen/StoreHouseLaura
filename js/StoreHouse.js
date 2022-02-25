@@ -180,12 +180,6 @@ class StoreHouse {
         if (!product) throw new InvalidValueObjectException('product', product);
         if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
-        //Comprobamos si dentro del array de Productos de categorias existe un producto con el mismo Serial Number
-        // let indexCategory = this.#category.DataProductsCat.findIndex((elem) => {
-        //     return elem.DataProduct.serialNumber === product.serialNumber;
-        // })
-
-        // if (indexCategory == -1) throw new ObjectNotExistException('index', indexCategory); //No existe el Producto
         let i;
         let indexProduct;
         this.#category.forEach(function (elem,index) { //En el elemento sale el JSON
