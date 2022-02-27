@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException,InvalidAccessConstructorException} from "./Excepciones.js";
+import { EmptyValueException,InvalidAccessConstructorException} from "../Excepciones.js";
 import {Product} from "./Product.js";
 
 

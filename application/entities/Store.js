@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones.js";
+import { EmptyValueException } from "../Excepciones.js";
 
 //Información de una Tienda
 

@@ -1,9 +1,12 @@
 "use strict";
-import { EmptyValueException, InvalidValueException, BaseException, InvalidValueObjectException, ObjectTypeException, ObjectExistException, ObjectNotExistException } from "./Excepciones.js";
-import { Store } from "./Store.js";
-import { Coords } from "./Coords.js";
-import { Product } from "./Product.js";
-import { Category } from "./Category.js";
+import { EmptyValueException, InvalidValueException, BaseException, InvalidValueObjectException, ObjectTypeException, ObjectExistException, ObjectNotExistException } from "../Excepciones.js";
+import { Store } from "../entities/Store.js";
+import { Coords } from "../entities/Coords.js";
+import { Product } from "../entities/Product.js";
+import { Books } from "../entities/Books.js";
+import { Music } from "../entities/Music.js";
+import { Movie } from "../entities/Movie.js";
+import { Category } from "../entities/Category.js";
 //Gestión de un Almacén
 
 //Tiene que haber clase abstracta
@@ -398,6 +401,18 @@ const StoreHouseSingleton = (function () {
         },
     };
 })();
+
+
+//Importamos y exportamos todo al modelo para partir de aquí
+
+export { EmptyValueException, InvalidValueException, BaseException, InvalidValueObjectException, ObjectTypeException, ObjectExistException, ObjectNotExistException } from "../Excepciones.js";
+export { Store } from "../entities/Store.js";
+export { Coords } from "../entities/Coords.js";
+export { Product } from "../entities/Product.js";
+export { Books } from "../entities/Books.js";
+export { Music } from "../entities/Music.js";
+export { Movie } from "../entities/Movie.js";
+export { Category } from "../entities/Category.js";
 
 //Exportamos el singleton
 export default StoreHouseSingleton;

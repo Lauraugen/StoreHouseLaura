@@ -1,5 +1,5 @@
 "use strict";
-import { AbstractClassException, EmptyValueException } from "./Excepciones.js";
+import { AbstractClassException, EmptyValueException } from "../Excepciones.js";
 
 //Objeto que representa un producto
 

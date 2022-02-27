@@ -1,5 +1,5 @@
 "use strict";
-import { EmptyValueException } from "./Excepciones.js";
+import { EmptyValueException } from "../Excepciones.js";
 
 //Coordenadas para adjuntar a un objeto Store
 
