@@ -3,6 +3,8 @@
 class View {
   constructor() {
     this.tiendasContainer = $("#tiendasContainer");
+    this.DropDownCategory = $("#DropDownCategory");
+    this.DropDownStore = $("#DropDownStores");
   }
   //es el init 
   showLoadStores(store) {
@@ -49,18 +51,61 @@ class View {
       cont++; //Para diferenciarlo (los id)
     }
 
+   
+
   }
 
+   //le pasamos el mapa del controller
+   showDropCategory(category) {
+     //Limpiamos el contenedor
+    this.DropDownCategory.empty();
+    
+    for (const iterator of category.categoryKey) {
+      this.DropDownCategory.append(`<li><a href="#">${iterator.DataCategory.title}</a></li>`);
+    }
+  }
+
+  showDropStores(store) {
+    //Limpiamos el contenedor
+   this.DropDownStore.empty();
+   
+   for (const iterator of store.storeKey) {
+     this.DropDownStore.append(`<li><a href="#">${iterator.DataStore.name}</a></li>`);
+   }
+ }
+
   bindLoadStores(handlerController) {
+    //Ocurre en carga del documento, para mostrarlo al usuario lo primero
     $(document).ready(function (event) {
 
       handlerController();
-      $('$bHome').click(function (event) {
-        handlerController();
-
-      })
+      
+    })
+    $('#bHome').click(function (event) {
+      handlerController();
+      //Enlace de restauración página de inicio
     })
   }
+
+  bindLoadDropDownCategory(handlerDropCategory) {
+    
+    $('#hCategory').hover(function (event) {
+      handlerDropCategory();
+
+    })
+  }
+
+  bindLoadDropDownStores(handlerDropStore) {
+    
+    $('#hStores').hover(function (event) {
+      handlerDropStore();
+
+    })
+  }
+
+
+
+  
 }
 
 export default View;

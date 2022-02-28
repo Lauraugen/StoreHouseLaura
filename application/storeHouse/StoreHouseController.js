@@ -145,6 +145,8 @@ class Controller {
         this.#view = newView;
         this.onLoad();
         this.#view.bindLoadStores(this.handleLoadStores) //Pasamos como manejarlo (el objeto)
+        this.#view.bindLoadDropDownCategory(this.handleDropCategory)
+        this.#view.bindLoadDropDownStores(this.handleDropStore)
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -169,6 +171,22 @@ class Controller {
             storeKey: this.#model.stores,
         }
         this.#view.showLoadStores(map)
+    }
+
+    handleDropCategory = () => {
+        //Simulamos peticion a base de datos,retornando JSON
+        let map = {
+            categoryKey: this.#model.category,
+        }
+        this.#view.showDropCategory(map)
+    }
+
+    handleDropStore = () => {
+        //Simulamos peticion a base de datos,retornando JSON
+        let map = {
+            storeKey: this.#model.stores,
+        }
+        this.#view.showDropStores(map)
     }
 }
 
