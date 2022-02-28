@@ -69,6 +69,10 @@ class Store{
         this.#coords = coords;
     }
 
+    get photos(){
+        return this.#photos;
+    }
+
     
 
 }
