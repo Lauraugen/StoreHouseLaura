@@ -32,7 +32,7 @@ class StoreHouse {
         //this.#stock = stock;
         this.#defaultCategory = new Category('Sin Clasificar', 'Sin Clasificar');
         this.addCategory(this.#defaultCategory); //Por defecto esta en la primera posición de Categorias
-        this.#defaultStore = new Store('666', 'Amazon', 'Calle Ole', '789456123', new Coords(1, 1));
+        this.#defaultStore = new Store('666', 'Amazon', 'Calle Ole', '789456123', new Coords(1, 1),["../../html/assets/img/amazon.jpg"]);
         this.addShop(this.#defaultStore);
 
     }

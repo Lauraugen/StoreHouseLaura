@@ -9,8 +9,9 @@ class Store{
     #address;
     #phone;
     #coords;
+    #photos;
 
-    constructor(cif,name,address,phone,coords){
+    constructor(cif,name,address,phone,coords,photos=[]){
 
         if(!name)throw new EmptyValueException('name',name);
 
@@ -19,6 +20,7 @@ class Store{
         this.#address = address;
         this.#phone = phone;
         this.#coords = coords;
+        this.#photos = photos;
     }
 
     //Código de identificación fiscal
@@ -66,5 +68,8 @@ class Store{
     set coords(coords){
         this.#coords = coords;
     }
+
+    
+
 }
 export {Store};
