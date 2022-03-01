@@ -354,15 +354,15 @@ class StoreHouse {
         //si le pasamos es del tipo que hayamos pasado
         
        
-
+        //Ahora stores no es un objeto,solo recoge el cif
         let indexStores = this.#stores.findIndex((elem) => {
-            return elem.DataStore.cif === stores.cif;
+            return elem.DataStore.cif === stores;
         })
 
 
         for (const elem of this.#category) {
             for (const productos of elem.DataProductsCat) {
-                if (productos.DataStore === stores.cif) {
+                if (productos.DataStore === stores) {
                     if (productos.DataProduct instanceof typeProduct) {
                         //Va sacando los productos si esta en la tienda y filtra por el tipo de Producto
                         yield { //Utilizamos JSON para poder devolver el producto con su stock

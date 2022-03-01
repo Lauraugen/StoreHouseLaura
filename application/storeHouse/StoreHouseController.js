@@ -29,22 +29,21 @@ class Controller {
 
 
         //Creamos Productos
-        let ProdBook1 = new Books(111, 'El Señor de los Anillos', 'Resumen', '20$', '21%', [], '756-3-16-198710-0', 'J. R. R. Tolkien', 600);
-        let ProdBook2 = new Books(222, 'Los Pilares de la Tierra', 'Resumen', '22$', '21%', [], '879-3-16-198710-0', 'Ken Follett', 700);
-        let ProdMusic1 = new Music(333, 'AM', 'Álbum', '10$', '21%', [], 'Artic Monkeys', 'Rock', 8)
-        let ProdMusic2 = new Music(444, 'La Novena Sinfonía', 'Álbum', '8$', '21%', [], 'Beethoven', 'Classical', 10)
-        let ProdMusic3 = new Music(555, 'Happier Than Ever', 'Álbum', '12$', '21%', [], 'Billie Eilish', 'Pop', 6)
-        let ProdManga1 = new Books(666, 'Jujutsu Kaisen', 'Resumen', '8$', '21%', [], '978-3-16-198710-0', 'Gege Akutami', 500)
-        let ProdManga2 = new Books(777, 'Ataque a los Titanes', 'Resumen', '8$', '21%', [], '178-3-16-148510-0', 'Hajime Isayama', 100)
-        let ProdManga3 = new Books(888, 'Demon Slayer', 'Resumen', '8$', '21%', [], '378-3-16-116410-0', 'Koyoharu Gotouge', 110)
-        let ProdComic1 = new Books(999, 'SpiderMan', 'Resumen', '7$', '21%', [], '487-3-16-116410-0', 'Marvel Comics', 120)
-        let ProdComic2 = new Books(123, 'X-Men', 'Resumen', '6$', '21%', [], '521-3-16-116410-0', 'Marvel Comics', 80)
-        let ProdTMovie = new Movie(456, 'IT', 'Resumen Terror', '18$', '21%', [], 'Andrés Muschietti', '2017', '2h 15min')
-        let ProdCMovie = new Movie(789, 'DeadPool', 'Resumen Comedia', '20$', '21%', [], 'Tim Miller', '2016', '1h 48min')
-        let ProdSFMovie = new Movie(213, 'Star Wars', 'Guerra de las Galaxias', '12$', '21%', [], 'George Lucas', '1980', '2h 50min')
-        let ProdSF2Movie = new Movie(435, 'Harry Potter y el prisionero de Azkaban', 'Cosas mágicas', '20$', '21%', [], 'Alfonso Cuarón', '2004', '2h 19min');
-        let ProdSF3Movie = new Movie(678, 'Avatar', 'Resumen Ciencia Ficción', '17$', '21%', [], 'James Cameron', '2007', '2h 49min');
-
+        let ProdBook1 = new Books(111, 'El Señor de los Anillos', 'Resumen', '20$', '21%', ["../../html/assets/img/products/elSeñorDeLosAnillos.jpg"], '756-3-16-198710-0', 'J. R. R. Tolkien', 600);
+        let ProdBook2 = new Books(222, 'Los Pilares de la Tierra', 'Resumen', '22$', '21%', ["../../html/assets/img/products/pilaresTierra.jpg"], '879-3-16-198710-0', 'Ken Follett', 700);
+        let ProdMusic1 = new Music(333, 'AM', 'Álbum', '10$', '21%', ["../../html/assets/img/products/arcticMonkeys.jpg"], 'Artic Monkeys', 'Rock', 8)
+        let ProdMusic2 = new Music(444, 'La Novena Sinfonía', 'Álbum', '8$', '21%', ["../../html/assets/img/products/novenaSinfonia.jpg"], 'Beethoven', 'Classical', 10)
+        let ProdMusic3 = new Music(555, 'Happier Than Ever', 'Álbum', '12$', '21%', ["../../html/assets/img/products/happierThanEver.jpg"], 'Billie Eilish', 'Pop', 6)
+        let ProdManga1 = new Books(666, 'Jujutsu Kaisen', 'Resumen', '8$', '21%', ["../../html/assets/img/products/Jujutsu_kaisen.jpg"], '978-3-16-198710-0', 'Gege Akutami', 500)
+        let ProdManga2 = new Books(777, 'Ataque a los Titanes', 'Resumen', '8$', '21%', ["../../html/assets/img/products/attackontitan.png"], '178-3-16-148510-0', 'Hajime Isayama', 100)
+        let ProdManga3 = new Books(888, 'Demon Slayer', 'Resumen', '8$', '21%', ["../../html/assets/img/products/demonSlayer.jpg"], '378-3-16-116410-0', 'Koyoharu Gotouge', 110)
+        let ProdComic1 = new Books(999, 'SpiderMan', 'Resumen', '7$', '21%', ["../../html/assets/img/products/spiderman.jpg"], '487-3-16-116410-0', 'Marvel Comics', 120)
+        let ProdComic2 = new Books(123, 'X-Men', 'Resumen', '6$', '21%', ["../../html/assets/img/products/xmen.jpg"], '521-3-16-116410-0', 'Marvel Comics', 80)
+        let ProdTMovie = new Movie(456, 'IT', 'Resumen Terror', '18$', '21%', ["../../html/assets/img/products/it.jpg"], 'Andrés Muschietti', '2017', '2h 15min')
+        let ProdCMovie = new Movie(789, 'DeadPool', 'Resumen Comedia', '20$', '21%', ["../../html/assets/img/products/deadpool.jpg"], 'Tim Miller', '2016', '1h 48min')
+        let ProdSFMovie = new Movie(213, 'Star Wars', 'Guerra de las Galaxias', '12$', '21%', ["../../html/assets/img/products/starWars.jpeg"], 'George Lucas', '1980', '2h 50min')
+        let ProdSF2Movie = new Movie(435, 'Harry Potter y el prisionero de Azkaban', 'Cosas mágicas', '20$', '21%', ["../../html/assets/img/products/harrypotter.jpg"], 'Alfonso Cuarón', '2004', '2h 19min');
+        let ProdSF3Movie = new Movie(678, 'Avatar', 'Resumen Ciencia Ficción', '17$', '21%', ["../../html/assets/img/products/avatar.png"], 'James Cameron', '2007', '2h 49min');
 
         //Creamos Tiendas (Stores)
 
@@ -147,6 +146,8 @@ class Controller {
         this.#view.bindLoadStores(this.handleLoadStores) //Pasamos como manejarlo (el objeto)
         this.#view.bindLoadDropDownCategory(this.handleDropCategory)
         this.#view.bindLoadDropDownStores(this.handleDropStore)
+        this.#view.bindLoadStoreProducts(this.handleStoreProducts)
+        this.#view.bindLoadStoreProductsDropDown(this.handlerStoreProductsDropDown)
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -187,6 +188,23 @@ class Controller {
             storeKey: this.#model.stores,
         }
         this.#view.showDropStores(map)
+    }
+
+    handleStoreProducts = (tienda) => {
+        //Le pasamos la tienda para utilizarla en el generador
+         let data = {
+            tienda: this.#model.getShopProducts(tienda),
+
+         }
+         this.#view.showStoreProducts(data)
+    }
+
+    handlerStoreProductsDropDown = (tienda) => {
+        let data = {
+            tienda: this.#model.getShopProducts(tienda),
+
+         }
+         this.#view.showStoreProducts(data)
     }
 }
 
