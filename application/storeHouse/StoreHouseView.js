@@ -51,6 +51,37 @@ class View {
 
   }
 }
+
+showInfoProducts(store) {
+
+
+  // <button type="button" class="btn btn-success" data-bs-toggle="modal"
+  //                           data-bs-target="#exampleModal">
+  //                           Comprar
+  //                       </button>
+
+
+//    <!-- Modal -->
+//    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+//    <div class="modal-dialog">
+//        <div class="modal-content">
+//            <div class="modal-header">
+//                <h5 class="modal-title" id="exampleModalLabel">Notificación de Compra</h5>
+//                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//            </div>
+//            <div class="modal-body">
+//                x 1 Volumen
+//            </div>
+//            <div class="modal-footer">
+//                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+//                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Añadir a Carrito</button>
+//            </div>
+//        </div>
+//    </div>
+// </div>
+}
+
+//categorias con acordittion
   ///TERMINA DE MODIFICAR ESTO
   // showLoadCategory(category) {
   //   this.tiendasContainer.empty();
@@ -142,7 +173,7 @@ class View {
     
   }
   //Bind Stores menú secundario que muestre la tienda indicada
-  bindLoadStoreProductsDropDown(handlerStoreProductsDropDown) {
+  bindLoadStoreProductsDropDown(handleStoreProductsDropDown) {
 
     //Los eventos .click solo funcionan con elementos estáticos de html
     //Para los dinámicos se hace con el on sobre el padre,delegando el evento a los hijos (DropDownStore > .aStore)
@@ -151,14 +182,25 @@ class View {
         
         let tienda=$(this).attr('value'); //this button
         console.log(tienda);
-        handlerStoreProductsDropDown(tienda);
+        handleStoreProductsDropDown(tienda);
       })
       
     
     
   }
+  //Información de los Productos
+  bindLoadInfoProducts(handleInfoProducts) {
 
+    $document.ready(function (event){
+      $('#bProducts').click(function (event) {
+        let tienda=$(this).attr('value'); //this button
+        console.log(tienda);
+        handleInfoProducts(tienda);
+      })
+      
+    })
 
+  }
   
 }
 

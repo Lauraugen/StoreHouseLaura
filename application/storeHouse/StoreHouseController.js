@@ -147,7 +147,8 @@ class Controller {
         this.#view.bindLoadDropDownCategory(this.handleDropCategory)
         this.#view.bindLoadDropDownStores(this.handleDropStore)
         this.#view.bindLoadStoreProducts(this.handleStoreProducts)
-        this.#view.bindLoadStoreProductsDropDown(this.handlerStoreProductsDropDown)
+        this.#view.bindLoadStoreProductsDropDown(this.handleStoreProductsDropDown)
+        this.#view.bindInfoProducts(this.handleInfoProducts)
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -199,12 +200,20 @@ class Controller {
          this.#view.showStoreProducts(data)
     }
 
-    handlerStoreProductsDropDown = (tienda) => {
+    handleStoreProductsDropDown = (tienda) => {
         let data = {
             tienda: this.#model.getShopProducts(tienda),
 
          }
          this.#view.showStoreProducts(data)
+    }
+    //Devuelve la información del producto
+    handleInfoProducts = (tienda) => {
+        let data = {
+            //category.DataProductsCat.DataProduct
+            producto: this.#model.getShopProducts(tienda),
+        }
+        this.#view.showInfoProducts(data)
     }
 }
 
