@@ -1214,3 +1214,7 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+a:hover{
+  cursor: pointer;
+}

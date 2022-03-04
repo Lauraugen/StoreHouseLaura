@@ -8,6 +8,8 @@ class View {
     
   }
   //es el init 
+
+  //Cargarmos las tiendas en inicio
   showLoadStores(store) {
     this.tiendasContainer.empty();
     let cont = 0;
@@ -28,7 +30,7 @@ class View {
     }
 
   }
-
+  //Procedemos a cargar los productos de cada tienda /al hacer clic en la tienda
   showStoreProducts(store) {
     this.tiendasContainer.empty();
     let cont = 0;
@@ -79,7 +81,7 @@ class View {
    showDropCategory(category) {
      //Limpiamos el contenedor
     this.DropDownCategory.empty();
-    
+    //Mostramos el menú secundario de las Categorias
     for (const iterator of category.categoryKey) {
       this.DropDownCategory.append(`<li><a href="#">${iterator.DataCategory.title}</a></li>`);
     }
@@ -88,12 +90,13 @@ class View {
   showDropStores(store) {
     //Limpiamos el contenedor
    this.DropDownStore.empty();
-   
+   //Mostramos el menú secundario de las Stores
    for (const iterator of store.storeKey) {
-     this.DropDownStore.append(`<li><a class="aStore" >${iterator.DataStore.name}</a></li>`);
+     this.DropDownStore.append(`<li><a class="aStore" value=${iterator.DataStore.cif} >${iterator.DataStore.name}</a></li>`);
    }
  }
 
+ //Unión entre el evento y el controlador
   bindLoadStores(handlerLoadStores) {
     //Ocurre en carga del documento, para mostrarlo al usuario lo primero
     $(document).ready(function (event) {
@@ -129,27 +132,29 @@ class View {
 
       $('.bStore').click(function (event) {
         //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
-        
+       
         let tienda=$(this).attr('value'); //this button
+        console.log(tienda);
         handlerStoreProducts(tienda);
       })
       
     })
     
   }
-  
+  //Bind Stores menú secundario que muestre la tienda indicada
   bindLoadStoreProductsDropDown(handlerStoreProductsDropDown) {
-    //Añade los listener cuando se haya cargado la página, para que existan
-    $(document).ready(function (event) {
 
-      $('.aStore').click(function (event) {
+    //Los eventos .click solo funcionan con elementos estáticos de html
+    //Para los dinámicos se hace con el on sobre el padre,delegando el evento a los hijos (DropDownStore > .aStore)
+     this.DropDownStore.on('click','.aStore' , function(event) {
         //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
         
         let tienda=$(this).attr('value'); //this button
+        console.log(tienda);
         handlerStoreProductsDropDown(tienda);
       })
       
-    })
+    
     
   }
 
