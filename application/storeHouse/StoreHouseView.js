@@ -153,7 +153,7 @@ class View {
            <h3>${producto.name}</h3>
            <h4>MUSIC</h4>
           <p>
-            ${producto.description}
+            ${producto.description}<br>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <ul>
