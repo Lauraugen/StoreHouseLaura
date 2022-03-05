@@ -131,7 +131,7 @@ showInfoProducts(store) {
   bindLoadStores(handlerLoadStores) {
     //Ocurre en carga del documento, para mostrarlo al usuario lo primero
     $(document).ready(function (event) {
-
+      //Muestra las tiendas 
       handlerLoadStores();
       
     })
