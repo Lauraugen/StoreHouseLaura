@@ -13,7 +13,7 @@ import { Category } from "./StoreHouseModel.js";
 class Controller {
     #model;
     #view;
-    //#cucu = 10 //ej atributo privado
+
     #cargaDatos() {
 
         //Creamos Categorías
@@ -51,8 +51,6 @@ class Controller {
         let StoreSerendipia = new Store('300', 'Serendipia', 'Calle Altagracia', '989456123', new Coords(3, 3),["../../html/assets/img/Serendipia.jpg"]);
         let StoreFnac = new Store('400', 'Fnac', 'Gran Vía', '657456123', new Coords(4, 4),["../../html/assets/img/fnac.jpg"]);
 
-        // this.#model.addCategory();
-
 
         try {
             
@@ -64,7 +62,6 @@ class Controller {
             this.#model.addCategory(CatCBooks);
             this.#model.addCategory(CatPMusic);
             this.#model.addCategory(CatRMusic);
-            //Mostramos el número de categorías;
             this.#model.addCategory(CatCMusic)
         } catch (error) {
             console.error(error);
@@ -89,7 +86,6 @@ class Controller {
 
             this.#model.addProduct(ProdMusic1, CatRMusic);
             this.#model.addProduct(ProdMusic2, CatCMusic);
-            //Mostramos el número de productos
             this.#model.addProduct(ProdMusic3, CatPMusic);
         } catch (error) {
             console.error(error)
@@ -100,7 +96,6 @@ class Controller {
             
             this.#model.addShop(StoreFnac);
             this.#model.addShop(StoreCorteIngles);
-            //Mostramos el número de producto
              this.#model.addShop(StoreSerendipia);
         } catch (error) {
             console.log(error)
@@ -148,7 +143,7 @@ class Controller {
         this.#view.bindLoadDropDownStores(this.handleDropStore)
         this.#view.bindLoadStoreProducts(this.handleStoreProducts)
         this.#view.bindLoadStoreProductsDropDown(this.handleStoreProductsDropDown)
-        this.#view.bindInfoProducts(this.handleInfoProducts)
+        this.#view.bindLoadInfoProducts(this.handleInfoProducts)
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -164,12 +159,14 @@ class Controller {
     // }
 
     onLoad = () => {
+        //Carga todos los Objetos
         this.#cargaDatos();
     }
     //Maneja los eventos
     handleLoadStores = () => {
         //Simulamos peticion a base de datos,retornando JSON
         let map = {
+            //Devolvemos stores a través de su iterador
             storeKey: this.#model.stores,
         }
         this.#view.showLoadStores(map)
@@ -194,6 +191,7 @@ class Controller {
     handleStoreProducts = (tienda) => {
         //Le pasamos la tienda para utilizarla en el generador
          let data = {
+             //La tienda contiene el cif,que se lo pasamos al generador
             tienda: this.#model.getShopProducts(tienda),
 
          }
@@ -208,10 +206,11 @@ class Controller {
          this.#view.showStoreProducts(data)
     }
     //Devuelve la información del producto
-    handleInfoProducts = (tienda) => {
+    handleInfoProducts = (serialNumber) => {
         let data = {
-            //category.DataProductsCat.DataProduct
-            producto: this.#model.getShopProducts(tienda),
+            //Accedemos al iterador de category y guardamos el serialNumber del Producto
+            categoria: this.#model.category,
+            key: serialNumber,
         }
         this.#view.showInfoProducts(data)
     }
