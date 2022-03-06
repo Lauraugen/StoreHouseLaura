@@ -17,15 +17,15 @@ class Controller {
     #cargaDatos() {
 
         //Creamos Categorías
-        let CatSFMovie = new Category('Sciencie Fiction Movie', 'Ciencia Ficción');
-        let CatTMovie = new Category('Terror Movie', 'Películas de Miedo');
-        let CatCMovie = new Category('Comedy Movie', 'Películas de Comedia');
+        let CatSFMovie = new Category('Sciencie-Fiction-Movie', 'Ciencia Ficción');
+        let CatTMovie = new Category('Terror-Movie', 'Películas de Miedo');
+        let CatCMovie = new Category('Comedy-Movie', 'Películas de Comedia');
         let CatRMusic = new Category('Rock', 'Variedad de Música Rock (Álbum)');
-        let CatCMusic = new Category('Classic Music', 'Música Clásica (Álbum)');
-        let CatPMusic = new Category('Pop Music', 'Música Pop (Álbum)');
+        let CatCMusic = new Category('Classic-Music', 'Música Clásica (Álbum)');
+        let CatPMusic = new Category('Pop-Music', 'Música Pop (Álbum)');
         let CatMBooks = new Category('Mangas', 'Libros Tipo Mangas');
         let CatCBooks = new Category('Comics', 'Libros Tipo Comic');
-        let CatDBooks = new Category('Default Book', 'Libros por Defecto');
+        let CatDBooks = new Category('Default-Book', 'Libros por Defecto');
 
 
         //Creamos Productos
@@ -142,7 +142,7 @@ class Controller {
         this.#view.bindLoadDropDownCategory(this.handleDropCategory)
         this.#view.bindLoadDropDownStores(this.handleDropStore)
         this.#view.bindLoadStoreProducts(this.handleStoreProducts)
-        this.#view.bindLoadStoreProductsDropDown(this.handleStoreProductsDropDown)
+        this.#view.bindLoadStoreProductsDropDown(this.handleStoreProducts)
         this.#view.bindLoadInfoProducts(this.handleInfoProducts)
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
@@ -187,24 +187,26 @@ class Controller {
         }
         this.#view.showDropStores(map)
     }
-
+    //Modificamos para mostrar productos por categorias
     handleStoreProducts = (tienda) => {
         //Le pasamos la tienda para utilizarla en el generador
          let data = {
              //La tienda contiene el cif,que se lo pasamos al generador
             tienda: this.#model.getShopProducts(tienda),
+            tienda2: this.#model.getShopProducts(tienda),
+            //El generador devuelve la categoría
 
          }
          this.#view.showStoreProducts(data)
     }
 
-    handleStoreProductsDropDown = (tienda) => {
-        let data = {
-            tienda: this.#model.getShopProducts(tienda),
+    // handleStoreProductsDropDown = (tienda) => {
+    //     let data = {
+    //         tienda: this.#model.getShopProducts(tienda),
 
-         }
-         this.#view.showStoreProducts(data)
-    }
+    //      }
+    //      this.#view.showStoreProducts(data)
+    // }
     //Devuelve la información del producto
     handleInfoProducts = (serialNumber) => {
         let data = {

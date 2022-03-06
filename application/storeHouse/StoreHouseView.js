@@ -32,12 +32,31 @@ class View {
     }
 
   }
-  //Procedemos a cargar los productos de cada tienda /al hacer clic en la tienda
+  //Procedemos a cargar los productos de cada tienda al hacer clic en la tienda
   showStoreProducts(store) {
     this.tiendasContainer.empty();
+    
+    let mapCat= new Map(); //Guardamos las categorías de la tienda para que no se repitan
+    //console.log(store.tienda)
+    for (const categorias of store.tienda) {
+
+      if(!mapCat.has(categorias.categoriaProducto)){
+        //Generamos el titulo de la categoría en su contenedor
+        mapCat.set(categorias.categoriaProducto,`<div id="${categorias.categoriaProducto}"class="row portfolio-container" ><h3>${categorias.categoriaProducto}</h3></div>`) 
+      }//Establecemo clave(titulo categoria), valor (div que lo contiene)
+    
+    }
+    
+    for (const valorMapaCat of mapCat.values()) {
+      this.tiendasContainer.append(valorMapaCat)
+    }
+   
     let cont = 0;
-    for (const iterator of store.tienda) {
-      this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+    //console.log(store.tienda2) Tengo dos tiendas porque los generadores se cierran al recorrerlos una vez 
+    for (const iterator of store.tienda2) {
+      //Recogemos el id del contenedor de categoria del producto
+      //Generamos los productos en el container de las categorias generado dinámicamente
+       $(`#${iterator.categoriaProducto}`).append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
                 <img src="${iterator.product.images}" class="img-fluid" alt="">
@@ -274,7 +293,7 @@ class View {
 
   }
   //Bind Stores menú secundario que muestre la tienda indicada
-  bindLoadStoreProductsDropDown(handleStoreProductsDropDown) {
+  bindLoadStoreProductsDropDown(handleStoreProducts) {
 
     //Los eventos .click solo funcionan con elementos estáticos de html
     //Para los dinámicos se hace con el on sobre el padre,delegando el evento a los hijos (DropDownStore > .aStore)
@@ -283,7 +302,7 @@ class View {
 
       let tienda = $(this).attr('value'); //this button
       console.log(tienda);
-      handleStoreProductsDropDown(tienda);
+      handleStoreProducts(tienda);
     })
 
 

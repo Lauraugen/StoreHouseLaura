@@ -367,7 +367,9 @@ class StoreHouse {
                         //Va sacando los productos si esta en la tienda y filtra por el tipo de Producto
                         yield { //Utilizamos JSON para poder devolver el producto con su stock
                             product: productos.DataProduct,
-                            stock: this.#stores[indexStores].StockStores.get(productos.DataProduct.serialNumber)
+                            stock: this.#stores[indexStores].StockStores.get(productos.DataProduct.serialNumber),
+                            //Añadimos más información al JSON para mostrar productos por categoría
+                            categoriaProducto: elem.DataCategory.title,
                         };
                     }
 
