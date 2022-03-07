@@ -4,6 +4,7 @@ import { Books, Movie, Music } from "./StoreHouseModel.js";
 
 class View {
   constructor() {
+    //Declaramos los selectores de los elementos de html que necesitamos modificar
     this.tiendasContainer = $("#tiendasContainer");
     this.DropDownCategory = $("#DropDownCategory");
     this.DropDownStore = $("#DropDownStores");
@@ -80,7 +81,7 @@ class View {
   showInfoProducts(data) {
     this.tiendasContainer.empty();
     let producto = "";
-
+    //Accedemos al producto recorriendo el iterador
     for (const category of data.categoria) {
       for (const product of category.DataProductsCat) {
         if (product.DataProduct.serialNumber == data.key) {
@@ -214,7 +215,7 @@ class View {
     let cont=0;
     this.tiendasContainer.empty();
     for (const iterator of category.categoria) {
-      console.log(iterator)
+
       //Recogemos el id del contenedor de categoria del producto
       //Generamos los productos en el container de las categorias generado dinámicamente
        this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
@@ -298,7 +299,7 @@ class View {
         //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
 
         let tienda = $(this).attr('value'); //this button
-        console.log(tienda);
+       
         //Llamamos al controlador para que nos devuelva la información de los productos de esa tienda
         handlerStoreProducts(tienda);
       })
