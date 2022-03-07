@@ -9,9 +9,10 @@ class View {
     this.DropDownStore = $("#DropDownStores");
 
   }
-  //es el init 
+  
 
-  //Cargarmos las tiendas en inicio
+
+  //Cargarmos las tiendas en inicio (es el init,lo que carga al inicio)
   showLoadStores(store) {
     this.tiendasContainer.empty();
     let cont = 0;
@@ -32,6 +33,8 @@ class View {
     }
 
   }
+
+
   //Procedemos a cargar los productos de cada tienda al hacer clic en la tienda
   showStoreProducts(store) {
     this.tiendasContainer.empty();
@@ -73,9 +76,11 @@ class View {
     }
   }
 
+
   showInfoProducts(data) {
     this.tiendasContainer.empty();
     let producto = "";
+
     for (const category of data.categoria) {
       for (const product of category.DataProductsCat) {
         if (product.DataProduct.serialNumber == data.key) {
@@ -84,6 +89,7 @@ class View {
       }
     }
     if (producto instanceof Books) {
+      //Si el producto es tipo Book mostramos su información única
       this.tiendasContainer.append(`
       <section id="about" class="about">
         <div class="container">
@@ -121,7 +127,9 @@ class View {
 
   </div>
 </section>`);
+
     } else if (producto instanceof Movie) {
+      //Si el producto es tipo Movie mostramos su información única
       this.tiendasContainer.append(`
       <section id="about" class="about">
       <div class="container">
@@ -159,7 +167,9 @@ class View {
 
 </div>
 </section>`);
+
     } else if (producto instanceof Music) {
+      //Si el producto es tipo Music mostramos su información única
       this.tiendasContainer.append(`
       <section id="about" class="about">
         <div class="container">
@@ -200,32 +210,29 @@ class View {
     }
   }
 
-  //categorias con acordittion
-  ///TERMINA DE MODIFICAR ESTO
-  // showLoadCategory(category) {
-  //   this.tiendasContainer.empty();
-  //   let cont = 0;
-  //   for (const iterator of category.categoryKey) {
-  //     this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-  //           <div class="portfolio-wrap">
-  //             <figure>
-  //               <img src="${iterator.DataStore.photos}" class="img-fluid" alt="">
-  //               <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="link-preview portfolio-lightbox" title="Preview"><i class="bx bx-plus"></i></a>
-  //               <a href="" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
-  //             </figure>
+  showCategoryProducts(category){
+    let cont=0;
+    this.tiendasContainer.empty();
+    for (const iterator of category.categoria) {
+      console.log(iterator)
+      //Recogemos el id del contenedor de categoria del producto
+      //Generamos los productos en el container de las categorias generado dinámicamente
+       this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+            <div class="portfolio-wrap">
+              <figure>
+                <img src="${iterator.product.images}" class="img-fluid" alt="">
+              </figure>
+    
+              <div class="portfolio-info" id="product${cont}">
+                <h4>${iterator.product.name}</h4>
+                <button type="button" class="btn-success" id="bProducts" value=${iterator.product.serialNumber}>Comprar</button>
+              </div>
+            </div>
+          </div>` );
+      cont++;
 
-  //             <div class="portfolio-info" id="tienda${cont}">
-  //               <h4><a >${iterator.DataStore.name}</a></h4>
-  //               <p>App</p>
-  //             </div>
-  //           </div>
-  //         </div>` );
-  //     cont++; //Para diferenciarlo (los id)
-  //   }
-
-
-
-  //}
+    }
+  }
 
   //le pasamos el mapa del controller
   showDropCategory(category) {
@@ -233,9 +240,10 @@ class View {
     this.DropDownCategory.empty();
     //Mostramos el menú secundario de las Categorias
     for (const iterator of category.categoryKey) {
-      this.DropDownCategory.append(`<li><a href="#">${iterator.DataCategory.title}</a></li>`);
+      this.DropDownCategory.append(`<li><a class="aCategory" value=${iterator.DataCategory.title}>${iterator.DataCategory.title}</a></li>`);
     }
   }
+
 
   showDropStores(store) {
     //Limpiamos el contenedor
@@ -245,6 +253,7 @@ class View {
       this.DropDownStore.append(`<li><a class="aStore" value=${iterator.DataStore.cif} >${iterator.DataStore.name}</a></li>`);
     }
   }
+
 
   //Unión entre el evento y el controlador
   bindLoadStores(handlerLoadStores) {
@@ -260,22 +269,26 @@ class View {
     })
   }
 
+
   bindLoadDropDownCategory(handlerDropCategory) {
 
     $('#hCategory').hover(function (event) {
-      //Llama al controlador para que muestre el menú secundario de Categorias
+      //Llama al controlador para que muestre el menú secundario de Categorias al pasar por encima
       handlerDropCategory();
 
     })
   }
 
+
   bindLoadDropDownStores(handlerDropStore) {
 
     $('#hStores').hover(function (event) {
+      //Llama al controlador para que muestre el menú secundario de Stores al pasar por encima
       handlerDropStore();
 
     })
   }
+
 
   bindLoadStoreProducts(handlerStoreProducts) {
     //Añade los listener cuando se haya cargado la página, para que existan
@@ -286,38 +299,53 @@ class View {
 
         let tienda = $(this).attr('value'); //this button
         console.log(tienda);
+        //Llamamos al controlador para que nos devuelva la información de los productos de esa tienda
         handlerStoreProducts(tienda);
       })
 
     })
 
   }
+
+
   //Bind Stores menú secundario que muestre la tienda indicada
   bindLoadStoreProductsDropDown(handleStoreProducts) {
 
     //Los eventos .click solo funcionan con elementos estáticos de html
     //Para los dinámicos se hace con el on sobre el padre,delegando el evento a los hijos (DropDownStore > .aStore)
     this.DropDownStore.on('click', '.aStore', function (event) {
-      //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
+      //Recogemos el valor del atributo value del botón de productos
 
-      let tienda = $(this).attr('value'); //this button
-      console.log(tienda);
+      let tienda = $(this).attr('value'); 
+      
+      //Llamamos al mismo controlador de StoreProducts para que al dar click redireccione a los productos de esa tienda
+      //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
       handleStoreProducts(tienda);
     })
 
-
-
   }
+
+
   //Información de los Productos
   bindLoadInfoProducts(handleInfoProducts) {
+    //Al hacer click en el boton del producto,llama al controlador para recoger los datos del producto y pasarlos al show para que los muestre
     this.tiendasContainer.on('click', '#bProducts', function (event) {
       let tienda = $(this).attr('value'); //Recogemos el SerialNumber de Productos
-      console.log(tienda);
+
       handleInfoProducts(tienda);
     })
+  }
 
 
+  //Mostramos todos los productos de la categoría seleccionada en el menú secundario
+  bindLoadCategoryProducts(handleCategoryProducts){
+    //Al hacer click en la categoria,se guarda el value de la categoría
+    this.DropDownCategory.on('click','.aCategory', function (event){
 
+      let categoria = $(this).attr('value');
+
+      handleCategoryProducts(categoria);
+    })
   }
 
 }

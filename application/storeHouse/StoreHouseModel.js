@@ -170,7 +170,8 @@ class StoreHouse {
             DataProduct: newproduct,
             DataStore: this.#defaultStore.cif // Cif de la tienda en la que se encuentra
         })
-
+        //Añadimos el producto a la tienda por defecto
+        this.addProductInShop(newproduct,this.#stores[0].DataStore,1);
         //Retorna el nº de elementos de la category en la que está el producto
 
         return this.#category[indexCategory].DataProductsCat.length;
@@ -217,7 +218,8 @@ class StoreHouse {
         })//Devuelve la posicion de la tienda
 
         if (indexStores == -1) throw new ObjectNotExistException('indexStores', indexStores); //No existe
-        
+        //Eliminamos el objeto de la tienda por defecto
+        this.#stores[0].StockStores.delete(product.serialNumber)
         //Establecemos el stock del producto en la tienda
         this.#stores[indexStores].StockStores.set(product.serialNumber, number);
         //console.log(this.#stores[indexStores].DataStore.cif);
@@ -268,16 +270,17 @@ class StoreHouse {
     //Si pasamos un tipo de producto,el resultado estará filtrado por ese tipo
     *getCategoryProducts(category, typeProduct = Object) {
 
+        //Ahora category recoge el  title en vez del objeto como tal
         let indexCategory = this.#category.findIndex((elem) => {
-            return elem.DataCategory.title === category.title;
+            return elem.DataCategory.title === category;
         })
 
-
+        console.log(this.#stores[0])
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe 
         //console.log(indexCategory)
         for (const productos of this.#category[indexCategory].DataProductsCat) {
             //console.log(iterator.DataCategory.title);
-
+            
             if (productos.DataProduct instanceof typeProduct) {
                 for (const tiendas of this.#stores) {
                     //Obtenemos las tiendas que contengan el serialNumber(key) del Producto
@@ -294,6 +297,7 @@ class StoreHouse {
 
 
         }
+        
 
 
 

@@ -81,6 +81,7 @@ class Controller {
 
             this.#model.addProduct(ProdCMovie, CatCMovie);
             this.#model.addProduct(ProdSF2Movie, CatSFMovie);
+            this.#model.addProduct(ProdSF3Movie,CatSFMovie)
             this.#model.addProduct(ProdTMovie, CatTMovie);
             this.#model.addProduct(ProdSFMovie, CatSFMovie);
 
@@ -105,7 +106,6 @@ class Controller {
             
             this.#model.addProductInShop(ProdManga1, StoreFnac, 2);
             this.#model.addProductInShop(ProdManga3, StoreFnac, 3);
-            this.#model.addProductInShop(ProdCMovie, StoreCorteIngles, 1);
             this.#model.addProductInShop(ProdComic2, StoreCorteIngles, 4);
             this.#model.addProductInShop(ProdMusic3, StoreCorteIngles, 5);
             this.#model.addProductInShop(ProdSF2Movie, StoreCorteIngles, 1);
@@ -134,19 +134,23 @@ class Controller {
             console.log(error)
         }
     }
+
+
     constructor(newModel, newView) {
         this.#model = newModel;
         this.#view = newView;
         this.onLoad();
-        this.#view.bindLoadStores(this.handleLoadStores) //Pasamos como manejarlo (el objeto)
-        this.#view.bindLoadDropDownCategory(this.handleDropCategory)
-        this.#view.bindLoadDropDownStores(this.handleDropStore)
-        this.#view.bindLoadStoreProducts(this.handleStoreProducts)
-        this.#view.bindLoadStoreProductsDropDown(this.handleStoreProducts)
-        this.#view.bindLoadInfoProducts(this.handleInfoProducts)
+        this.#view.bindLoadStores(this.handleLoadStores); //Pasamos como manejarlo (el objeto)
+        this.#view.bindLoadDropDownCategory(this.handleDropCategory);
+        this.#view.bindLoadDropDownStores(this.handleDropStore);
+        this.#view.bindLoadStoreProducts(this.handleStoreProducts);
+        this.#view.bindLoadStoreProductsDropDown(this.handleStoreProducts);
+        this.#view.bindLoadInfoProducts(this.handleInfoProducts);
+        this.#view.bindLoadCategoryProducts(this.handleCategoryProducts);
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
+
 
     // handleInit = () => {
 
@@ -158,10 +162,13 @@ class Controller {
     //     this.#view.init();
     // }
 
+
     onLoad = () => {
         //Carga todos los Objetos
         this.#cargaDatos();
     }
+
+
     //Maneja los eventos
     handleLoadStores = () => {
         //Simulamos peticion a base de datos,retornando JSON
@@ -172,6 +179,7 @@ class Controller {
         this.#view.showLoadStores(map)
     }
 
+
     handleDropCategory = () => {
         //Simulamos peticion a base de datos,retornando JSON
         let map = {
@@ -180,6 +188,7 @@ class Controller {
         this.#view.showDropCategory(map)
     }
 
+
     handleDropStore = () => {
         //Simulamos peticion a base de datos,retornando JSON
         let map = {
@@ -187,6 +196,8 @@ class Controller {
         }
         this.#view.showDropStores(map)
     }
+
+
     //Modificamos para mostrar productos por categorias
     handleStoreProducts = (tienda) => {
         //Le pasamos la tienda para utilizarla en el generador
@@ -197,8 +208,10 @@ class Controller {
             //El generador devuelve la categoría
 
          }
+         //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
          this.#view.showStoreProducts(data)
     }
+
 
     // handleStoreProductsDropDown = (tienda) => {
     //     let data = {
@@ -208,13 +221,27 @@ class Controller {
     //      this.#view.showStoreProducts(data)
     // }
     //Devuelve la información del producto
+
+
     handleInfoProducts = (serialNumber) => {
         let data = {
             //Accedemos al iterador de category y guardamos el serialNumber del Producto
             categoria: this.#model.category,
             key: serialNumber,
         }
+        //Devolvemos el JSON para mostrar la información de productos en pantalla
         this.#view.showInfoProducts(data)
+    }
+
+
+    handleCategoryProducts = (categoria) => {
+
+        let data = {
+            categoria: this.#model.getCategoryProducts(categoria),
+
+        }
+        //Devolvemos la información de la categoría
+        this.#view.showCategoryProducts(data)
     }
 }
 
