@@ -69,6 +69,7 @@ class View {
               <div class="portfolio-info" id="product${cont}">
                 <h4>${iterator.product.name}</h4>
                 <button type="button" class="btn-success" id="bProducts" value=${iterator.product.serialNumber}>Comprar</button>
+                <button type="button" class="btn-warning" id="windowProducts" value=${iterator.product.serialNumber}>Mostrar Ventana</button>
               </div>
             </div>
           </div>` );
@@ -227,6 +228,7 @@ class View {
               <div class="portfolio-info" id="product${cont}">
                 <h4>${iterator.product.name}</h4>
                 <button type="button" class="btn-success" id="bProducts" value=${iterator.product.serialNumber}>Comprar</button>
+                <button type="button" class="btn-warning" id="windowProducts" value=${iterator.product.serialNumber}>Mostrar Ventana</button>
               </div>
             </div>
           </div>` );
@@ -347,6 +349,11 @@ class View {
 
       handleCategoryProducts(categoria);
     })
+  }
+
+  //Bind para el history
+  bindNewWindow(){
+      
   }
 
 }
