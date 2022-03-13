@@ -8,9 +8,11 @@ class View {
     this.tiendasContainer = $("#tiendasContainer");
     this.DropDownCategory = $("#DropDownCategory");
     this.DropDownStore = $("#DropDownStores");
+    this.Ventana = new Map(); //Guardamos como clave el data.key y como valor el newWin
+    
 
   }
-  
+
 
 
   //Cargarmos las tiendas en inicio (es el init,lo que carga al inicio)
@@ -39,28 +41,28 @@ class View {
   //Procedemos a cargar los productos de cada tienda al hacer clic en la tienda
   showStoreProducts(store) {
     this.tiendasContainer.empty();
-    
-    let mapCat= new Map(); //Guardamos las categorías de la tienda para que no se repitan
+
+    let mapCat = new Map(); //Guardamos las categorías de la tienda para que no se repitan
     //console.log(store.tienda)
     for (const categorias of store.tienda) {
 
-      if(!mapCat.has(categorias.categoriaProducto)){
+      if (!mapCat.has(categorias.categoriaProducto)) {
         //Generamos el titulo de la categoría en su contenedor
-        mapCat.set(categorias.categoriaProducto,`<div id="${categorias.categoriaProducto}"class="row portfolio-container" ><h3>${categorias.categoriaProducto}</h3></div>`) 
+        mapCat.set(categorias.categoriaProducto, `<div id="${categorias.categoriaProducto}"class="row portfolio-container" ><h3>${categorias.categoriaProducto}</h3></div>`)
       }//Establecemo clave(titulo categoria), valor (div que lo contiene)
-    
+
     }
-    
+
     for (const valorMapaCat of mapCat.values()) {
       this.tiendasContainer.append(valorMapaCat)
     }
-   
+
     let cont = 0;
     //console.log(store.tienda2) Tengo dos tiendas porque los generadores se cierran al recorrerlos una vez 
     for (const iterator of store.tienda2) {
       //Recogemos el id del contenedor de categoria del producto
       //Generamos los productos en el container de las categorias generado dinámicamente
-       $(`#${iterator.categoriaProducto}`).append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+      $(`#${iterator.categoriaProducto}`).append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
                 <img src="${iterator.product.images}" class="img-fluid" alt="">
@@ -212,14 +214,14 @@ class View {
     }
   }
 
-  showCategoryProducts(category){
-    let cont=0;
+  showCategoryProducts(category) {
+    let cont = 0;
     this.tiendasContainer.empty();
     for (const iterator of category.categoria) {
 
       //Recogemos el id del contenedor de categoria del producto
       //Generamos los productos en el container de las categorias generado dinámicamente
-       this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+      this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
                 <img src="${iterator.product.images}" class="img-fluid" alt="">
@@ -255,6 +257,172 @@ class View {
     for (const iterator of store.storeKey) {
       this.DropDownStore.append(`<li><a class="aStore" value=${iterator.DataStore.cif} >${iterator.DataStore.name}</a></li>`);
     }
+  }
+
+  //show nueva ventana
+  showNewWindowInfoProducts(data) {
+    // this.tiendasContainer.empty();
+   
+    if(!(this.Ventana.has(data.key))){
+      
+    let newWin = window.open("about:blank", `${data.key}`, "width=1500,height=900");
+    //newWin.name = retorna data.key
+    let producto = "";
+    //Accedemos al producto recorriendo el iterador
+    for (const category of data.categoria) {
+      for (const product of category.DataProductsCat) {
+        if (product.DataProduct.serialNumber == data.key) {
+          producto = product.DataProduct; //Devolvemos el producto completo (comprobamos que coincide el serialNumber)
+        }
+      }
+    }
+    
+    //Añadimos los css a la nueva ventana
+    newWin.document.write(` <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <body>`);
+
+    if (producto instanceof Books) {
+      //Si el producto es tipo Book mostramos su información única
+      let book = (`
+      <section id="about" class="about">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-lg-6">
+              <img src=${producto.images} class="img-fluid" alt="">
+            </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+           <h3>${producto.name}</h3>
+           <h4>BOOK</h4>
+          <p>
+            ${producto.description}<br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <ul>
+            <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+            <li><i class="bx bx-check-double"></i>Páginas Book: ${producto.pages}</li>
+          </ul>
+        <div class="row icon-boxes">
+          <div class="col-md-6">
+            <i class="bx bx-receipt"></i>
+            <h4>ISBN : ${producto.isbn}</h4>
+            <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <i class="bx bx-cube-alt"></i>
+            <h4>AUTHOR : ${producto.author}</h4>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </section>
+  </body>`);
+      //console.log(newWin.document.producto);
+      newWin.document.body.insertAdjacentHTML('afterbegin',book);
+
+    } else if (producto instanceof Movie) {
+      //Si el producto es tipo Movie mostramos su información única
+      newWin.document.write(`
+      <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src=${producto.images} class="img-fluid" alt="">
+          </div>
+        <div class="col-lg-6 pt-4 pt-lg-0">
+         <h3>${producto.name}</h3>
+         <h4>MOVIE</h4>
+        <p>
+          ${producto.description}<br>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <ul>
+          <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+          <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+          <li><i class="bx bx-check-double"></i>Duración Película: ${producto.duration}</li>
+        </ul>
+      <div class="row icon-boxes">
+        <div class="col-md-6">
+          <i class="bx bx-receipt"></i>
+          <h4>AÑO : ${producto.year}</h4>
+          <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+        </div>
+        <div class="col-md-6 mt-4 mt-md-0">
+          <i class="bx bx-cube-alt"></i>
+          <h4>DIRECTOR : ${producto.director}</h4>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>`);
+
+    } else if (producto instanceof Music) {
+      //Si el producto es tipo Music mostramos su información única
+      newWin.document.write(`
+      <section id="about" class="about">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-lg-6">
+              <img src=${producto.images} class="img-fluid" alt="">
+            </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+           <h3>${producto.name}</h3>
+           <h4>MUSIC</h4>
+          <p>
+            ${producto.description}<br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <ul>
+            <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+            <li><i class="bx bx-check-double"></i>Número de Canciones: ${producto.songsNumber}</li>
+          </ul>
+        <div class="row icon-boxes">
+          <div class="col-md-6">
+            <i class="bx bx-receipt"></i>
+            <h4>GÉNERO MÚSICAL : ${producto.musicalGenre}</h4>
+            <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <i class="bx bx-cube-alt"></i>
+            <h4>CANTANTE : ${producto.singer}</h4>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>`);
+    }
+    this.Ventana.set(data.key,newWin); //Añadimos al mapa la ventana creada para que no se vuelva a crear
+    
+  }
+  this.Ventana.get(data.key).focus();// Recogemos la ventana asociada a la clave y la pone en primer plano ventana producto
+  
   }
 
 
@@ -301,7 +469,7 @@ class View {
         //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
 
         let tienda = $(this).attr('value'); //this button
-       
+
         //Llamamos al controlador para que nos devuelva la información de los productos de esa tienda
         handlerStoreProducts(tienda);
       })
@@ -319,8 +487,8 @@ class View {
     this.DropDownStore.on('click', '.aStore', function (event) {
       //Recogemos el valor del atributo value del botón de productos
 
-      let tienda = $(this).attr('value'); 
-      
+      let tienda = $(this).attr('value');
+
       //Llamamos al mismo controlador de StoreProducts para que al dar click redireccione a los productos de esa tienda
       //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
       handleStoreProducts(tienda);
@@ -333,17 +501,17 @@ class View {
   bindLoadInfoProducts(handleInfoProducts) {
     //Al hacer click en el boton del producto,llama al controlador para recoger los datos del producto y pasarlos al show para que los muestre
     this.tiendasContainer.on('click', '#bProducts', function (event) {
-      let tienda = $(this).attr('value'); //Recogemos el SerialNumber de Productos
+      let serialNumber = $(this).attr('value'); //Recogemos el SerialNumber de Productos
 
-      handleInfoProducts(tienda);
+      handleInfoProducts(serialNumber);
     })
   }
 
 
   //Mostramos todos los productos de la categoría seleccionada en el menú secundario
-  bindLoadCategoryProducts(handleCategoryProducts){
+  bindLoadCategoryProducts(handleCategoryProducts) {
     //Al hacer click en la categoria,se guarda el value de la categoría
-    this.DropDownCategory.on('click','.aCategory', function (event){
+    this.DropDownCategory.on('click', '.aCategory', function (event) {
 
       let categoria = $(this).attr('value');
 
@@ -351,9 +519,24 @@ class View {
     })
   }
 
-  //Bind para el history
-  bindNewWindow(){
-      
+  //Bind para new Window
+  bindNewWindow(handleNewWindow) {
+    this.tiendasContainer.on('click', '#windowProducts', function (event) {
+
+      let serialNumber = $(this).attr('value'); //Recogemos serial Number del Producto
+
+      handleNewWindow(serialNumber);
+    })
+  }
+
+  //Bind para borrar Windows
+  bindCloseWindows() {
+      $('#bVentanas').click( (event) => {
+        for (const newWin of this.Ventana.values()) {
+          newWin.close();
+        }
+        this.Ventana.clear(); //Eliminamos todos los elementos del mapa una vez cerradas 
+      })
   }
 
 }
