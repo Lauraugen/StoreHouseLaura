@@ -336,7 +336,7 @@ class View {
   </section>
   </body>`);
       //console.log(newWin.document.producto);
-      newWin.document.body.insertAdjacentHTML('afterbegin',book);
+      newWin.document.body.insertAdjacentHTML('afterbegin',book); 
 
     } else if (producto instanceof Movie) {
       //Si el producto es tipo Movie mostramos su información única
@@ -529,11 +529,12 @@ class View {
     })
   }
 
-  //Bind para borrar Windows
+  //Bind para Cerrar Ventanas
   bindCloseWindows() {
       $('#bVentanas').click( (event) => {
+        //Obtenemos los values del mapa que almacena las referencias de cada ventana
         for (const newWin of this.Ventana.values()) {
-          newWin.close();
+          newWin.close(); //Cerramos la ventana
         }
         this.Ventana.clear(); //Eliminamos todos los elementos del mapa una vez cerradas 
       })

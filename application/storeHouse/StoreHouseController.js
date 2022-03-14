@@ -246,6 +246,7 @@ class Controller {
         this.#view.showCategoryProducts(data)
     }
 
+    //Pasamos los mismos datos que pasamos al main, pero a la nueva Ventana
     handleNewWindow = (serialNumber) => {
         let data = {
             categoria: this.#model.category,
