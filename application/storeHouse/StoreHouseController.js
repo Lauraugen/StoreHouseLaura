@@ -147,6 +147,8 @@ class Controller {
         this.#view.bindLoadStoreProductsDropDown(this.handleStoreProducts);
         this.#view.bindLoadInfoProducts(this.handleInfoProducts);
         this.#view.bindLoadCategoryProducts(this.handleCategoryProducts);
+        this.#view.bindNewWindow(this.handleNewWindow);
+        this.#view.bindCloseWindows();//No tiene handle
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -242,6 +244,15 @@ class Controller {
         }
         //Devolvemos la información de la categoría
         this.#view.showCategoryProducts(data)
+    }
+
+    //Pasamos los mismos datos que pasamos al main, pero a la nueva Ventana
+    handleNewWindow = (serialNumber) => {
+        let data = {
+            categoria: this.#model.category,
+            key: serialNumber,
+        }
+        this.#view.showNewWindowInfoProducts(data)
     }
 }
 
