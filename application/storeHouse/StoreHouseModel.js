@@ -203,7 +203,7 @@ class StoreHouse {
 
 
     //Añade un Product en una tienda con un nº de unidades
-    addProductInShop(product, stores, number=0) {
+    addProductInShop(product, stores, number=1) {
         //Comprobamos los Objetos y nº unidades
         if (!stores) throw new InvalidValueObjectException('stores', stores);
         if (!(stores instanceof Store)) throw new ObjectTypeException('stores', stores);

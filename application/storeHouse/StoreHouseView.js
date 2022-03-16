@@ -522,7 +522,7 @@ class View {
   //Bind para new Window
   bindNewWindow(handleNewWindow) {
     this.tiendasContainer.on('click', '#windowProducts', function (event) {
-
+        
       let serialNumber = $(this).attr('value'); //Recogemos serial Number del Producto
 
       handleNewWindow(serialNumber);
