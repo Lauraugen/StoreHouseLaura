@@ -244,8 +244,8 @@
   </div>
 
    <!-- Modal AddTienda -->
-   <div class="modal fade" id="ModalAddTienda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+   <div class="modal fade " id="ModalAddTienda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Añadir Tienda</h5>
@@ -257,18 +257,18 @@
             <div class="mb-3 input-group">
 
               <label for="iCif" class="form-label">Cif</label>
-              <input type="text" class="form-control" id="iCif" name="iCif" required>
-                  <div class="invalid-feedback">El Cif es obligatorio.</div>
-                  <div class="valid-feedback">Correcto.</div>
+              <input type="text" class="form-control" id="iCif" name="iCif">
+                  <div class="msg"></div>
+                 
             
             </div>
 
             <div class="mb-3 input-group">
 
               <label for="iName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="iName" name="iName" required>
-                  <div class="invalid-feedback">El nombre es obligatorio.</div>
-                  <div class="valid-feedback">Correcto.</div>
+              <input type="text" class="form-control" id="iName" name="iName">
+                  <div class="msg"></div>
+                  
             
             </div>
 
@@ -276,8 +276,8 @@
 
               <label for="iAddress" class="form-label">Address</label>
               <input type="text" class="form-control" id="iAddress" name="iAddress">
-                  <div class="invalid-feedback">La dirección es obligatoria.</div>
-                  <div class="valid-feedback">Correcto.</div>
+                  <div class="msg"></div>
+                  
             
             </div>
 
@@ -285,8 +285,8 @@
 
               <label for="iPhone" class="form-label">Phone</label>
               <input type="text" class="form-control" id="iPhone" name="iPhone">
-                  <div class="invalid-feedback">El teléfono es obligatorio.</div>
-                  <div class="valid-feedback">Correcto.</div>
+                  <div class="msg"></div>
+                  
             
             </div>
 
@@ -294,8 +294,8 @@
 
               <label for="iCoords" class="form-label">Coords</label>
               <input type="text" class="form-control" id="iCoords" name="iCoords">
-                  <div class="invalid-feedback">Las coordenadas son obligatorias.</div>
-                  <div class="valid-feedback">Correcto.</div>
+                  <div class="msg"></div>
+                  
             
             </div>
 
@@ -303,13 +303,12 @@
 
               <label for="iPhotos" class="form-label">Photos</label>
               <input type="file" class="form-control" id="iPhotos" name="iPhotos">
-                  <div class="invalid-feedback">Las fotos son obligatorias.</div>
-                  <div class="valid-feedback">Correcto.</div>
+                  <div class="msg"></div>
             
             </div>
             
             
-            <button type="submit" id="bSubmit" class="btn btn-success">Submit</button>
+            <button type="submit" id="bSubmitTienda" class="btn btn-success">Submit</button>
           </form>
 
 
