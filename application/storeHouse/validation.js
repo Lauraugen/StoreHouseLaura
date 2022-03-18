@@ -45,6 +45,7 @@
         let valorAddress = iAddress.value;
         let valorPhone = iPhone.value;
         let valorCoords = iCoords.value;
+        let valorPhotos =iPhotos.value;
 
         if (!valorCif) {
             mensajeError(iCif, 'El Cif está vacío');
@@ -86,6 +87,16 @@
         } else {
             mensajeCorrecto(iCoords, 'Correcto');
             validoCoords = true;
+        }
+        if(!valorPhotos){
+            mensajeError(iPhotos, 'Las fotos están vacías');
+            validoPhotos = false;
+        }else if(!(/(\.jpg|\.jpeg|\.png)$/i.test(valorPhotos))){
+            mensajeError(iPhotos, 'La foto no es válida');
+            validoPhotos = false;
+        } else{
+            mensajeCorrecto(iPhotos,'Correcto');
+            validoPhotos = true;
         }
     }
 

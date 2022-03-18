@@ -149,6 +149,7 @@ class Controller {
         this.#view.bindLoadCategoryProducts(this.handleCategoryProducts);
         this.#view.bindNewWindow(this.handleNewWindow);
         this.#view.bindCloseWindows();//No tiene handle
+        this.#view.bindValidarNewStore(this.handleValidarNewStore);
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -253,6 +254,23 @@ class Controller {
             key: serialNumber,
         }
         this.#view.showNewWindowInfoProducts(data)
+    }
+
+    handleValidarNewStore = (valorCif,valorName,valorAddress,valorPhone,valorCoords,validoPhotos) => {
+
+        let inst = new Store(valorCif,valorName,valorAddress,valorPhone,valorCoords,validoPhotos);
+        this.#model.addShop(inst);
+
+        this.refrescar(); //Recargamos la página de nuevo para que muestra la tienda nueva
+
+    }
+
+    refrescar = () =>{
+        let map = {
+            //Devolvemos stores a través de su iterador
+            storeKey: this.#model.stores,
+        }
+        this.#view.showLoadStores(map)
     }
 }
 
