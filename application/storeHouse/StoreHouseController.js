@@ -150,6 +150,7 @@ class Controller {
         this.#view.bindNewWindow(this.handleNewWindow);
         this.#view.bindCloseWindows();//No tiene handle
         this.#view.bindValidarNewStore(this.handleValidarNewStore);
+        this.#view.bindFormAddStores(this.handleFormAddStores);
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -271,6 +272,10 @@ class Controller {
             storeKey: this.#model.stores,
         }
         this.#view.showLoadStores(map)
+    }
+
+    handleFormAddStores =()=>{
+        this.#view.showFormAddStores();
     }
 }
 

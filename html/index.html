@@ -69,11 +69,11 @@
           <li id="forms" class="dropdown"><a href="#"><span>Forms</span> <i class="bi bi-chevron-down"></i></a>
             <ul class="dropdown-menu" id="formsDrop">
               
-              <li><a data-bs-toggle="modal" data-bs-target="#ModalAddCategoria" href="#" id="formAddCategoria">Añadir Categoría</a></li>
-              <li><a data-bs-toggle="modal" data-bs-target="#ModalRemoveCategoria" href="#" id="formRemoveCategoria">Eliminar Categoría</a></li>
-              <li><a data-bs-toggle="modal" data-bs-target="#ModalAddTienda"  href="#" id="formAddTienda">Añadir Tienda</a></li>
-              <li><a data-bs-toggle="modal" data-bs-target="#ModalAddProducto" href="#" id="formAddProducto">Añadir Producto</a></li>
-              <li><a data-bs-toggle="modal" data-bs-target="#ModalRemoveProducto"  href="#" id="formRemoveProducto">Eliminar Producto</a></li>
+              <li><a id="formAddCategoria">Añadir Categoría</a></li>
+              <li><a id="formRemoveCategoria">Eliminar Categoría</a></li>
+              <li><a id="SelectformAddTienda">Añadir Tienda</a></li>
+              <li><a id="formAddProducto">Añadir Producto</a></li>
+              <li><a id="formRemoveProducto">Eliminar Producto</a></li>
             </ul>
           </li>
           
@@ -127,6 +127,7 @@
         </div> -->
 
         <div id="tiendasContainer" class="row portfolio-container">
+          
 
         </div>
 
@@ -204,161 +205,6 @@
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
-
-  <!-- Modal AddCategoria -->
-<div class="modal fade" id="ModalAddCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- Modal RemoveCategoria -->
-  <div class="modal fade" id="ModalRemoveCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-   <!-- Modal AddTienda -->
-   <div class="modal fade " id="ModalAddTienda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Añadir Tienda</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <form name="formAddTienda" role="form" id="fValidAddTienda" method="post" enctype="multipart/form-data">
-            <div class="mb-3 input-group">
-
-              <label for="iCif" class="form-label">Cif</label>
-              <input type="text" class="form-control" id="iCif" name="iCif">
-                  <div class="msg"></div>
-                 
-            
-            </div>
-
-            <div class="mb-3 input-group">
-
-              <label for="iName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="iName" name="iName">
-                  <div class="msg"></div>
-                  
-            
-            </div>
-
-            <div class="mb-3 input-group">
-
-              <label for="iAddress" class="form-label">Address</label>
-              <input type="text" class="form-control" id="iAddress" name="iAddress">
-                  <div class="msg"></div>
-                  
-            
-            </div>
-
-            <div class="mb-3 input-group">
-
-              <label for="iPhone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="iPhone" name="iPhone">
-                  <div class="msg"></div>
-                  
-            
-            </div>
-
-            <div class="mb-3 input-group">
-
-              <label for="iCoords" class="form-label">Coords</label>
-              <input type="text" class="form-control" id="iCoords" name="iCoords">
-                  <div class="msg"></div>
-                  
-            
-            </div>
-
-            <div class="mb-3 input-group">
-
-              <label for="iPhotos" class="form-label">Photos</label>
-              <input type="file" class="form-control" id="iPhotos" name="iPhotos">
-                  <div class="msg"></div>
-            
-            </div>
-            
-            
-            <button type="submit" id="bSubmitTienda" class="btn btn-success">Submit</button>
-          </form>
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-   <!-- Modal AddProducto -->
-   <div class="modal fade" id="ModalAddProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-     <!-- Modal RemoveProducto -->
-     <div class="modal fade" id="ModalRemoveProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>

@@ -59,6 +59,75 @@ class View {
 
   }
 
+  showFormAddStores(){
+
+    this.tiendasContainer.empty();
+     this.tiendasContainer.append(`
+     <form name="formAddTienda" role="form" id="fValidAddTienda" method="post" enctype="multipart/form-data" >
+       <div class="mb-3 input-group">
+
+         <label for="iCif" class="form-label">Cif</label>
+         <input type="text" class="form-control" id="iCif" name="iCif">
+             <div class="msg"></div>
+            
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iName" class="form-label">Name</label>
+         <input type="text" class="form-control" id="iName" name="iName">
+             <div class="msg"></div>
+             
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iAddress" class="form-label">Address</label>
+         <input type="text" class="form-control" id="iAddress" name="iAddress">
+             <div class="msg"></div>
+             
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iPhone" class="form-label">Phone</label>
+         <input type="text" class="form-control" id="iPhone" name="iPhone">
+             <div class="msg"></div>
+             
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iCoords" class="form-label">Coords</label>
+         <input type="text" class="form-control" id="iCoords" name="iCoords">
+             <div class="msg"></div>
+             
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iPhotos" class="form-label">Photos</label>
+         <input type="file" class="form-control" id="iPhotos" name="iPhotos">
+             <div class="msg"></div>
+       
+       </div>
+       
+       
+       <button type="submit" id="bSubmitTienda" class="btn btn-success">Submit</button>
+     </form>`);
+  }
+
+  bindFormAddStores(handleFormAddStores){
+    $('#SelectformAddTienda').click(function(){
+        handleFormAddStores();
+    })
+  }
+
 
   //Procedemos a cargar los productos de cada tienda al hacer clic en la tienda
   showStoreProducts(store) {
@@ -485,9 +554,9 @@ class View {
 
   bindLoadStoreProducts(handlerStoreProducts) {
     //Añade los listener cuando se haya cargado la página, para que existan
-    $(document).ready(function (event) {
+    
 
-      $('.bStore').click(function (event) {
+      this.tiendasContainer.on('click','.bStore',function (event) {
         //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
 
         let tienda = $(this).attr('value'); //this button
@@ -496,7 +565,7 @@ class View {
         handlerStoreProducts(tienda);
       })
 
-    })
+    
 
   }
 
@@ -563,7 +632,25 @@ class View {
   }
 
   bindValidarNewStore(handleValidarNewStore) {
-    formAddTienda.addEventListener('submit', function (event) {
+    this.tiendasContainer.on('input','#fValidAddTienda', function (event) {
+      // event.preventDefault();
+      validoCif = false;
+      validoName = false;
+      validoAddress = false;
+      validoPhone = false;
+      validoCoords = false;
+      validoPhotos = false;
+      iCif = document.getElementById('iCif');
+      console.log(iCif);
+      iName = document.getElementById('iName');
+      iAddress = document.getElementById('iAddress');
+      iPhone = document.getElementById('iPhone');
+      iCoords = document.getElementById('iCoords');
+      iPhotos = document.getElementById('iPhotos');
+      validarEntradasStore()
+  
+    })
+    this.tiendasContainer.on('submit','#fValidAddTienda', function (event) {
       console.log('click');
       if ((!validoCif) || (!validoName) || (!validoAddress) || (!validoPhone) || (!validoCoords) || (!validoPhotos)) {
         event.preventDefault(); //No deja lanzar el evento submit si es false
@@ -576,13 +663,7 @@ class View {
        // this.setAttribute('data-bs-dismiss','modal');
         handleValidarNewStore(valorCif, valorName, valorAddress, valorPhone, valorCoords, validoPhotos);
 
-        let myModal = bootstrap.Modal.getInstance(
-          document.getElementById("ModalAddTienda")
-        );
-        //remove static backdrop
-        myModal.setAttribute("data-bs-backdrop", "false");
-        //destroy modal
-        myModal.dispose()
+        
       }
     })
   }
@@ -594,23 +675,7 @@ class View {
 
   //Formulario AddTienda
 
-  formAddTienda.addEventListener('input', function (event) {
-    // event.preventDefault();
-    validoCif = false;
-    validoName = false;
-    validoAddress = false;
-    validoPhone = false;
-    validoCoords = false;
-    validoPhotos = false;
-    iCif = document.getElementById('iCif');
-    iName = document.getElementById('iName');
-    iAddress = document.getElementById('iAddress');
-    iPhone = document.getElementById('iPhone');
-    iCoords = document.getElementById('iCoords');
-    iPhotos = document.getElementById('iPhotos');
-    validarEntradasStore()
-
-  })
+  
 
 
 
