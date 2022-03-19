@@ -3,7 +3,6 @@
 import { Books, Movie, Music } from "./StoreHouseModel.js";
 
 //Variables form AddTienda
-let formAddTienda = document.getElementById('fValidAddTienda');
 let validoCif;
 let validoName;
 let validoAddress;
@@ -23,6 +22,14 @@ let valorPhone;
 let valorCoords;
 let valorPhotos;
 
+//Variables form AddCategory
+let validoTitle;
+let validoDescription;
+let iTitle;
+let iDescription;
+let valorTitle;
+let valorDescription;
+
 
 class View {
   constructor() {
@@ -31,7 +38,6 @@ class View {
     this.DropDownCategory = $("#DropDownCategory");
     this.DropDownStore = $("#DropDownStores");
     this.Ventana = new Map(); //Guardamos como clave el data.key y como valor el newWin
-    console.log(formAddTienda);
 
   }
 
@@ -40,6 +46,7 @@ class View {
   //Cargarmos las tiendas en inicio (es el init,lo que carga al inicio)
   showLoadStores(store) {
     this.tiendasContainer.empty();
+    $('#selectEliminarTienda').empty();
     let cont = 0;
     for (const iterator of store.storeKey) {
       this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
@@ -55,6 +62,9 @@ class View {
             </div>
           </div>` );
       cont++; //Para diferenciarlo (los id)
+      
+      $('#selectEliminarTienda').append(`<option value=${iterator.DataStore.cif}>${iterator.DataStore.name}</option>`)
+     
     }
 
   }
@@ -122,11 +132,76 @@ class View {
      </form>`);
   }
 
+  showFormAddCategory(){
+
+    this.tiendasContainer.empty();
+     this.tiendasContainer.append(`
+     <form name="formAddTienda" role="form" id="fValidAddCategoria" method="post" enctype="multipart/form-data" >
+       <div class="mb-3 input-group">
+
+         <label for="iTitle" class="form-label">Title</label>
+         <input type="text" class="form-control" id="iTitle" name="iTitle">
+             <div class="msg"></div>
+            
+       
+       </div>
+
+       <div class="mb-3 input-group">
+
+         <label for="iDescription" class="form-label">Description</label>
+         <input type="text" class="form-control" id="iDescription" name="iDescription">
+             <div class="msg"></div>
+             
+       
+       </div>
+
+       
+       <button type="submit" id="bSubmitCategory" class="btn btn-success">Submit</button>
+     </form>`);
+  }
+  //Carga formulario Tiendas
   bindFormAddStores(handleFormAddStores){
-    $('#SelectformAddTienda').click(function(){
+    $('#formAddTienda').click(function(){
         handleFormAddStores();
     })
   }
+  //Carga select modal
+  bindFormRemoveStores(handleFormRemoveStores){
+    $('#SelectformRemoveTienda').click(function(){
+      handleFormRemoveStores();
+    })
+  }
+  //Lanza evento al pulsar boton eliminar
+  bindButtonRemoveStore(handleButtonRemoveStore){
+    $('#bEliminarTienda').click(function(){
+
+      let cif=$('#selectEliminarTienda').val();//selec modal (valor)
+
+      handleButtonRemoveStore(cif);
+    })
+  }
+  //Carga formulario Categorias
+  bindFormAddCategory(handleFormAddCategory){
+    $('#formAddCategoria').click(function(){
+      handleFormAddCategory();
+    })
+  }
+  //Carga select modal categoria
+  bindFormRemoveCategory(handleFormRemoveCategory){
+    $('#SelectformRemoveCategoria').click(function(){
+      handleFormRemoveCategory();
+    })
+  }
+  //Lanza evento al pulsar boton eliminar
+  bindButtonRemoveCategory(handleButtonRemoveCategory){
+    $('#bEliminarCategoria').click(function(){
+      
+
+      let title=$('#selectEliminarCategoria').val();//selec modal (valor)
+      handleButtonRemoveCategory(title);
+    })
+  }
+
 
 
   //Procedemos a cargar los productos de cada tienda al hacer clic en la tienda
@@ -326,7 +401,7 @@ class View {
             </div>
           </div>` );
       cont++;
-
+      
     }
   }
 
@@ -334,9 +409,14 @@ class View {
   showDropCategory(category) {
     //Limpiamos el contenedor
     this.DropDownCategory.empty();
+
+    $('#selectEliminarCategoria').empty();
+    
     //Mostramos el menú secundario de las Categorias
     for (const iterator of category.categoryKey) {
       this.DropDownCategory.append(`<li><a class="aCategory" value=${iterator.DataCategory.title}>${iterator.DataCategory.title}</a></li>`);
+
+      $('#selectEliminarCategoria').append(`<option value=${iterator.DataCategory.title}>${iterator.DataCategory.title}</option>`)
     }
   }
 
@@ -641,7 +721,6 @@ class View {
       validoCoords = false;
       validoPhotos = false;
       iCif = document.getElementById('iCif');
-      console.log(iCif);
       iName = document.getElementById('iName');
       iAddress = document.getElementById('iAddress');
       iPhone = document.getElementById('iPhone');
@@ -668,16 +747,42 @@ class View {
     })
   }
 
+
+  bindValidarNewCategory(handleValidarNewCategory) {
+    this.tiendasContainer.on('input','#fValidAddCategoria', function (event) {
+      // event.preventDefault();
+      validoTitle = false;
+      validoDescription = false;
+      
+      iTitle = document.getElementById('iTitle');
+      iDescription = document.getElementById('iDescription');
+      validarEntradasCategory()
+  
+    })
+    this.tiendasContainer.on('submit','#fValidAddCategoria', function (event) {
+      console.log('click');
+      if ((!validoTitle) || (!validoDescription)) {
+        event.preventDefault(); //No deja lanzar el evento submit si es false
+        event.stopPropagation();
+      } else {
+
+        event.preventDefault();
+        event.stopPropagation();
+        
+       // this.setAttribute('data-bs-dismiss','modal');
+        handleValidarNewCategory(valorTitle,valorDescription);
+
+        
+      }
+    })
+  }
+
 }
 
 //Validaciones
 
 
   //Formulario AddTienda
-
-  
-
-
 
   function validarEntradasStore() {
     valorCif = iCif.value;
@@ -738,6 +843,28 @@ class View {
       mensajeCorrecto(iPhotos, 'Correcto');
       validoPhotos = true;
     }
+  }
+
+  function validarEntradasCategory() {
+    valorTitle = iTitle.value;
+    valorDescription = iDescription.value;
+
+    if (!valorTitle) {
+      mensajeError(iTitle, 'El Título está vacío');
+      validoTitle = false;
+    } else {
+      mensajeCorrecto(iTitle, 'Correcto');
+      validoTitle = true;
+    }
+
+    if (!valorDescription) {
+      mensajeError(iDescription, 'La Descripción está vacía');
+      validoDescription = false;
+    } else {
+      mensajeCorrecto(iDescription, 'Correcto');
+      validoDescription = true;
+    }
+    
   }
 
 

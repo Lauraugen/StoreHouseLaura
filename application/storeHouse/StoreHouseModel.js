@@ -131,12 +131,13 @@ class StoreHouse {
             return elem.DataCategory.title === category.title;
         })
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe
-
+        
         this.#category[indexCategory].DataProductsCat.forEach((elem) => {
+            console.log(elem)
             this.#category[0].DataProductsCat.push(elem); //Añadimos los productos de la categoría que se va a eliminar en defaultcategory
         })
 
-
+        console.log(this.#category[0]);
         this.#category.splice(indexCategory, 1); //Eliminamos la categoría en la posición que se encuentra
 
 
@@ -336,13 +337,13 @@ class StoreHouse {
             return elem.DataStore.cif === stores.cif;
         })
         if (indexStores == -1) throw new ObjectNotExistException('indexStore', indexStores); //No existe
-
+        console.log(this.#stores[0]);
         //los productos de la tienda pasan a la tienda genérica
         for (let [key, value] of this.#stores[indexStores].StockStores.entries()) { //Devolvemos clave valor de productos de la tienda
             this.#stores[0].StockStores.set(key, value);
         }
 
-
+        console.log(this.#stores[0]);
         this.#stores.splice(indexStores, 1);
 
         //Retornamos el número de elementos de la tienda

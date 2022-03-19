@@ -70,8 +70,9 @@
             <ul class="dropdown-menu" id="formsDrop">
               
               <li><a id="formAddCategoria">Añadir Categoría</a></li>
-              <li><a id="formRemoveCategoria">Eliminar Categoría</a></li>
-              <li><a id="SelectformAddTienda">Añadir Tienda</a></li>
+              <li><a id="SelectformRemoveCategoria" data-bs-toggle="modal" data-bs-target="#modalEliminarCategoria">Eliminar Categoría</a></li>
+              <li><a id="formAddTienda">Añadir Tienda</a></li>
+              <li><a id="SelectformRemoveTienda" data-bs-toggle="modal" data-bs-target="#modalEliminarTienda">Eliminar Tienda</a></li>
               <li><a id="formAddProducto">Añadir Producto</a></li>
               <li><a id="formRemoveProducto">Eliminar Producto</a></li>
             </ul>
@@ -93,6 +94,48 @@
 
     </div>
   </header><!-- End Header -->
+
+<!-- Modal Add Tienda-->
+<div class="modal fade" id="modalEliminarTienda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Tienda</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select id="selectEliminarTienda">
+
+          </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning" id="bEliminarTienda">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add Category-->
+<div class="modal fade" id="modalEliminarCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select id="selectEliminarCategoria">
+
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning" id="bEliminarCategoria">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">

@@ -151,6 +151,12 @@ class Controller {
         this.#view.bindCloseWindows();//No tiene handle
         this.#view.bindValidarNewStore(this.handleValidarNewStore);
         this.#view.bindFormAddStores(this.handleFormAddStores);
+        this.#view.bindFormRemoveStores(this.handleFormRemoveStores);
+        this.#view.bindButtonRemoveStore(this.handleButtonRemoveStore);
+        this.#view.bindFormAddCategory(this.handleFormAddCategory);
+        this.#view.bindValidarNewCategory(this.handleValidarNewCategory);
+        this.#view.bindFormRemoveCategory(this.handleFormRemoveCategory);
+        this.#view.bindButtonRemoveCategory(this.handleButtonRemoveCategory);
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -257,16 +263,16 @@ class Controller {
         this.#view.showNewWindowInfoProducts(data)
     }
 
-    handleValidarNewStore = (valorCif,valorName,valorAddress,valorPhone,valorCoords,validoPhotos) => {
+    handleValidarNewStore = (valorCif,valorName,valorAddress,valorPhone,valorCoords,valorPhotos) => {
 
-        let inst = new Store(valorCif,valorName,valorAddress,valorPhone,valorCoords,validoPhotos);
+        let inst = new Store(valorCif,valorName,valorAddress,valorPhone,valorCoords,valorPhotos);
         this.#model.addShop(inst);
 
         this.refrescar(); //Recargamos la página de nuevo para que muestra la tienda nueva
 
     }
 
-    refrescar = () =>{
+    refrescar = () =>{ 
         let map = {
             //Devolvemos stores a través de su iterador
             storeKey: this.#model.stores,
@@ -276,6 +282,52 @@ class Controller {
 
     handleFormAddStores =()=>{
         this.#view.showFormAddStores();
+    }
+
+    handleFormRemoveStores=() =>{
+        this.refrescar();
+    }
+
+    handleButtonRemoveStore=(cif) => {
+
+        
+        for (const tienda of this.#model.stores) {
+            if(tienda.DataStore.cif==cif){
+                this.#model.removeShop(tienda.DataStore); //Le pasamos todo el objeto de tienda para que se elimine
+            }
+        }
+        this.refrescar();
+
+    }
+    handleFormAddCategory =() => {
+        this.#view.showFormAddCategory();
+    }
+
+    handleValidarNewCategory = (valorTitle,valorDescription) => {
+        let inst = new Category(valorTitle,valorDescription);
+        this.#model.addCategory(inst);
+
+        this.refrescar();
+    }
+
+    handleFormRemoveCategory = () => {
+        let map = {
+            categoryKey: this.#model.category,
+        }
+        this.#view.showDropCategory(map)
+    }
+
+    handleButtonRemoveCategory = (title) => {
+        for (const categoria of this.#model.category) {
+            if(categoria.DataCategory.title==title){
+                console.log(categoria.DataCategory)
+                this.#model.removeCategory(categoria.DataCategory); //Le pasamos todo el objeto de tienda para que se elimine
+            }
+        }
+        let map = {
+            categoryKey: this.#model.category,
+        }
+        this.#view.showDropCategory(map)
     }
 }
 
