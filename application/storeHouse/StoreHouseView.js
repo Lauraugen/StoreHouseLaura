@@ -186,7 +186,7 @@ class View {
       handleFormAddCategory();
     })
   }
-  //Carga select modal categoria
+  //Carga select modal eliminar categoria
   bindFormRemoveCategory(handleFormRemoveCategory){
     $('#SelectformRemoveCategoria').click(function(){
       handleFormRemoveCategory();
@@ -200,6 +200,32 @@ class View {
       let title=$('#selectEliminarCategoria').val();//selec modal (valor)
       handleButtonRemoveCategory(title);
     })
+  }
+
+  //Carga select modal eliminar productos
+  bindFormRemoveProduct(handleFormRemoveProduct){
+    $('#SelectformRemoveProducto').click(function(){
+      handleFormRemoveProduct();
+    })
+  }
+
+  //Lanza evento al pulsar boton eliminar
+  bindButtonRemoveProduct(handleButtonRemoveProduct){
+    $('#bEliminarProducto').click(function(){
+      
+
+      let serialNumber=$('#selectEliminarProducto').val();//selec modal (valor)
+      handleButtonRemoveProduct(serialNumber);
+    })
+  }
+
+  showDropDownProducts(tmpProductos){
+    $('#selectEliminarProducto').empty();
+    tmpProductos.forEach(product => {
+      $('#selectEliminarProducto').append(`<option value=${product.DataProduct.serialNumber}>${product.DataProduct.name}</option>`);
+    });
+    
+
   }
 
 

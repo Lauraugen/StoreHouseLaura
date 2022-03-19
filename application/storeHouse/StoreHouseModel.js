@@ -188,14 +188,23 @@ class StoreHouse {
         let i;
         let indexProduct;
         this.#category.forEach(function (elem,index) { //En el elemento sale el JSON
-            indexProduct = elem.DataProductsCat.findIndex(function (otro) {
-
-                return otro.DataProduct.serialNumber === product.serialNumber;
+           
+            elem.DataProductsCat.forEach(function(elemProduct){
                 
-
+                if(elemProduct.DataProduct.serialNumber== product.serialNumber){
+                    elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
+                    
+                }
             })
+           
              i=index;
-            elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
+            
+        })
+
+        this.#stores.forEach(function(elem){
+            if(elem.StockStores.has(product.serialNumber)){
+                elem.StockStores.delete(product.serialNumber); //Borramos la referencia del producto de las tiendas
+            }
         })
 
         //Retorna number con el nº de elementos
