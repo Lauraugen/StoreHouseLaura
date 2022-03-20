@@ -1218,3 +1218,17 @@ section {
 a:hover{
   cursor: pointer;
 }
+
+.valido{
+  border-color: green
+}
+.invalido{
+  border-color: red;
+  
+}
+.valido + .msg{
+  color: green;
+}
+.invalido + .msg{
+  color: red;
+}

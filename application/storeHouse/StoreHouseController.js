@@ -47,13 +47,13 @@ class Controller {
 
         //Creamos Tiendas (Stores)
 
-        let StoreCorteIngles = new Store('200', 'Corte Inglés', 'Gran Vía', '789456123', new Coords(2, 2),["../../html/assets/img/el-corte-ingles-logo.jpg"]);
-        let StoreSerendipia = new Store('300', 'Serendipia', 'Calle Altagracia', '989456123', new Coords(3, 3),["../../html/assets/img/Serendipia.jpg"]);
-        let StoreFnac = new Store('400', 'Fnac', 'Gran Vía', '657456123', new Coords(4, 4),["../../html/assets/img/fnac.jpg"]);
+        let StoreCorteIngles = new Store('200', 'Corte Inglés', 'Gran Vía', '789456123', new Coords(2, 2), ["../../html/assets/img/el-corte-ingles-logo.jpg"]);
+        let StoreSerendipia = new Store('300', 'Serendipia', 'Calle Altagracia', '989456123', new Coords(3, 3), ["../../html/assets/img/Serendipia.jpg"]);
+        let StoreFnac = new Store('400', 'Fnac', 'Gran Vía', '657456123', new Coords(4, 4), ["../../html/assets/img/fnac.jpg"]);
 
 
         try {
-            
+
             this.#model.addCategory(CatSFMovie);
             this.#model.addCategory(CatCMovie);
             this.#model.addCategory(CatMBooks);
@@ -69,7 +69,7 @@ class Controller {
 
 
         try {
-            
+
             this.#model.addProduct(ProdManga1, CatMBooks);
             this.#model.addProduct(ProdManga2, CatMBooks);
             this.#model.addProduct(ProdManga3, CatMBooks);
@@ -81,7 +81,7 @@ class Controller {
 
             this.#model.addProduct(ProdCMovie, CatCMovie);
             this.#model.addProduct(ProdSF2Movie, CatSFMovie);
-            this.#model.addProduct(ProdSF3Movie,CatSFMovie)
+            this.#model.addProduct(ProdSF3Movie, CatSFMovie)
             this.#model.addProduct(ProdTMovie, CatTMovie);
             this.#model.addProduct(ProdSFMovie, CatSFMovie);
 
@@ -94,16 +94,16 @@ class Controller {
 
 
         try {
-            
+
             this.#model.addShop(StoreFnac);
             this.#model.addShop(StoreCorteIngles);
-             this.#model.addShop(StoreSerendipia);
+            this.#model.addShop(StoreSerendipia);
         } catch (error) {
             console.log(error)
         }
         //Añadimos Productos a Stores
         try {
-            
+
             this.#model.addProductInShop(ProdManga1, StoreFnac, 2);
             this.#model.addProductInShop(ProdManga3, StoreFnac, 3);
             this.#model.addProductInShop(ProdComic2, StoreCorteIngles, 4);
@@ -121,7 +121,7 @@ class Controller {
 
         //Añadimos Cantidad de Productos en Stores
         try {
-            
+
             this.#model.addQuantityProductInShop(ProdBook1, StoreSerendipia, 3);
             this.#model.addQuantityProductInShop(ProdManga2, StoreSerendipia, 10);
             this.#model.addQuantityProductInShop(ProdManga3, StoreFnac, 10);
@@ -129,7 +129,7 @@ class Controller {
             this.#model.addQuantityProductInShop(ProdMusic1, StoreFnac, 2);
             this.#model.addQuantityProductInShop(ProdCMovie, StoreFnac, 5);
             this.#model.addQuantityProductInShop(ProdComic2, StoreCorteIngles, 4);
-             this.#model.addQuantityProductInShop(ProdMusic3, StoreCorteIngles, 12);
+            this.#model.addQuantityProductInShop(ProdMusic3, StoreCorteIngles, 12);
         } catch (error) {
             console.log(error)
         }
@@ -149,6 +149,27 @@ class Controller {
         this.#view.bindLoadCategoryProducts(this.handleCategoryProducts);
         this.#view.bindNewWindow(this.handleNewWindow);
         this.#view.bindCloseWindows();//No tiene handle
+        this.#view.bindValidarNewStore(this.handleValidarNewStore);
+        this.#view.bindFormAddStores(this.handleFormAddStores);
+        this.#view.bindFormRemoveStores(this.handleFormRemoveStores);
+        this.#view.bindButtonRemoveStore(this.handleButtonRemoveStore);
+        this.#view.bindFormAddCategory(this.handleFormAddCategory);
+        this.#view.bindValidarNewCategory(this.handleValidarNewCategory);
+        this.#view.bindFormRemoveCategory(this.handleFormRemoveCategory);
+        this.#view.bindButtonRemoveCategory(this.handleButtonRemoveCategory);
+        this.#view.bindFormRemoveProduct(this.handleFormRemoveProduct);
+        this.#view.bindButtonRemoveProduct(this.handleButtonRemoveProduct);
+        this.#view.bindFormAddProductBook(this.handleFormAddProductBook);
+        this.#view.bindValidarNewProductBook(this.handleValidarNewProductBook);
+        this.#view.bindFormAddProductMovie(this.handleFormAddProductMovie);
+        this.#view.bindValidarNewProductMovie(this.handleValidarNewProductMovie);
+        this.#view.bindFormAddProductMusic(this.handleFormAddProductMusic);
+        this.#view.bindValidarNewProductMusic(this.handleValidarNewProductMusic);
+        this.#view.bindStockShowStores(this.handleStockShowStores);
+        this.#view.bindButtonMostrarStock(this.handleButtonMostrarStock);
+        this.#view.bindButtonEliminarStock(this.handleButtonEliminarStock);
+
+
         // this.onInit();
         // this.#view.bindInit(this.handleInit);
     }
@@ -203,15 +224,15 @@ class Controller {
     //Modificamos para mostrar productos por categorias
     handleStoreProducts = (tienda) => {
         //Le pasamos la tienda para utilizarla en el generador
-         let data = {
-             //La tienda contiene el cif,que se lo pasamos al generador
+        let data = {
+            //La tienda contiene el cif,que se lo pasamos al generador
             tienda: this.#model.getShopProducts(tienda),
             tienda2: this.#model.getShopProducts(tienda),
             //El generador devuelve la categoría
 
-         }
-         //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
-         this.#view.showStoreProducts(data)
+        }
+        //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
+        this.#view.showStoreProducts(data)
     }
 
 
@@ -254,6 +275,205 @@ class Controller {
         }
         this.#view.showNewWindowInfoProducts(data)
     }
+
+    handleValidarNewStore = (valorCif, valorName, valorAddress, valorPhone, valorCoords, valorPhotos) => {
+
+        let inst = new Store(valorCif, valorName, valorAddress, valorPhone, valorCoords, valorPhotos);
+        this.#model.addShop(inst);
+
+        this.refrescar(); //Recargamos la página de nuevo para que muestra la tienda nueva
+
+    }
+
+    refrescar = () => {
+        let map = {
+            //Devolvemos stores a través de su iterador
+            storeKey: this.#model.stores,
+        }
+        this.#view.showLoadStores(map)
+    }
+
+    handleFormAddStores = () => {
+        this.#view.showFormAddStores();
+    }
+
+    handleFormRemoveStores = () => {
+        this.refrescar();
+    }
+
+    handleButtonRemoveStore = (cif) => {
+
+
+        for (const tienda of this.#model.stores) {
+            if (tienda.DataStore.cif == cif) {
+                this.#model.removeShop(tienda.DataStore); //Le pasamos todo el objeto de tienda para que se elimine
+            }
+        }
+        this.refrescar();
+
+    }
+    handleFormAddCategory = () => {
+        this.#view.showFormAddCategory();
+    }
+
+    handleValidarNewCategory = (valorTitle, valorDescription) => {
+        let inst = new Category(valorTitle, valorDescription);
+        this.#model.addCategory(inst);
+
+        this.refrescar();
+    }
+
+    handleFormRemoveCategory = () => {
+        let map = {
+            categoryKey: this.#model.category,
+        }
+        this.#view.showDropCategory(map)
+    }
+
+    handleButtonRemoveCategory = (title) => {
+        for (const categoria of this.#model.category) {
+            if (categoria.DataCategory.title == title) {
+                console.log(categoria.DataCategory)
+                this.#model.removeCategory(categoria.DataCategory); //Le pasamos todo el objeto de tienda para que se elimine
+            }
+        }
+        let map = {
+            categoryKey: this.#model.category,
+        }
+        this.#view.showDropCategory(map)
+    }
+    //Cargamos los productos
+    handleFormRemoveProduct = () => {
+        let tmpProductos = [];
+        for (const categoria of this.#model.category) {
+            for (const producto of categoria.DataProductsCat) {
+                tmpProductos.push(producto); //Añadimos todos los productos de todas las categorias
+            }
+        }
+        this.#view.showDropDownProducts(tmpProductos);
+    }
+    //Eliminamos producto seleccionado
+    handleButtonRemoveProduct = (serialNumber) => {
+        let tmp;
+        for (const categoria of this.#model.category) {
+            for (const producto of categoria.DataProductsCat) {
+                if (producto.DataProduct.serialNumber == serialNumber) {
+                    console.log(producto.DataProduct)
+                    tmp=producto.DataProduct;
+                   
+                    
+                }
+            }
+        }
+        this.#model.removeProduct(tmp);//Pasamos todo el objeto producto si coincide el serialNumber
+        this.refrescar();
+    }
+
+    handleFormAddProductBook = () => {
+        let data={
+            categoria: this.#model.category,
+        }
+        this.#view.showFormAddProductBook(data);
+    }
+    handleValidarNewProductBook = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages,tmpCategorias) => {
+        let inst = new Books(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages);
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+
+        this.refrescar(); //Recargamos la página de nuevo para que muestra la tienda nueva
+    }
+
+    handleFormAddProductMovie = () => {
+
+        let data={
+            categoria: this.#model.category,
+        }
+        this.#view.showFormAddProductMovie(data);
+    }
+
+    handleValidarNewProductMovie = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration,tmpCategorias)=>{
+        let inst = new Movie(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration);
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+        this.refrescar();
+    }
+
+    handleFormAddProductMusic = () => {
+        let data={
+            categoria: this.#model.category,
+        }
+
+        this.#view.showFormAddProductMusic(data);
+    }
+
+    handleValidarNewProductMusic = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber,tmpCategorias) =>{
+        
+        let inst = new Music(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber);
+        
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+
+        
+        this.refrescar();
+    }
+
+    handleStockShowStores = () => {
+
+        let data={
+            tienda: this.#model.stores,
+        }
+
+        this.#view.showStockStores(data);
+    }
+
+    handleButtonMostrarStock = (cif) => {
+      
+        let data={
+            tienda:this.#model.getShopProducts(cif),
+        }
+
+        this.#view.showStockProduct(data); //Recogemos el JSON del generador
+    }
+
+    handleButtonEliminarStock = (serialNumber) => {
+        let tmp;
+        for (const categoria of this.#model.category) {
+            for (const producto of categoria.DataProductsCat) {
+                if (producto.DataProduct.serialNumber == serialNumber) {
+                    tmp=producto.DataProduct;
+    
+                }
+            }
+        }
+        this.#model.removeProduct(tmp);//Pasamos todo el objeto producto si coincide el serialNumber
+        this.refrescar();
+    }
+
+
 }
 
 export default Controller;

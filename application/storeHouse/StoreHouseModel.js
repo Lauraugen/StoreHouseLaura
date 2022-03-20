@@ -131,12 +131,13 @@ class StoreHouse {
             return elem.DataCategory.title === category.title;
         })
         if (indexCategory == -1) throw new ObjectNotExistException('indexCategory', indexCategory); //No existe
-
+        
         this.#category[indexCategory].DataProductsCat.forEach((elem) => {
+            console.log(elem)
             this.#category[0].DataProductsCat.push(elem); //Añadimos los productos de la categoría que se va a eliminar en defaultcategory
         })
 
-
+        console.log(this.#category[0]);
         this.#category.splice(indexCategory, 1); //Eliminamos la categoría en la posición que se encuentra
 
 
@@ -147,7 +148,7 @@ class StoreHouse {
 
 
     //Añade un nuevo producto asociado a una o más categorías
-    addProduct(newproduct, category) {
+    addProduct(newproduct, category) { 
         if (!newproduct) throw new InvalidValueObjectException('newproduct', newproduct);//No puede ser Null
 
         if (!(newproduct instanceof Product)) throw new ObjectTypeException('newproduct', newproduct);
@@ -185,16 +186,24 @@ class StoreHouse {
         if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
         let i;
-        let indexProduct;
         this.#category.forEach(function (elem,index) { //En el elemento sale el JSON
-            indexProduct = elem.DataProductsCat.findIndex(function (otro) {
-
-                return otro.DataProduct.serialNumber === product.serialNumber;
+           
+            elem.DataProductsCat.forEach(function(elemProduct,id){ //id es la posicion del elemento en cada vuelta
                 
-
+                if(elemProduct.DataProduct.serialNumber== product.serialNumber){
+                    elem.DataProductsCat.splice(id, 1); //Borramos el producto de la categoría en la que está
+                    
+                }
             })
+           
              i=index;
-            elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
+            
+        })
+
+        this.#stores.forEach(function(elem){
+            if(elem.StockStores.has(product.serialNumber)){
+                elem.StockStores.delete(product.serialNumber); //Borramos la referencia del producto de las tiendas
+            }
         })
 
         //Retorna number con el nº de elementos
@@ -203,7 +212,7 @@ class StoreHouse {
 
 
     //Añade un Product en una tienda con un nº de unidades
-    addProductInShop(product, stores, number=0) {
+    addProductInShop(product, stores, number=1) {
         //Comprobamos los Objetos y nº unidades
         if (!stores) throw new InvalidValueObjectException('stores', stores);
         if (!(stores instanceof Store)) throw new ObjectTypeException('stores', stores);
@@ -336,13 +345,13 @@ class StoreHouse {
             return elem.DataStore.cif === stores.cif;
         })
         if (indexStores == -1) throw new ObjectNotExistException('indexStore', indexStores); //No existe
-
+        console.log(this.#stores[0]);
         //los productos de la tienda pasan a la tienda genérica
         for (let [key, value] of this.#stores[indexStores].StockStores.entries()) { //Devolvemos clave valor de productos de la tienda
             this.#stores[0].StockStores.set(key, value);
         }
 
-
+        console.log(this.#stores[0]);
         this.#stores.splice(indexStores, 1);
 
         //Retornamos el número de elementos de la tienda
