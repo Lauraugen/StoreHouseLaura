@@ -168,6 +168,9 @@ class Controller {
         this.#view.bindStockShowStores(this.handleStockShowStores);
         this.#view.bindButtonMostrarStock(this.handleButtonMostrarStock);
         this.#view.bindButtonEliminarStock(this.handleButtonEliminarStock);
+        this.#view.bindShowLogin(this.handleShowLogin);
+        this.#view.bindValidarLogin(this.handleValidarLogin);
+        this.#view.bindDesconectar(this.handleDesconectar);
 
 
         // this.onInit();
@@ -187,8 +190,26 @@ class Controller {
 
 
     onLoad = () => {
+
+        let botonInicioSesion = document.getElementById('Login');
+        let botonDesconectar = document.getElementById('Desconectar');
+        let usuario = this.getCookie('usuario');
+        let password =this.getCookie('password');
+
+        if ((usuario == 'admin') && (password == 'admin')) {
+
+            botonDesconectar.style.display = "inline-block";
+            botonInicioSesion.style.display = "none";
+            
+
+            alert("Hola de nuevo Admin");
+        } else {
+            botonDesconectar.style.display = "none";
+            botonInicioSesion.style.display = "inline-block";
+        }
         //Carga todos los Objetos
         this.#cargaDatos();
+
     }
 
 
@@ -359,9 +380,9 @@ class Controller {
             for (const producto of categoria.DataProductsCat) {
                 if (producto.DataProduct.serialNumber == serialNumber) {
                     console.log(producto.DataProduct)
-                    tmp=producto.DataProduct;
-                   
-                    
+                    tmp = producto.DataProduct;
+
+
                 }
             }
         }
@@ -370,20 +391,20 @@ class Controller {
     }
 
     handleFormAddProductBook = () => {
-        let data={
+        let data = {
             categoria: this.#model.category,
         }
         this.#view.showFormAddProductBook(data);
     }
-    handleValidarNewProductBook = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages,tmpCategorias) => {
-        let inst = new Books(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages);
+    handleValidarNewProductBook = (valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorIsbn, valorAuthor, valorPages, tmpCategorias) => {
+        let inst = new Books(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorIsbn, valorAuthor, valorPages);
         tmpCategorias.forEach(element => {
             for (const a of this.#model.category) {
-                if(element==a.DataCategory.title){
+                if (element == a.DataCategory.title) {
 
-                    let cat=a.DataCategory;
+                    let cat = a.DataCategory;
 
-                    this.#model.addProduct(inst,cat);
+                    this.#model.addProduct(inst, cat);
                 }
             }
         });
@@ -393,21 +414,21 @@ class Controller {
 
     handleFormAddProductMovie = () => {
 
-        let data={
+        let data = {
             categoria: this.#model.category,
         }
         this.#view.showFormAddProductMovie(data);
     }
 
-    handleValidarNewProductMovie = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration,tmpCategorias)=>{
-        let inst = new Movie(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration);
+    handleValidarNewProductMovie = (valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorDirector, valorYear, valorDuration, tmpCategorias) => {
+        let inst = new Movie(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorDirector, valorYear, valorDuration);
         tmpCategorias.forEach(element => {
             for (const a of this.#model.category) {
-                if(element==a.DataCategory.title){
+                if (element == a.DataCategory.title) {
 
-                    let cat=a.DataCategory;
+                    let cat = a.DataCategory;
 
-                    this.#model.addProduct(inst,cat);
+                    this.#model.addProduct(inst, cat);
                 }
             }
         });
@@ -415,35 +436,35 @@ class Controller {
     }
 
     handleFormAddProductMusic = () => {
-        let data={
+        let data = {
             categoria: this.#model.category,
         }
 
         this.#view.showFormAddProductMusic(data);
     }
 
-    handleValidarNewProductMusic = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber,tmpCategorias) =>{
-        
-        let inst = new Music(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber);
-        
+    handleValidarNewProductMusic = (valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorSinger, valorMusicalGenre, valorSongsNumber, tmpCategorias) => {
+
+        let inst = new Music(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorSinger, valorMusicalGenre, valorSongsNumber);
+
         tmpCategorias.forEach(element => {
             for (const a of this.#model.category) {
-                if(element==a.DataCategory.title){
+                if (element == a.DataCategory.title) {
 
-                    let cat=a.DataCategory;
+                    let cat = a.DataCategory;
 
-                    this.#model.addProduct(inst,cat);
+                    this.#model.addProduct(inst, cat);
                 }
             }
         });
 
-        
+
         this.refrescar();
     }
 
     handleStockShowStores = () => {
 
-        let data={
+        let data = {
             tienda: this.#model.stores,
         }
 
@@ -451,9 +472,9 @@ class Controller {
     }
 
     handleButtonMostrarStock = (cif) => {
-      
-        let data={
-            tienda:this.#model.getShopProducts(cif),
+
+        let data = {
+            tienda: this.#model.getShopProducts(cif),
         }
 
         this.#view.showStockProduct(data); //Recogemos el JSON del generador
@@ -464,13 +485,66 @@ class Controller {
         for (const categoria of this.#model.category) {
             for (const producto of categoria.DataProductsCat) {
                 if (producto.DataProduct.serialNumber == serialNumber) {
-                    tmp=producto.DataProduct;
-    
+                    tmp = producto.DataProduct;
+
                 }
             }
         }
         this.#model.removeProduct(tmp);//Pasamos todo el objeto producto si coincide el serialNumber
         this.refrescar();
+    }
+
+    //Login
+    handleShowLogin = () => {
+
+        this.#view.showLogin();
+    }
+
+    //Valida y al hacer click comprueba cookies
+    handleValidarLogin = (valorUsuario, valorPassword) => {
+        //Creamos cookies
+        if ((valorUsuario == "admin") && (valorPassword == "admin")) {
+            this.setCookie('usuario', 'admin', 2);
+            this.setCookie('password', 'admin', 2);
+            alert("Hola admin");
+            location.reload();
+        } else {
+            alert("Credenciales Incorrectos");
+        }
+
+    }
+
+    handleDesconectar = () => {
+        this.setCookie("usuario", '', 0);
+        this.setCookie("password", '', 0);
+
+        location.reload();
+    }
+
+    //Funciones cookies
+    setCookie = (cname, cvalue, exdays) => {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    getCookie = (cname) => {
+        let re = new RegExp('(?:(?:^|.*;\\s*)' + cname +
+            '\\s*\\=\\s*([^;]*).*$)|^.*$');
+        return document.cookie.replace(re, "$1");
+    }
+
+    greetUser = () => {
+        let user = getCookie("username");
+        if (user) {
+            alert("Hola " + user);
+        } else {
+            user = prompt("Dime tu nombre:", "");
+            if (user != "" && user != null) {
+                setCookie("username", user, 10);
+            }
+        }
     }
 
 

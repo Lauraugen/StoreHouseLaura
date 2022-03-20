@@ -86,6 +86,14 @@ let valorMusicalGenre;
 let valorSongsNumber;
 let iChecks;
 
+//Variables form Login
+let validoUsuario;
+let validoPassword;
+let iUsuario;
+let iPassword;
+let valorUsuario;
+let valorPassword;
+
 
 
 class View {
@@ -629,6 +637,41 @@ class View {
       handleFormAddProductMusic();
     })
   }
+
+  //Login
+  bindShowLogin(handleShowLogin){
+    $('#Login').click(function(){
+      handleShowLogin();
+    })
+  }
+
+  bindDesconectar(handleDesconectar){
+    $('#Desconectar').click(function(){
+      handleDesconectar();
+    })
+  }
+
+  showLogin(){
+    this.tiendasContainer.empty();
+    this.tiendasContainer.append(`
+    <h1 class="d-flex justify-content-center">Login</h1>
+    <form name="formLogin" role="form" id="fValidLogin" method="post">
+     <div class="mb-3">
+      <label for="iUsuario" class="form-label">Usuario</label>
+      <input type="text" class="form-control" id="iUsuario" name="iUsuario">
+             <div class="msg"></div>
+     </div>
+    <div class="mb-3">
+      <label for="iPassword" class="form-label">Password</label>
+      <input type="password" class="form-control" id="iPassword" name="iPassword">
+          <div class="msg"></div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" id="bLogin">Iniciar Sesión</button>
+   </form>`);
+
+  }
+
   //Cargamos las tiendas en el select de Stock
   showStockStores(data) {
     $('#selectStockTiendas').empty();
@@ -1161,6 +1204,11 @@ class View {
     })
   }
 
+  //Videos validar formularios
+  // https://www.youtube.com/watch?v=CYlNJpltjMM
+  // https://www.youtube.com/watch?v=In0nB0ABaUk
+
+
   bindValidarNewStore(handleValidarNewStore) {
     this.tiendasContainer.on('input', '#fValidAddTienda', function (event) {
       // event.preventDefault();
@@ -1385,8 +1433,42 @@ class View {
     })
   }
 
+  bindValidarLogin(handleValidarLogin){
+    this.tiendasContainer.on('input', '#fValidLogin', function (event) {
+      // event.preventDefault();
+      validoUsuario = false;
+      validoPassword = false;
+     
+  
+      iUsuario = document.getElementById('iUsuario');
+      iPassword = document.getElementById('iPassword');
+      
+  
+  
+      validarEntradasLogin()
+  
+    })
+    this.tiendasContainer.on('submit', '#fValidLogin', function (event) {
+      
+      if ((!validoUsuario) || (!validoPassword) ) {
+        event.preventDefault(); //No deja lanzar el evento submit si es false
+        event.stopPropagation();
+      } else {
+  
+        event.preventDefault();
+        event.stopPropagation();
+  
+  
+        handleValidarLogin(valorUsuario, valorPassword);
+  
+  
+      }
+    })
+  }
 
 }
+
+
 
 //Validaciones
 
@@ -1724,6 +1806,29 @@ function validarEntradasProductoMusic() {
     mensajeCorrecto(iSongsNumber, 'Correcto');
     validoSongsNumber = true;
   }
+}
+
+//Validar Formulario Loginy
+function validarEntradasLogin() {
+  valorUsuario = iUsuario.value;
+  valorPassword = iPassword.value;
+
+  if (!valorUsuario) {
+    mensajeError(iUsuario, 'El Usuario está vacío');
+    validoUsuario = false;
+  } else {
+    mensajeCorrecto(iUsuario, 'Correcto');
+    validoUsuario = true;
+  }
+
+  if (!valorPassword) {
+    mensajeError(iPassword, 'La Contraseña está vacía');
+    validoPassword = false;
+  } else {
+    mensajeCorrecto(iPassword, 'Correcto');
+    validoPassword = true;
+  }
+
 }
 
 
