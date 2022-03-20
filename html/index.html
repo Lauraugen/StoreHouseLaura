@@ -77,6 +77,7 @@
               <li><a id="formAddProductoMovie">Añadir Movie</a></li>
               <li><a id="formAddProductoMusic">Añadir Music</a></li>
               <li><a id="SelectformRemoveProducto" data-bs-toggle="modal" data-bs-target="#modalEliminarProducto"">Eliminar Producto</a></li>
+              <li><a id="SelectStock" data-bs-toggle="modal" data-bs-target="#modalStock"">Stock</a></li>
             </ul>
           </li>
           
@@ -155,6 +156,32 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-warning" id="bEliminarProducto">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Stock Producto-->
+<div class="modal fade" id="modalStock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Stock</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select id="selectStockTiendas">
+
+        </select>
+        <select id="selectStockProductos">
+
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="bMostrarStock">Mostrar</button>
+        <button type="button" class="btn btn-warning" id="bEliminarStock">Eliminar</button>
       </div>
     </div>
   </div>

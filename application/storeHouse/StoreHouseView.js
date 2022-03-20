@@ -314,7 +314,7 @@ class View {
        <button type="submit" id="bSubmitProductoBook" class="btn btn-success">Añadir Book</button>
      </form>`);
 
-     for (const category of categorias.categoria) {
+    for (const category of categorias.categoria) {
 
       $(document).find('#check').append(`&nbsp&nbsp&nbsp<input class="form-check-input" type="checkbox" name="CatCheck" value="${category.DataCategory.title}">${category.DataCategory.title}`)
     }
@@ -417,7 +417,7 @@ class View {
        <button type="submit" id="bSubmitProductoMovie" class="btn btn-success">Añadir Movie</button>
      </form>`);
 
-     for (const category of categorias.categoria) {
+    for (const category of categorias.categoria) {
 
       $(document).find('#check').append(`&nbsp&nbsp&nbsp<input class="form-check-input" type="checkbox" name="CatCheck" value="${category.DataCategory.title}">${category.DataCategory.title}`)
     }
@@ -548,6 +548,32 @@ class View {
       handleButtonRemoveStore(cif);
     })
   }
+  //Cargamos el select de tiendas para el stock
+  bindStockShowStores(handleStockShowStores) {
+    $('#SelectStock').click(function () {
+      handleStockShowStores();
+    })
+  }
+
+  //Lanza evento al pulsar boton Mostrar de Stock
+  bindButtonMostrarStock(handleButtonMostrarStock) {
+    $('#bMostrarStock').click(function () {
+
+      let cif = $('#selectStockTiendas').val();//selec modal (valor)
+
+      handleButtonMostrarStock(cif);
+    })
+  }
+
+  bindButtonEliminarStock(handleButtonEliminarStock) {
+    $('#bEliminarStock').click(function () {
+
+      let serialNumber = $('#selectStockProductos').val();//selec modal (valor)
+
+      handleButtonEliminarStock(serialNumber);
+    })
+  }
+
   //Carga formulario Categorias
   bindFormAddCategory(handleFormAddCategory) {
     $('#formAddCategoria').click(function () {
@@ -602,6 +628,20 @@ class View {
     $('#formAddProductoMusic').click(function () {
       handleFormAddProductMusic();
     })
+  }
+  //Cargamos las tiendas en el select de Stock
+  showStockStores(data) {
+    $('#selectStockTiendas').empty();
+    for (const tienda of data.tienda) {
+      $('#selectStockTiendas').append(`<option value=${tienda.DataStore.cif}>${tienda.DataStore.name}</option>`)
+    }
+  }
+  //Cargamos los productos de la tienda seleccionada
+  showStockProduct(data) {
+    $('#selectStockProductos').empty();
+    for (const producto of data.tienda) {
+      $('#selectStockProductos').append(`<option value=${producto.product.serialNumber}>${producto.product.name} : ${producto.stock}</option>`)
+    }
   }
 
 
@@ -1233,7 +1273,7 @@ class View {
         event.stopPropagation();
 
         // this.setAttribute('data-bs-dismiss','modal');
-        handleValidarNewProductBook(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorIsbn, valorAuthor, valorPages,tmpCategorias);
+        handleValidarNewProductBook(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorIsbn, valorAuthor, valorPages, tmpCategorias);
 
 
       }
@@ -1285,7 +1325,7 @@ class View {
         event.stopPropagation();
 
         // this.setAttribute('data-bs-dismiss','modal');
-        handleValidarNewProductMovie(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorDirector, valorYear, valorDuration,tmpCategorias);
+        handleValidarNewProductMovie(valorSerialNumber, valorNameProduct, valorDescriptionProduct, valorPrice, valorTax, valorImages, valorDirector, valorYear, valorDuration, tmpCategorias);
 
 
       }

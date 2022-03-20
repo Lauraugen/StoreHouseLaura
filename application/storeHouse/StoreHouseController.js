@@ -165,6 +165,9 @@ class Controller {
         this.#view.bindValidarNewProductMovie(this.handleValidarNewProductMovie);
         this.#view.bindFormAddProductMusic(this.handleFormAddProductMusic);
         this.#view.bindValidarNewProductMusic(this.handleValidarNewProductMusic);
+        this.#view.bindStockShowStores(this.handleStockShowStores);
+        this.#view.bindButtonMostrarStock(this.handleButtonMostrarStock);
+        this.#view.bindButtonEliminarStock(this.handleButtonEliminarStock);
 
 
         // this.onInit();
@@ -435,6 +438,38 @@ class Controller {
         });
 
         
+        this.refrescar();
+    }
+
+    handleStockShowStores = () => {
+
+        let data={
+            tienda: this.#model.stores,
+        }
+
+        this.#view.showStockStores(data);
+    }
+
+    handleButtonMostrarStock = (cif) => {
+      
+        let data={
+            tienda:this.#model.getShopProducts(cif),
+        }
+
+        this.#view.showStockProduct(data); //Recogemos el JSON del generador
+    }
+
+    handleButtonEliminarStock = (serialNumber) => {
+        let tmp;
+        for (const categoria of this.#model.category) {
+            for (const producto of categoria.DataProductsCat) {
+                if (producto.DataProduct.serialNumber == serialNumber) {
+                    tmp=producto.DataProduct;
+    
+                }
+            }
+        }
+        this.#model.removeProduct(tmp);//Pasamos todo el objeto producto si coincide el serialNumber
         this.refrescar();
     }
 
