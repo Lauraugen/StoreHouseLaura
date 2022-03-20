@@ -159,6 +159,12 @@ class Controller {
         this.#view.bindButtonRemoveCategory(this.handleButtonRemoveCategory);
         this.#view.bindFormRemoveProduct(this.handleFormRemoveProduct);
         this.#view.bindButtonRemoveProduct(this.handleButtonRemoveProduct);
+        this.#view.bindFormAddProductBook(this.handleFormAddProductBook);
+        this.#view.bindValidarNewProductBook(this.handleValidarNewProductBook);
+        this.#view.bindFormAddProductMovie(this.handleFormAddProductMovie);
+        this.#view.bindValidarNewProductMovie(this.handleValidarNewProductMovie);
+        this.#view.bindFormAddProductMusic(this.handleFormAddProductMusic);
+        this.#view.bindValidarNewProductMusic(this.handleValidarNewProductMusic);
 
 
         // this.onInit();
@@ -359,6 +365,80 @@ class Controller {
         this.#model.removeProduct(tmp);//Pasamos todo el objeto producto si coincide el serialNumber
         this.refrescar();
     }
+
+    handleFormAddProductBook = () => {
+        let data={
+            categoria: this.#model.category,
+        }
+        this.#view.showFormAddProductBook(data);
+    }
+    handleValidarNewProductBook = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages,tmpCategorias) => {
+        let inst = new Books(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorIsbn,valorAuthor,valorPages);
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+
+        this.refrescar(); //Recargamos la página de nuevo para que muestra la tienda nueva
+    }
+
+    handleFormAddProductMovie = () => {
+
+        let data={
+            categoria: this.#model.category,
+        }
+        this.#view.showFormAddProductMovie(data);
+    }
+
+    handleValidarNewProductMovie = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration,tmpCategorias)=>{
+        let inst = new Movie(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorDirector,valorYear,valorDuration);
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+        this.refrescar();
+    }
+
+    handleFormAddProductMusic = () => {
+        let data={
+            categoria: this.#model.category,
+        }
+
+        this.#view.showFormAddProductMusic(data);
+    }
+
+    handleValidarNewProductMusic = (valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber,tmpCategorias) =>{
+        
+        let inst = new Music(valorSerialNumber,valorNameProduct,valorDescriptionProduct,valorPrice,valorTax,valorImages,valorSinger,valorMusicalGenre,valorSongsNumber);
+        
+        tmpCategorias.forEach(element => {
+            for (const a of this.#model.category) {
+                if(element==a.DataCategory.title){
+
+                    let cat=a.DataCategory;
+
+                    this.#model.addProduct(inst,cat);
+                }
+            }
+        });
+
+        
+        this.refrescar();
+    }
+
+
 }
 
 export default Controller;

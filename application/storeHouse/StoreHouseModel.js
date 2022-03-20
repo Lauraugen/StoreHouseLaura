@@ -148,7 +148,7 @@ class StoreHouse {
 
 
     //Añade un nuevo producto asociado a una o más categorías
-    addProduct(newproduct, category) {
+    addProduct(newproduct, category) { 
         if (!newproduct) throw new InvalidValueObjectException('newproduct', newproduct);//No puede ser Null
 
         if (!(newproduct instanceof Product)) throw new ObjectTypeException('newproduct', newproduct);
@@ -186,13 +186,12 @@ class StoreHouse {
         if (!(product instanceof Product)) throw new ObjectTypeException('product', product);
 
         let i;
-        let indexProduct;
         this.#category.forEach(function (elem,index) { //En el elemento sale el JSON
            
-            elem.DataProductsCat.forEach(function(elemProduct){
+            elem.DataProductsCat.forEach(function(elemProduct,id){ //id es la posicion del elemento en cada vuelta
                 
                 if(elemProduct.DataProduct.serialNumber== product.serialNumber){
-                    elem.DataProductsCat.splice(indexProduct, 1); //Borramos el producto de la categoría en la que está
+                    elem.DataProductsCat.splice(id, 1); //Borramos el producto de la categoría en la que está
                     
                 }
             })
