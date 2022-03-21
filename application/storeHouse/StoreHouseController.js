@@ -265,6 +265,8 @@ class Controller {
             this.#view.bindValidarLogin(this.handleValidarLogin);
             this.#view.bindDesconectar(this.handleDesconectar);
             this.#view.bindShowInfoStoreHouse(this.handleShowInfoStoreHouse);
+            this.#view.bindFav(this.handleFav);
+            this.#view.bindShowFav(this.handleShowFav);
         }, 120)
 
 
@@ -628,6 +630,42 @@ class Controller {
             string+=JSON.stringify(categorias);
         }
         this.#view.showDataStoreHouse(string);
+    }
+
+    handleFav = (serialNumber) => {
+        let fav = [];
+        console.log('entra')
+        if(localStorage.getItem('fav')!=null){
+            fav = JSON.parse(localStorage.getItem('fav'))
+            if(!fav.includes(serialNumber)){
+                fav.push(serialNumber)
+                localStorage.setItem('fav',JSON.stringify(fav));
+            }
+           
+        }else{
+            fav.push(serialNumber)
+            localStorage.setItem('fav',JSON.stringify(fav));
+        }
+        
+        
+    }
+
+    handleShowFav = () => {
+        if(localStorage.getItem('fav')!=null){
+        let tmp = JSON.parse(localStorage.getItem('fav'))
+        let tmp2 = [];
+        tmp.forEach((elem)=>{
+            for (const categoria of this.#model.category) {
+                for (const products of categoria.DataProductsCat) {
+                    if(products.DataProduct.serialNumber == elem){
+                        tmp2.push(products.DataProduct);
+                    }
+                }
+                
+            }
+        })
+        this.#view.showFav(tmp2);
+        }
     }
 
     //Funciones cookies

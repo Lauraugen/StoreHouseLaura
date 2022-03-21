@@ -748,6 +748,7 @@ class View {
                 <h4>${iterator.product.name}</h4>
                 <button type="button" class="btn-success" id="bProducts" value=${iterator.product.serialNumber}>Comprar</button>
                 <button type="button" class="btn-warning" id="windowProducts" value=${iterator.product.serialNumber}>Mostrar Ventana</button>
+                <button type="button" class="btn-primary" id="bFav" value=${iterator.product.serialNumber}>Fav</button>
               </div>
             </div>
           </div>` );
@@ -939,7 +940,25 @@ class View {
       this.DropDownStore.append(`<li><a class="aStore" value=${iterator.DataStore.cif} >${iterator.DataStore.name}</a></li>`);
     }
   }
+  showFav(producto){
+    this.tiendasContainer.empty();
+    producto.forEach((iterator)=>{
+      this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+      <div class="portfolio-wrap">
+        <figure>
+          <img src="${iterator.images}" class="img-fluid" alt="">
+        </figure>
 
+        <div class="portfolio-info" id="product">
+          <h4>${iterator.name}</h4>
+          <button type="button" class="btn-success" id="bProducts" value=${iterator.serialNumber}>Comprar</button>
+          <button type="button" class="btn-warning" id="windowProducts" value=${iterator.serialNumber}>Mostrar Ventana</button>
+        </div>
+      </div>
+    </div>` );
+    })
+    
+  }
   //show nueva ventana
   showNewWindowInfoProducts(data) {
     // this.tiendasContainer.empty();
@@ -1219,6 +1238,17 @@ class View {
         newWin.close(); //Cerramos la ventana
       }
       this.Ventana.clear(); //Eliminamos todos los elementos del mapa una vez cerradas 
+    })
+  }
+  bindFav(handleFav){
+    this.tiendasContainer.on('click','#bFav',function(){
+      let serialNumber = $(this).attr('value');
+      handleFav(serialNumber);
+    })
+  }
+  bindShowFav(handleShowFav){
+    $('#Favoritos').click(function(){
+      handleShowFav();
     })
   }
 
