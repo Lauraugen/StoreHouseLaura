@@ -261,6 +261,7 @@ class Controller {
             this.#view.bindShowLogin(this.handleShowLogin);
             this.#view.bindValidarLogin(this.handleValidarLogin);
             this.#view.bindDesconectar(this.handleDesconectar);
+            this.#view.bindShowInfoStoreHouse(this.handleShowInfoStoreHouse);
         }, 120)
 
 
@@ -613,6 +614,17 @@ class Controller {
         this.setCookie("password", '', 0);
 
         location.reload();
+    }
+
+    handleShowInfoStoreHouse = () => {
+        let string;
+        for (const tiendas of this.#model.stores) {
+            string+=JSON.stringify(tiendas);
+        }
+        for (const categorias of this.#model.category) {
+            string+=JSON.stringify(categorias);
+        }
+        this.#view.showDataStoreHouse(string);
     }
 
     //Funciones cookies

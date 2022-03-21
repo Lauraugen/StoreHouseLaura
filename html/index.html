@@ -76,13 +76,13 @@
               <li><a id="formAddProductoBook">Añadir Book</a></li>
               <li><a id="formAddProductoMovie">Añadir Movie</a></li>
               <li><a id="formAddProductoMusic">Añadir Music</a></li>
-              <li><a id="SelectformRemoveProducto" data-bs-toggle="modal" data-bs-target="#modalEliminarProducto"">Eliminar Producto</a></li>
+              <li><a id="SelectformRemoveProducto" data-bs-toggle="modal" data-bs-target="#modalEliminarProducto">Eliminar Producto</a></li>
               <li><a id="SelectStock" data-bs-toggle="modal" data-bs-target="#modalStock"">Stock</a></li>
             </ul>
           </li>
           
 
-          <li><a class="nav-link scrollto">Contact</a></li>
+          <li><a class="nav-link" id="bAdministracion" data-bs-toggle="modal" data-bs-target="#modalAdministracion">Administración</a></li>
           <li><a class="nav-link" id="bVentanas">Borrar Ventanas</a></li>
           <li><a class="nav-link" id="Login">Login</a></li>
           <li><a class="nav-link" id="Desconectar">Desconectar</a></li>
@@ -99,6 +99,28 @@
 
     </div>
   </header><!-- End Header -->
+
+<!-- Modal Administracion-->
+<div class="modal fade" id="modalAdministracion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Administración</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1>Generar Fichero BackUp</h1>
+        <form method="post" name="formGuardar" role="form" id="fGuardar" action="./backup.php" > 
+            <input type="hidden" id="dataStoreHouse" value="" name="BackUp">
+            <input type="submit" class="btn btn-danger" id="bGuardar" name="ENVIAR">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Eliminar Tienda-->
 <div class="modal fade" id="modalEliminarTienda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -193,7 +215,7 @@
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="container text-center text-md-left" data-aos="fade-up">
       <h1>Welcome to <span>JavaScript</span></h1>
-      <h2>UT07 Práctica Formularios</h2>
+      <h2>Práctica Final</h2>
       <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
     </div>
   </section>

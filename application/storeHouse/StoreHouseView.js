@@ -652,6 +652,22 @@ class View {
     })
   }
 
+  // bindSubmitBackUp(){
+  //   $('#fGuardar').submit(function(){
+      
+  //   })
+  // }
+  //Toda los datos de StoreHouse
+  bindShowInfoStoreHouse(handleShowInfoStoreHouse){
+    $('#bAdministracion').click(function(){
+      handleShowInfoStoreHouse();
+    })
+  }
+
+  showDataStoreHouse(string){
+    $('#dataStoreHouse').val(string);
+  }
+
   showLogin(){
     this.tiendasContainer.empty();
     this.tiendasContainer.append(`
