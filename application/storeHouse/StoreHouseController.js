@@ -23,6 +23,9 @@ class Controller {
 
        //Realizamos respuesta a la petición realizada
        //Devolvemos el objeto promise
+
+       //ruta Xampp /UT04_3-TrabajoObjetosES6/application/entities/datos.json
+
         fetch("/application/entities/datos.json").then((response) => {
             return response.json();
         }).then((data) => {
