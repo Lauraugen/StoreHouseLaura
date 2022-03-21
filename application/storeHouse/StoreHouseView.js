@@ -114,6 +114,7 @@ class View {
     $('#selectEliminarTienda').empty();
     let cont = 0;
     for (const iterator of store.storeKey) {
+      console.log(iterator)
       this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
@@ -1093,13 +1094,14 @@ class View {
   //Unión entre el evento y el controlador
   bindLoadStores(handlerLoadStores) {
     //Ocurre en carga del documento, para mostrarlo al usuario lo primero
-    $(document).ready(function (event) {
+    $(function (event) {
       //Llama al controlador para que muestre las tiendas 
-      handlerLoadStores();
+      handlerLoadStores()
+      
 
     })
     $('#bHome').click(function (event) {
-      location.reload(true);
+      handlerLoadStores();
       //Enlace de restauración página de inicio
     })
   }
