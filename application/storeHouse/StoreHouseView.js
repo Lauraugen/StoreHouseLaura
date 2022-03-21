@@ -86,6 +86,14 @@ let valorMusicalGenre;
 let valorSongsNumber;
 let iChecks;
 
+//Variables form Login
+let validoUsuario;
+let validoPassword;
+let iUsuario;
+let iPassword;
+let valorUsuario;
+let valorPassword;
+
 
 
 class View {
@@ -106,6 +114,7 @@ class View {
     $('#selectEliminarTienda').empty();
     let cont = 0;
     for (const iterator of store.storeKey) {
+      console.log(iterator)
       this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
@@ -629,6 +638,57 @@ class View {
       handleFormAddProductMusic();
     })
   }
+
+  //Login
+  bindShowLogin(handleShowLogin){
+    $('#Login').click(function(){
+      handleShowLogin();
+    })
+  }
+
+  bindDesconectar(handleDesconectar){
+    $('#Desconectar').click(function(){
+      handleDesconectar();
+    })
+  }
+
+  // bindSubmitBackUp(){
+  //   $('#fGuardar').submit(function(){
+      
+  //   })
+  // }
+  //Toda los datos de StoreHouse
+  bindShowInfoStoreHouse(handleShowInfoStoreHouse){
+    $('#bAdministracion').click(function(){
+      handleShowInfoStoreHouse();
+    })
+  }
+
+  showDataStoreHouse(string){
+    $('#dataStoreHouse').val(string);
+  }
+
+  showLogin(){
+    this.tiendasContainer.empty();
+    this.tiendasContainer.append(`
+    <h1 class="d-flex justify-content-center">Login</h1>
+    <form name="formLogin" role="form" id="fValidLogin" method="post">
+     <div class="mb-3">
+      <label for="iUsuario" class="form-label">Usuario</label>
+      <input type="text" class="form-control" id="iUsuario" name="iUsuario">
+             <div class="msg"></div>
+     </div>
+    <div class="mb-3">
+      <label for="iPassword" class="form-label">Password</label>
+      <input type="password" class="form-control" id="iPassword" name="iPassword">
+          <div class="msg"></div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" id="bLogin">Iniciar Sesión</button>
+   </form>`);
+
+  }
+
   //Cargamos las tiendas en el select de Stock
   showStockStores(data) {
     $('#selectStockTiendas').empty();
@@ -688,6 +748,7 @@ class View {
                 <h4>${iterator.product.name}</h4>
                 <button type="button" class="btn-success" id="bProducts" value=${iterator.product.serialNumber}>Comprar</button>
                 <button type="button" class="btn-warning" id="windowProducts" value=${iterator.product.serialNumber}>Mostrar Ventana</button>
+                <button type="button" class="btn-primary" id="bFav" value=${iterator.product.serialNumber}>Fav</button>
               </div>
             </div>
           </div>` );
@@ -879,7 +940,25 @@ class View {
       this.DropDownStore.append(`<li><a class="aStore" value=${iterator.DataStore.cif} >${iterator.DataStore.name}</a></li>`);
     }
   }
+  showFav(producto){
+    this.tiendasContainer.empty();
+    producto.forEach((iterator)=>{
+      this.tiendasContainer.append(`<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+      <div class="portfolio-wrap">
+        <figure>
+          <img src="${iterator.images}" class="img-fluid" alt="">
+        </figure>
 
+        <div class="portfolio-info" id="product">
+          <h4>${iterator.name}</h4>
+          <button type="button" class="btn-success" id="bProducts" value=${iterator.serialNumber}>Comprar</button>
+          <button type="button" class="btn-warning" id="windowProducts" value=${iterator.serialNumber}>Mostrar Ventana</button>
+        </div>
+      </div>
+    </div>` );
+    })
+    
+  }
   //show nueva ventana
   showNewWindowInfoProducts(data) {
     // this.tiendasContainer.empty();
@@ -1050,13 +1129,14 @@ class View {
   //Unión entre el evento y el controlador
   bindLoadStores(handlerLoadStores) {
     //Ocurre en carga del documento, para mostrarlo al usuario lo primero
-    $(document).ready(function (event) {
+    $(function (event) {
       //Llama al controlador para que muestre las tiendas 
-      handlerLoadStores();
+      handlerLoadStores()
+      
 
     })
     $('#bHome').click(function (event) {
-      location.reload(true);
+      handlerLoadStores();
       //Enlace de restauración página de inicio
     })
   }
@@ -1160,6 +1240,22 @@ class View {
       this.Ventana.clear(); //Eliminamos todos los elementos del mapa una vez cerradas 
     })
   }
+  bindFav(handleFav){
+    this.tiendasContainer.on('click','#bFav',function(){
+      let serialNumber = $(this).attr('value');
+      handleFav(serialNumber);
+    })
+  }
+  bindShowFav(handleShowFav){
+    $('#Favoritos').click(function(){
+      handleShowFav();
+    })
+  }
+
+  //Videos validar formularios
+  // https://www.youtube.com/watch?v=CYlNJpltjMM
+  // https://www.youtube.com/watch?v=In0nB0ABaUk
+
 
   bindValidarNewStore(handleValidarNewStore) {
     this.tiendasContainer.on('input', '#fValidAddTienda', function (event) {
@@ -1385,8 +1481,42 @@ class View {
     })
   }
 
+  bindValidarLogin(handleValidarLogin){
+    this.tiendasContainer.on('input', '#fValidLogin', function (event) {
+      // event.preventDefault();
+      validoUsuario = false;
+      validoPassword = false;
+     
+  
+      iUsuario = document.getElementById('iUsuario');
+      iPassword = document.getElementById('iPassword');
+      
+  
+  
+      validarEntradasLogin()
+  
+    })
+    this.tiendasContainer.on('submit', '#fValidLogin', function (event) {
+      
+      if ((!validoUsuario) || (!validoPassword) ) {
+        event.preventDefault(); //No deja lanzar el evento submit si es false
+        event.stopPropagation();
+      } else {
+  
+        event.preventDefault();
+        event.stopPropagation();
+  
+  
+        handleValidarLogin(valorUsuario, valorPassword);
+  
+  
+      }
+    })
+  }
 
 }
+
+
 
 //Validaciones
 
@@ -1724,6 +1854,29 @@ function validarEntradasProductoMusic() {
     mensajeCorrecto(iSongsNumber, 'Correcto');
     validoSongsNumber = true;
   }
+}
+
+//Validar Formulario Loginy
+function validarEntradasLogin() {
+  valorUsuario = iUsuario.value;
+  valorPassword = iPassword.value;
+
+  if (!valorUsuario) {
+    mensajeError(iUsuario, 'El Usuario está vacío');
+    validoUsuario = false;
+  } else {
+    mensajeCorrecto(iUsuario, 'Correcto');
+    validoUsuario = true;
+  }
+
+  if (!valorPassword) {
+    mensajeError(iPassword, 'La Contraseña está vacía');
+    validoPassword = false;
+  } else {
+    mensajeCorrecto(iPassword, 'Correcto');
+    validoPassword = true;
+  }
+
 }
 
 
