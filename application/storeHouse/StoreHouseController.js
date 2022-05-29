@@ -28,7 +28,7 @@ class Controller {
 
         fetch("/application/entities/datos.json").then((response) => {
             return response.json();
-        }).then((data) => {
+        }).then((data) => { 
 
             ArrayTiendas = data.tiendas;
             ArrayTiendas.forEach(elem => {

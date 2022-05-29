@@ -4,7 +4,7 @@
      {"title":"Terror-Movie","description":"Películas de Miedo"},
      {"title":"Comedy-Movie","description":"Películas de Comedia"},
      {"title":"Rock","description":"Variedad de Música Rock (Álbum)"},
-     {"title":"Classic-Music","description":"Música Clásica (Álbum)"},
+     {"title":"Cambio","description":"Música Clásica (Álbum)"},
      {"title":"Pop-Music","description":"Música Pop (Álbum)"},
      {"title":"Mangas","description":"Libros Tipo Mangas"},
      {"title":"Comics","description":"Libros Tipo Comic"},
@@ -23,7 +23,7 @@
      ],
      "Music": [
         {"serialNumber":"333", "name":"AM", "description":"Álbum", "price":"10$", "tax":"21%", "images":"../../html/assets/img/products/arcticMonkeys.jpg","singer":"Artic Monkeys","musicalGenre":"Rock","songsNumber":"8","cat":"Rock","cif":"400"},
-        {"serialNumber":"444", "name":"La Novena Sinfonía", "description":"Álbum", "price":"8$", "tax":"21%", "images":"../../html/assets/img/products/novenaSinfonia.jpg","singer":"Beethoven","musicalGenre":"Classical","songsNumber":"10","cat":"Classic-Music","cif":"666"},
+        {"serialNumber":"444", "name":"La Novena Sinfonía", "description":"Álbum", "price":"8$", "tax":"21%", "images":"../../html/assets/img/products/novenaSinfonia.jpg","singer":"Beethoven","musicalGenre":"Classical","songsNumber":"10","cat":"Cambio","cif":"666"},
         {"serialNumber":"555", "name":"Happier Than Ever", "description":"Álbum", "price":"12$", "tax":"21%", "images":"../../html/assets/img/products/happierThanEver.jpg","singer":"Billie Eilish","musicalGenre":"Pop","songsNumber":"6","cat":"Pop-Music","cif":"300"}
 
      ],
