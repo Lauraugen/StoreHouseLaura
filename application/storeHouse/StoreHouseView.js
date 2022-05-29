@@ -97,6 +97,15 @@ let valorPassword;
 
 
 class View {
+
+  //Nuevo ejecutador de tareas para history
+  #executeHandler(handler, handlerArguments, scrollElement, data, url, event){
+		handler(...handlerArguments);
+		$(scrollElement).get(0).scrollIntoView();
+		history.pushState(data, null, url);
+		event.preventDefault();
+	}
+
   constructor() {
     //Declaramos los selectores de los elementos de html que necesitamos modificar
     this.tiendasContainer = $("#tiendasContainer");
@@ -548,6 +557,7 @@ class View {
       handleFormRemoveStores();
     })
   }
+  
   //Lanza evento al pulsar boton eliminar
   bindButtonRemoveStore(handleButtonRemoveStore) {
     $('#bEliminarTienda').click(function () {
@@ -1135,8 +1145,8 @@ class View {
       
 
     })
-    $('#bHome').click(function (event) {
-      handlerLoadStores();
+    $('#bHome').click((event)=> {
+      this.#executeHandler(handlerLoadStores,[],'body',{action:'init'},'#',event);
       //Enlace de restauración página de inicio
     })
   }
@@ -1144,9 +1154,9 @@ class View {
 
   bindLoadDropDownCategory(handlerDropCategory) {
 
-    $('#hCategory').hover(function (event) {
+    $('#hCategory').hover((event)=> {
       //Llama al controlador para que muestre el menú secundario de Categorias al pasar por encima
-      handlerDropCategory();
+      this.#executeHandler(handlerDropCategory,[],'body',{action:'loadDropDownCategory'},'#',event);
 
     })
   }
@@ -1154,9 +1164,9 @@ class View {
 
   bindLoadDropDownStores(handlerDropStore) {
 
-    $('#hStores').hover(function (event) {
+    $('#hStores').hover((event)=> {
       //Llama al controlador para que muestre el menú secundario de Stores al pasar por encima
-      handlerDropStore();
+      this.#executeHandler(handlerDropStore,[],'body',{action:'loadDropDownStores'},'#',event);
 
     })
   }
@@ -1166,13 +1176,13 @@ class View {
     //Añade los listener cuando se haya cargado la página, para que existan
 
 
-    this.tiendasContainer.on('click', '.bStore', function (event) {
+    this.tiendasContainer.on('click', '.bStore',(event)=> {
       //Recogemos el valor del atributo value del botón de productos(Contiene el Objecto Store)
-
-      let tienda = $(this).attr('value'); //this button
-
+      
+      let tienda = $(event.currentTarget).attr('value'); //this button
+      console.log(tienda)
       //Llamamos al controlador para que nos devuelva la información de los productos de esa tienda
-      handlerStoreProducts(tienda);
+      this.#executeHandler(handlerStoreProducts,[tienda],this.tiendasContainer,{action:'loadStoreProducts',tienda:tienda},'#store-products',event);
     })
 
 
@@ -1185,14 +1195,14 @@ class View {
 
     //Los eventos .click solo funcionan con elementos estáticos de html
     //Para los dinámicos se hace con el on sobre el padre,delegando el evento a los hijos (DropDownStore > .aStore)
-    this.DropDownStore.on('click', '.aStore', function (event) {
+    this.DropDownStore.on('click', '.aStore', (event) => {
       //Recogemos el valor del atributo value del botón de productos
 
-      let tienda = $(this).attr('value');
+      let tienda = $(event.currentTarget).attr('value');
 
       //Llamamos al mismo controlador de StoreProducts para que al dar click redireccione a los productos de esa tienda
       //Enlazamos tanto el Drop Down y el Boton de la tienda al mismo sitio
-      handleStoreProducts(tienda);
+      this.#executeHandler(handleStoreProducts,[tienda],this.tiendasContainer,{action:'loadStoreProductsDropDown',tienda:tienda},'#store-products',event);
     })
 
   }
@@ -1201,10 +1211,10 @@ class View {
   //Información de los Productos
   bindLoadInfoProducts(handleInfoProducts) {
     //Al hacer click en el boton del producto,llama al controlador para recoger los datos del producto y pasarlos al show para que los muestre
-    this.tiendasContainer.on('click', '#bProducts', function (event) {
-      let serialNumber = $(this).attr('value'); //Recogemos el SerialNumber de Productos
+    this.tiendasContainer.on('click', '#bProducts', (event)=> {
+      let serialNumber = $(event.currentTarget).attr('value'); //Recogemos el SerialNumber de Productos
 
-      handleInfoProducts(serialNumber);
+      this.#executeHandler(handleInfoProducts,[serialNumber],this.tiendasContainer,{action:'loadInfoProducts',serialNumber:serialNumber},'#store-products-info',event)
     })
   }
 
@@ -1212,11 +1222,11 @@ class View {
   //Mostramos todos los productos de la categoría seleccionada en el menú secundario
   bindLoadCategoryProducts(handleCategoryProducts) {
     //Al hacer click en la categoria,se guarda el value de la categoría
-    this.DropDownCategory.on('click', '.aCategory', function (event) {
+    this.DropDownCategory.on('click', '.aCategory',(event)=> {
 
-      let categoria = $(this).attr('value');
+      let categoria = $(event.currentTarget).attr('value');
 
-      handleCategoryProducts(categoria);
+      this.#executeHandler(handleCategoryProducts,[categoria],this.tiendasContainer,{action:'loadCategoryProducts',categoria:categoria},'#store-category-products',event)
     })
   }
 
@@ -1227,6 +1237,8 @@ class View {
       let serialNumber = $(this).attr('value'); //Recogemos serial Number del Producto
 
       handleNewWindow(serialNumber);
+
+      
     })
   }
 
