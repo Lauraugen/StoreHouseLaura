@@ -10,11 +10,24 @@ import { Music } from "./StoreHouseModel.js";
 import { Movie } from "./StoreHouseModel.js";
 import { Category } from "./StoreHouseModel.js";
 
+
+async function fetchData (url) { 
+    const response=await fetch(url);
+    //Retorna una promesa sin el await
+    //el await para el código hasta que recibe todos los datos
+
+    return response.json(); 
+ }
+
+ //Más modular
+const DATA =await fetchData("/application/entities/datos.json")
+
 class Controller {
     #model;
     #view;
 
     #cargaDatos() {
+        console.log({DATA})
         let ArrayCategorias;
         let ArrayBooks;
         let ArrayMovie;
@@ -22,21 +35,18 @@ class Controller {
         let ArrayTiendas;
 
        //Realizamos respuesta a la petición realizada
-       //Devolvemos el objeto promise
+    //Devolvemos el objeto promise
 
        //ruta Xampp /UT04_3-TrabajoObjetosES6/application/entities/datos.json
+        
 
-        fetch("/application/entities/datos.json").then((response) => {
-            return response.json();
-        }).then((data) => { 
-
-            ArrayTiendas = data.tiendas;
+            ArrayTiendas = DATA.tiendas;
             ArrayTiendas.forEach(elem => {
                 console.log(elem)
                 let tienda = new Store(elem.cif, elem.name, elem.address, elem.phone, new Coords(elem.coords.latitude, elem.coords.longitude), elem.photos);
                 this.#model.addShop(tienda);
             });
-            ArrayCategorias = data.categorias;
+            ArrayCategorias = DATA.categorias;
             ArrayCategorias.forEach(elem => {
                 let categoria = new Category(elem.title, elem.description);
                 this.#model.addCategory(categoria);
@@ -44,7 +54,7 @@ class Controller {
 
 
 
-            ArrayBooks = data.productos.Books;
+            ArrayBooks = DATA.productos.Books;
             ArrayBooks.forEach(elem => {
                 let book = new Books(elem.serialNumber, elem.name, elem.description, elem.price, elem.tax, elem.images, elem.isbn, elem.author, elem.pages);
 
@@ -63,7 +73,7 @@ class Controller {
                 }
             })
 
-            ArrayMovie = data.productos.Movie;
+            ArrayMovie = DATA.productos.Movie;
             ArrayMovie.forEach(elem => {
                 let movie = new Movie(elem.serialNumber, elem.name, elem.description, elem.price, elem.tax, elem.images, elem.director, elem.year, elem.duration);
                 for (const cat of this.#model.category) {
@@ -81,7 +91,7 @@ class Controller {
                 }
             })
 
-            ArrayMusic = data.productos.Music;
+            ArrayMusic = DATA.productos.Music;
             ArrayMusic.forEach(elem => {
                 let music = new Music(elem.serialNumber, elem.name, elem.description, elem.price, elem.tax, elem.images, elem.singer, elem.musicalGenre, elem.songsNumber);
                 for (const cat of this.#model.category) {
@@ -99,7 +109,7 @@ class Controller {
                 }
             })
 
-        })
+        
 
 
         //https://es.stackoverflow.com/questions/124042/acceder-a-json-de-respuesta-en-ajax
@@ -232,7 +242,7 @@ class Controller {
         this.#model = newModel;
         this.#view = newView;
         this.onLoad();
-        setTimeout(() => {
+
             this.#view.bindLoadStores(this.handleLoadStores); //Pasamos como manejarlo (el objeto)
             this.#view.bindLoadDropDownCategory(this.handleDropCategory);
             this.#view.bindLoadDropDownStores(this.handleDropStore);
@@ -267,7 +277,7 @@ class Controller {
             this.#view.bindShowInfoStoreHouse(this.handleShowInfoStoreHouse);
             this.#view.bindFav(this.handleFav);
             this.#view.bindShowFav(this.handleShowFav);
-        }, 120)
+        
 
 
 
