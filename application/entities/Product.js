@@ -31,6 +31,9 @@ class Product{
         this.#images = images;
 
     }
+    toJSON(){
+        return this.serialNumber + this.name + this.description + this.price + this.tax + this.images
+    }
 
     //Número de serie del producto
     get serialNumber(){

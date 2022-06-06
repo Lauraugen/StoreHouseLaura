@@ -82,11 +82,11 @@
           </li>
           
 
-          <li><a class="nav-link" id="bAdministracion" data-bs-toggle="modal" data-bs-target="#modalAdministracion">Administración</a></li>
+          <li><a class="nav-link" id="bAdministracion" style="display: none;" data-bs-toggle="modal" data-bs-target="#modalAdministracion">Administración</a></li>
           <li><a class="nav-link" id="bVentanas">Borrar Ventanas</a></li>
           <li><a class="nav-link" id="Login">Login</a></li>
           <li><a class="nav-link" id="Desconectar">Desconectar</a></li>
-          <li><a class="nav-link" id="Favoritos">Favoritos</a></li>
+          <li><a class="nav-link" id="Favoritos" style="display: none;">Favoritos</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -111,10 +111,7 @@
       </div>
       <div class="modal-body">
         <h1>Generar Fichero BackUp</h1>
-        <form method="post" name="formGuardar" role="form" id="fGuardar" action="./backup.php" > 
-            <input type="hidden" id="dataStoreHouse" value="" name="BackUp">
-            <input type="submit" class="btn btn-danger" id="bGuardar" name="ENVIAR">
-        </form>
+          <button type="button" id="bGuardar" class="btn btn-danger">BackUp</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

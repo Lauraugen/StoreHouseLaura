@@ -22,6 +22,9 @@ class Store{
         this.#coords = coords;
         this.#photos = photos;
     }
+    toJSON(){
+        return this.#cif+this.#name+this.#address+this.#phone+this.#coords+this.#photos
+    }
 
     //Código de identificación fiscal
     get cif(){

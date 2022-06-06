@@ -15,6 +15,10 @@ class Category{
         this.#description=description;
 
     }
+
+    toJSON(){
+        return this.#title + this.#description
+    }
     
     //Título de la categoría
     get title(){

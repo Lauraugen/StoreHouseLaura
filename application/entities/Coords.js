@@ -16,6 +16,10 @@ class Coords{
         this.#longitude = longitude;
 
     }
+
+    toJSON(){
+        return this.#latitude + this.#longitude
+    }
     get latitude(){
         return this.#latitude;
     }

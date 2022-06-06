@@ -23,6 +23,9 @@ class Music extends Product{
         this.#songsNumber = songsNumber;
 
     }
+    toJSON(){
+        return super.toJSON() + this.#singer +this.#musicalGenre+this.#songsNumber
+    }
 
     get singer(){
         return this.#singer;

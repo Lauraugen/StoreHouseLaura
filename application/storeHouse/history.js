@@ -23,11 +23,6 @@ const historyActions = {
 		StoreHouseApp.handleCategoryProducts(event.state.category)
 	},
 
-    
-	showShoppingCart: () => ShoppingCartApp.handleShowShoppingCart(),
-	productsCategoryList: (event) => ManagerApp.handleProductsCategoryList(event.state.category),
-	productsTypeList: (event) =>	ManagerApp.handleProductsTypeList(event.state.type),
-	showProduct: (event) => ManagerApp.handleShowProduct(event.state.serial)
 }
 
 window.addEventListener('popstate', function(event) {

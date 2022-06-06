@@ -25,6 +25,10 @@ class Books extends Product {
         this.#pages = pages;
     }
 
+    toJSON(){
+        return super.toJSON() + this.#isbn + this.#author + this.#pages
+    }
+
     //Propiedades de acceso a los atributos privados
     get isbn() {
         return this.#isbn;

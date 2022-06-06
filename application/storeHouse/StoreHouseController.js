@@ -274,7 +274,7 @@ class Controller {
             this.#view.bindShowLogin(this.handleShowLogin);
             this.#view.bindValidarLogin(this.handleValidarLogin);
             this.#view.bindDesconectar(this.handleDesconectar);
-            this.#view.bindShowInfoStoreHouse(this.handleShowInfoStoreHouse);
+            this.#view.bindSubmitBackUp(this.handleShowInfoStoreHouse);
             this.#view.bindFav(this.handleFav);
             this.#view.bindShowFav(this.handleShowFav);
         
@@ -303,17 +303,23 @@ class Controller {
         let botonDesconectar = document.getElementById('Desconectar');
         let usuario = this.getCookie('usuario');
         let password = this.getCookie('password');
+        let botonAdministracion= document.getElementById('bAdministracion');
+        let botonFavoritos=document.getElementById('Favoritos');
+
 
         if ((usuario == 'admin') && (password == 'admin')) {
 
             botonDesconectar.style.display = "inline-block";
             botonInicioSesion.style.display = "none";
-
+            botonAdministracion.style.display="inline-block";
+            botonFavoritos.style.display="inline-block";
 
             alert("Hola de nuevo Admin");
         } else {
             botonDesconectar.style.display = "none";
             botonInicioSesion.style.display = "inline-block";
+            botonAdministracion.style.display="none";
+            botonFavoritos.style.display="none";
         }
         //Carga todos los Objetos
         this.#cargaDatos();
@@ -632,13 +638,17 @@ class Controller {
     }
 
     handleShowInfoStoreHouse = () => {
-        let string;
+        let string="";
         for (const tiendas of this.#model.stores) {
             string+=JSON.stringify(tiendas);
         }
         for (const categorias of this.#model.category) {
             string+=JSON.stringify(categorias);
         }
+        const http = new XMLHttpRequest()
+        http.open("POST","./backup.php")
+        http.setRequestHeader("Content-Type","application/json")
+        http.send(string)
         this.#view.showDataStoreHouse(string);
     }
 

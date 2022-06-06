@@ -662,17 +662,18 @@ class View {
     })
   }
 
-  // bindSubmitBackUp(){
-  //   $('#fGuardar').submit(function(){
-      
-  //   })
-  // }
-  //Toda los datos de StoreHouse
-  bindShowInfoStoreHouse(handleShowInfoStoreHouse){
-    $('#bAdministracion').click(function(){
+  bindSubmitBackUp(handleShowInfoStoreHouse){
+    $('#bGuardar').click(function(){
       handleShowInfoStoreHouse();
     })
   }
+
+  //Toda los datos de StoreHouse
+  // bindShowInfoStoreHouse(handleShowInfoStoreHouse){
+  //   $('#bAdministracion').click(function(){
+  //     handleShowInfoStoreHouse();
+  //   })
+  // }
 
   showDataStoreHouse(string){
     $('#dataStoreHouse').val(string);

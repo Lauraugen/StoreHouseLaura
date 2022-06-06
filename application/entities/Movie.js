@@ -23,6 +23,10 @@ class Movie extends Product {
         this.#duration = duration;
     }
 
+    toJSON(){
+        return super.toJSON()+ this.#director +this.#year +this.#duration
+    }
+
     get director() {
         return this.#director;
     }
